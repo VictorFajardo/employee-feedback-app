@@ -17,19 +17,25 @@ const defaultEmployeeFields = {
   email: '',
   password: '',
   confirmPassword: '',
+  admin: false,
 };
 
 const AddEmployees = ( props ) => {
   const dispatch = useAppDispatch();
   const [employeeFields, setEmployeeFields] = useState(defaultEmployeeFields); // Employee detail values
-  const { firstName, lastName, jobTitle, email, password, confirmPassword } = employeeFields;
+  const { firstName, lastName, jobTitle, email, password, confirmPassword, admin } = employeeFields;
   const { closeMethod } = props;
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setEmployeeFields({ ...employeeFields, [name]: value });
+    const { name, value, checked } = event.target;
+    if (name === 'admin') {
+      setEmployeeFields({ ...employeeFields, admin: checked });
+    } else {
+      setEmployeeFields({ ...employeeFields, [name]: value });
+    }
   };
 
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -43,7 +49,7 @@ const AddEmployees = ( props ) => {
       // Api call to create the auth user
       const { user } = await createAuthUserWithEmailAndPassword(email, password);
       // Api call to create the user in the users collection
-      await addUserApi(user.uid, { firstName, lastName, email, jobTitle });
+      await addUserApi(user.uid, { firstName, lastName, email, jobTitle, admin });
       // Api to retrive the new user from the users collection
       const newUser = await getUserApi(user.uid);
       // Reducer to update the new user into the state manager
@@ -75,6 +81,8 @@ const AddEmployees = ( props ) => {
         <input type="password" name="password" onChange={handleChange} value={password} /><br />
         <label htmlFor="confirmPassword">confirm password: </label>
         <input type="password" name="confirmPassword" onChange={handleChange} value={confirmPassword} />
+        <label htmlFor="admin">admin</label>
+        <input type="checkbox" name="admin" onChange={handleChange} value={admin} />
         <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
           <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
         </Box>
