@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { UserInterface } from '../../interfaces';
+import { EmployeeInterface } from '../../interfaces';
 
 export interface AuthenticationState {
-  user: UserInterface | null,
+  user: EmployeeInterface | null,
 }
 
 const initialState: AuthenticationState = {
@@ -14,7 +14,7 @@ export const authenticationSlice = createSlice({
   name: 'authentication',
   initialState,
   reducers: {
-    setCurrentUser: (state, action: PayloadAction<UserInterface>) => {
+    setCurrentUser: (state, action: PayloadAction<EmployeeInterface>) => {
       state.user = action.payload;
     }
   },

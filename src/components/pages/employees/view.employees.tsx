@@ -6,18 +6,16 @@ import { currentEmployee } from "../../../features/employees/employeesSlice";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+// Interface components
+import { DefaultEmployeeFields } from "../../../interfaces";
 
-const defaultEmployeeFields = {
-  firstName: '',
-  lastName: '',
-  jobTitle: '',
-  email: ''
-};
+interface ViewEmployeesProps {
+  closeMethod: () => void,
+}
 
-const ViewEmployees = ( props ) => {
-  const { closeMethod } = props;
+const ViewEmployees: React.FC<ViewEmployeesProps> = ({ closeMethod }) => {
   const current = useAppSelector(currentEmployee); // Select the current review to employee details
-  const [employeeFields, setEmployeeFields] = useState(defaultEmployeeFields); // Employee detail values
+  const [employeeFields, setEmployeeFields] = useState(DefaultEmployeeFields); // Employee detail values
   const { firstName, lastName, jobTitle, email } = employeeFields;
 
   useEffect(() => {

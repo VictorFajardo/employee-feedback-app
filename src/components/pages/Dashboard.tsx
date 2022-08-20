@@ -20,28 +20,28 @@ const Dashboard = () => {
   useEffect(() => {
     if (!user || !user.admin) return;
 
-    const getUsersMap = async () => {
+    async function getUsersMap (){
       // Api to retrive the users from the users collection
       const usersMap = await getUsersApi();
       // Reducer to set users into the state manager
       dispatch(setEmployees(usersMap));
     };
     
-    return getUsersMap;
+    getUsersMap();
   }, [dispatch, user]);
 
   useEffect(() => {
     if (!user) return;
 
-    const getReviewsMap = async () => {
+    async function getReviewsMap() {
       // Api to retrive the users from the users collection
       const reviewsMap = await getReviewsApi();
       // Reducer to set users into the state manager
-      if (user.admin) dispatch(setReviews(reviewsMap)); // Admin: All the reviews
-      else dispatch(setReviews(reviewsMap.filter((review) => user.reviews.includes(review.id)))); // User: Only his/her assigned reviews
+      if (user?.admin) dispatch(setReviews(reviewsMap)); // Admin: All the reviews
+      else dispatch(setReviews(reviewsMap.filter((review) => user?.reviews.includes(review.id)))); // User: Only his/her assigned reviews
     };
 
-    return getReviewsMap;
+    getReviewsMap();
   }, [dispatch, user]);
 
   return (

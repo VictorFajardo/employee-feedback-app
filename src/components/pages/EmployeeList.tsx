@@ -1,14 +1,11 @@
 // React components
 import { useState, Fragment } from 'react';
 // Redux components
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { selectReviews, setCurrentReview } from '../../../features/reviews/reviewsSlice';
-import { currentUser } from '../../../features/authentication/authenticationSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { selectEmployees, setCurrentEmployee } from "../../features/employees/employeesSlice";
 // Chidren components
-import AddReviews from './add.reviews';
-import ViewReviews from './view.reviews';
-import UpdateReviews from './update.reviews';
-import Review from '../elements/review';
+import IndexEmployees from './employees/index.employees';
+import Employee from './elements/employee';
 // Material components
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -17,6 +14,9 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Divider from '@mui/material/Divider';
+import React from 'react';
+// Interface components
+import { ModalType } from '../../interfaces';
 
 const style = {
   position: 'absolute',
@@ -30,21 +30,20 @@ const style = {
   p: 4,
 };
 
-const MainReviews = () => {
+const EmployeeList = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector(currentUser); // Select the current user to verify level access
-  const reviews = useAppSelector(selectReviews); // Select all the reviews to build the review list
+  const employees = useAppSelector(selectEmployees); // Select all the epmloyees to build the employee list
   const [open, setOpen] = useState(false); // Modal open status: true | false
-  const [modal, setModal] = useState(''); // Modal content component: ADD | VIEW | UPDATE | DELETE //! improve this with a switch statement / enum
+  const [modal, setModal] = React.useState<ModalType>(ModalType.VIEW); // Modal content component: ADD | VIEW | UPDATE | DELETE
 
   const handleClose = () => setOpen(false);
 
-  const handleClick = (modal, id) => {
-    // If 'id' parameter esxist, update the current employee in the state manager
+  const handleClick = (modal: ModalType, id?: string): void => {
+    // If 'id' parameter esxist, update currentEmployee in the state manager
     if (id) {
-      const currentReview = reviews.find(review => review.id === id);
-      // Reducer to set the currentReview into the state manager
-      dispatch(setCurrentReview(currentReview));
+      const currentEmployee = employees.find(employee => employee.id === id);
+      // Reducer to set the currentEmployee into the state manager
+      if (currentEmployee) dispatch(setCurrentEmployee(currentEmployee));
     }
 
     setModal(modal);
@@ -59,10 +58,8 @@ const MainReviews = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          {modal === 'VIEW' && <ViewReviews closeMethod={handleClose} />}
-          {modal === 'UPDATE' && <UpdateReviews closeMethod={handleClose} />}
-          {modal === 'ADD' && <AddReviews closeMethod={handleClose} />}
+        <Box sx={style}>{ }
+          <IndexEmployees modal={modal} closeMethod={handleClose} />
         </Box>
       </Modal>
       <Container maxWidth="xl" sx={{ display: 'flex' }}>
@@ -72,7 +69,7 @@ const MainReviews = () => {
                 noWrap
                 component="a"
                 sx={{
-                  my: 2,
+                  mr: 2,
                   display: 'flex',
                   fontWeight: 700,
                   letterSpacing: '.3rem',
@@ -81,20 +78,20 @@ const MainReviews = () => {
                   alignItems: 'center',
                 }}
                 >
-                  Reviews List
+                  Employees List
           </Typography>
         </Box>
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: 'row-reverse' }}>
-        {user && user.admin && <Button onClick={() => handleClick('ADD')} sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD REVIEW</Button>}
+          <Button value="signout" onClick={() => handleClick(ModalType.ADD)} sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD EMPLOYEE</Button>
         </Box>
       </Container>
       <Container>
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {reviews.map((review, index) => {
+            {employees.map((employee, index) => {
               return (
-                <Fragment key={review.id}>
-                  <Review user={review} clickMethod={handleClick} />
-                  {index !== (reviews.length - 1) && <Divider key={index} variant="middle" component="li" />}
+                <Fragment key={employee.id}>
+                  <Employee employee={employee} clickMethod={handleClick} />
+                  {index !== (employees.length - 1) && <Divider variant="middle" component="li" />}
                 </Fragment>
               )
             })}
@@ -104,4 +101,4 @@ const MainReviews = () => {
   )
 }
 
-export default MainReviews
+export default EmployeeList

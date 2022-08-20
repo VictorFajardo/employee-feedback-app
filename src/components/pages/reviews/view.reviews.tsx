@@ -6,23 +6,16 @@ import { currentReview } from "../../../features/reviews/reviewsSlice";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+// Interface components
+import { DefaultReviewFields } from "../../../interfaces";
 
-const defaultReviewFields = {
-  reviewId: '',
-  employeeName: '',
-  employeeJobTitle: '',
-  employeeemail: '',
-  reviewBody: '',
-  reviewerName: '',
-  reviewerJobTitle: '',
-  revieweremail: '',
-  completed: false,
-};
+interface ViewEmployeesProps {
+  closeMethod: () => void,
+}
 
-const ViewReview = ( props ) => {
-  const { closeMethod } = props;
+const ViewReview: React.FC<ViewEmployeesProps> = ({ closeMethod }) => {
   const current = useAppSelector(currentReview); // Select the current review to display details
-  const [reviewFields, setReviewFields] = useState(defaultReviewFields); // Review detail values
+  const [reviewFields, setReviewFields] = useState(DefaultReviewFields); // Review detail values
     const { employeeName, employeeJobTitle, employeeEmail, content, reviewerName, reviewerJobTitle, reviewerEmail } = reviewFields;
 
     useEffect(() => {

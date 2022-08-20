@@ -1,5 +1,5 @@
 // React components
-import { useState } from "react";
+import React, { useState } from "react";
 // Redux components
 import { useAppDispatch } from '../../../app/hooks';
 import { addEmployee } from "../../../features/employees/employeesSlice";
@@ -8,25 +8,19 @@ import { addUserApi, createAuthUserWithEmailAndPassword, getUserApi } from "../.
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+// Interface components
+import { DefaultEmployeeFields } from "../../../interfaces";
 
-const defaultEmployeeFields = {
-  id: '',
-  firstName: '',
-  lastName: '',
-  jobTitle: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  admin: false,
-};
+interface AddEmployeesProps {
+  closeMethod: () => void,
+}
 
-const AddEmployees = ( props ) => {
+const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
   const dispatch = useAppDispatch();
-  const [employeeFields, setEmployeeFields] = useState(defaultEmployeeFields); // Employee detail values
+  const [employeeFields, setEmployeeFields] = useState(DefaultEmployeeFields); // Employee detail values
   const { firstName, lastName, jobTitle, email, password, confirmPassword, admin } = employeeFields;
-  const { closeMethod } = props;
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = event.target;
     if (name === 'admin') {
       setEmployeeFields({ ...employeeFields, admin: checked });
@@ -36,7 +30,7 @@ const AddEmployees = ( props ) => {
   };
 
   
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Password confirmation managment
@@ -47,15 +41,18 @@ const AddEmployees = ( props ) => {
 
     try {
       // Api call to create the auth user
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
-      // Api call to create the user in the users collection
-      await addUserApi(user.uid, { firstName, lastName, email, jobTitle, admin });
-      // Api to retrive the new user from the users collection
-      const newUser = await getUserApi(user.uid);
-      // Reducer to update the new user into the state manager
-      dispatch(addEmployee(newUser));
-      closeMethod();
-    } catch (error) {
+      const userCredential = await createAuthUserWithEmailAndPassword(email, password);
+      if (userCredential) {
+        const { user: { uid } } = userCredential;
+        // Api call to create the user in the users collection
+        await addUserApi(uid, { firstName, lastName, email, jobTitle, admin });
+        // Api to retrive the new user from the users collection
+        const newEmployee = await getUserApi(uid);
+        // Reducer to update the new user into the state manager
+        dispatch(addEmployee(newEmployee));
+        closeMethod();
+      }
+    } catch (error: any) {
       // Error managment
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');
@@ -82,7 +79,7 @@ const AddEmployees = ( props ) => {
         <label htmlFor="confirmPassword">confirm password: </label>
         <input type="password" name="confirmPassword" onChange={handleChange} value={confirmPassword} />
         <label htmlFor="admin">admin</label>
-        <input type="checkbox" name="admin" onChange={handleChange} value={admin} />
+        <input type="checkbox" name="admin" onChange={handleChange} />
         <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
           <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
         </Box>

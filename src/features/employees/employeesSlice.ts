@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { EmployeeInterface } from '../../interfaces';
+import { EmployeeInterface, DefaultEmployeeFields } from '../../interfaces';
 
 export interface EmployeeState {
   data: EmployeeInterface[],
@@ -9,15 +9,7 @@ export interface EmployeeState {
 
 const initialState: EmployeeState = {
   data: [],
-  current: {
-    id: '',
-    createdAt: '',
-    firstName: '',
-    lastName: '',
-    jobTitle: '',
-    email: '',
-    password: '',
-  },
+  current: DefaultEmployeeFields,
 };
 
 export const employeesSlice = createSlice({

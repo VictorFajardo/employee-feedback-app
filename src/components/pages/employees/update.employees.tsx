@@ -9,37 +9,35 @@ import { updateUserApi } from "../../../utilities/firebase";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+// Interface components
+import { EmployeeInterface, DefaultEmployeeFields } from "../../../interfaces";
 
-const defaultEmployeeFields = {
-  firstName: '',
-  lastName: '',
-  jobTitle: '',
-  email: '',
-};
+interface UpdateEmployeesProps {
+  closeMethod: () => void,
+}
 
-const UpdateEmployees = ( props ) => {
+const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
   const dispatch = useAppDispatch();
   const current = useAppSelector(currentEmployee); // Select the current employee to display details
-  const [employeeFields, setEmployeeFields] = useState(defaultEmployeeFields); // Employee detail values
+  const [employeeFields, setEmployeeFields] = useState<EmployeeInterface>(DefaultEmployeeFields); // Employee detail values
   const { id, firstName, lastName, jobTitle, email } = employeeFields;
-  const { closeMethod } = props;
 
   useEffect(() => {
     setEmployeeFields(current);
   },[current]);
 
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setEmployeeFields({ ...employeeFields, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
       // Api call to update the user in the users collection
-      await updateUserApi({ id, firstName, lastName, jobTitle, email})
+      await updateUserApi(id, { firstName, lastName, jobTitle, email });
       // Reducer to update the user into the state manager
       dispatch(updateEmployee(employeeFields));
       closeMethod();

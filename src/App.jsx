@@ -13,12 +13,14 @@ import { onAuthStateChangedListener, getUserApi } from './utilities/firebase';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Dashboard from './components/pages/Dashboard'
-import Employees from './components/pages/employees/main.employees';
-import Reviews from './components/pages/reviews/main.reviews';
+import EmployeesList from './components/pages/EmployeeList';
+import ReviewsList from './components/pages/ReviewsList';
 // Material components
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+// Interface components
+// import { UserInterface } from './interfaces';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -54,8 +56,8 @@ function App() {
             <Route path='login' element={<Login />} />
             <Route path='dashboard' element={<Dashboard />}>
               <Route path='/dashboard' element={<Navigate replace to="reviews" />} />
-              <Route path='reviews' element={<Reviews />} />
-              <Route path='employees' element={<Employees />} />
+              <Route path='reviews' element={<ReviewsList />} />
+              <Route path='employees' element={<EmployeesList />} />
             </Route>
           </Route>
         </Routes>

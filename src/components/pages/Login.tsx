@@ -1,5 +1,5 @@
 // React components
-import { useState } from "react";
+import React, { useState } from "react";
 // Api components
 import { signInAuthUser } from "../../utilities/firebase";
 // Material components
@@ -18,18 +18,18 @@ const Login = () => {
   const [userFields, setUserFields] = useState(defaultUserFields); // User detail values
   const { email, password } = userFields;
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUserFields({ ...userFields, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
       // Api call to sign in with user/password
       await signInAuthUser(email, password);
-    } catch (error) {
+    } catch (error: any) {
       // Error managment
       switch (error.code) {
         case 'auth/wrong-password':

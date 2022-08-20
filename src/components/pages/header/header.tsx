@@ -39,7 +39,6 @@ const Header = () => {
           <>
             <Box sx={{ flexGrow: 1, mr: 2, display: 'flex', flexDirection: 'row-reverse' }}>
             <Typography
-              variant="63"
               noWrap
               component="a"
               sx={{

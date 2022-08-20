@@ -1,3 +1,16 @@
+export interface EmployeeInterface {
+  id: string,
+  createdAt: string,
+  firstName: string,
+  lastName: string,
+  jobTitle: string,
+  email: string,
+  password: string,
+  confirmPassword: string,
+  admin: boolean,
+  reviews: string[],
+}
+
 export interface ReviewInterface {
   id: string,
   createdAt: string,
@@ -11,23 +24,35 @@ export interface ReviewInterface {
   completed: boolean,
 }
 
-export interface EmployeeInterface {
-  id: string,
-  createdAt: string,
-  firstName: string,
-  lastName: string,
-  jobTitle: string,
-  email: string,
-  password: string,
-}
+export const DefaultEmployeeFields: EmployeeInterface = {
+  id: '',
+  createdAt: '',
+  firstName: '',
+  lastName: '',
+  jobTitle: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  admin: false,
+  reviews: [],
+};
 
-export interface UserInterface {
-  id: string,
-  createdAt: string,
-  firstName: string,
-  lastName: string,
-  jobTitle: string,
-  email: string,
-  admin: boolean,
-  reviews: string[],
+export const DefaultReviewFields: ReviewInterface = {
+  id: '',
+  createdAt: '',
+  employeeName: '',
+  employeeJobTitle: '',
+  employeeEmail: '',
+  reviewerName: '',
+  reviewerJobTitle: '',
+  reviewerEmail: '',
+  content: '',
+  completed: false,
+};
+
+export enum ModalType {
+  VIEW,
+  UPDATE,
+  ADD,
+  DELETE,
 }

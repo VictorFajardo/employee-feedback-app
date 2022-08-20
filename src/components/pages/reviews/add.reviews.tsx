@@ -9,27 +9,31 @@ import { createReviewApi, updateUserApi, getReviewApi } from "../../../utilities
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 
-const AddReview = ( props ) => {
+interface AddReviewsProps {
+  closeMethod: () => void,
+}
+
+const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
   const dispatch = useAppDispatch();
   const employees = useAppSelector(selectEmployees); // Select all the epmloyees to build the employee list
-  const { closeMethod } = props;
 
   //TODO Select the employee and the reviewer directly from the dropdown boxes
-  const [employeeId, setEmployeeId] = useState();
-  const [reviewerId, setReviewerId] = useState();
+  const [employeeId, setEmployeeId] = useState('');
+  const [reviewerId, setReviewerId] = useState('');
 
-  const handleChangeEmployee = (event) => {
+  const handleChangeEmployee = (event: React.ChangeEvent<HTMLSelectElement>) => {
     //TODO Select the employee and the reviewer directly from the dropdown boxes
     setEmployeeId(event.target.value);
   };
 
-  const handleChangeReviewer = (event) => {
+  const handleChangeReviewer = (event: React.ChangeEvent<HTMLSelectElement>) => {
     //TODO Select the employee and the reviewer directly from the dropdown boxes
     setReviewerId(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     //TODO Select the employee and the reviewer directly from the dropdown boxes
@@ -37,18 +41,20 @@ const AddReview = ( props ) => {
     const reviewer = employees.find((employee) => employee.id === reviewerId);
 
     try {
-      // Api call to create the review in the reviews collection
-      const { id } = await createReviewApi(employee, reviewer);
-      // Api to update the reviewer from the users collection
-      const newReview = await getReviewApi(id);
-      // Reducer to update the new user into the state manager
-      dispatch(addReview(newReview));
-      // Api to update the reviewer from the users collection
-      await updateUserApi({ ...reviewer, reviews: [...reviewer.reviews, id] });
-      // Reducer to update the new user into the state manager
-      dispatch(updateEmployee({ ...reviewer, reviews: [...reviewer.reviews, id] }));
-      closeMethod();
-    } catch (error) {
+      if (employee && reviewer) {
+        // Api call to create the review in the reviews collection
+        const { id } = await createReviewApi(employee, reviewer);
+        // Api to update the reviewer from the users collection
+        const newReview = await getReviewApi(id);
+        // Reducer to update the new user into the state manager
+        dispatch(addReview(newReview));
+        // Api to update the reviewer from the users collection
+        await updateUserApi(reviewer.id, { reviews: [...reviewer.reviews, id] });
+        // Reducer to update the new user into the state manager
+        dispatch(updateEmployee({ ...reviewer, reviews: [...reviewer.reviews, id] }));
+        closeMethod();
+      }
+    } catch (error: any) {
       // Error managment
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');
@@ -85,4 +91,4 @@ const AddReview = ( props ) => {
   )
 }
 
-export default AddReview
+export default AddReviews

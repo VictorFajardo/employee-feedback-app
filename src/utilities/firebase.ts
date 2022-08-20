@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  Unsubscribe,
 } from 'firebase/auth';
 import { 
   getFirestore,
@@ -18,6 +19,7 @@ import {
   query,
   getDocs,
 }  from 'firebase/firestore';
+import { EmployeeInterface, ReviewInterface } from '../interfaces';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAJclbrG41E62p1kydlqEOladkahvUA5Tw",
@@ -35,19 +37,19 @@ export const auth = getAuth();
 export const db = getFirestore();
 
 // Auth
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInAuthUser = async (email, password) => {
+export const signInAuthUser = async (email: string, password: string) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback: Unsubscribe) => onAuthStateChanged(auth, callback);
 
 export const signOutUser = async () => await signOut(auth);
 
@@ -60,9 +62,9 @@ export const getUsersApi = async () => {
 
   const querySnapshot = await getDocs(q);
 
-  const usersMap = querySnapshot.docs.reduce((acc, docSnapshot, index) => {
-    const data = docSnapshot.data();
-    data.createdAt = data.createdAt.toJSON(); //! issue to fix
+  const usersMap = querySnapshot.docs.reduce((acc: EmployeeInterface[], docSnapshot, index) => {
+    const data = docSnapshot.data() as EmployeeInterface;
+    data.createdAt = JSON.stringify(data.createdAt); //! issue to fix
     acc[index] = data;
     return acc;
   }, []);
@@ -71,18 +73,18 @@ export const getUsersApi = async () => {
 };
 
 //TODO replace for getDocApi
-export const getUserApi = async (id) => {
+export const getUserApi = async (id: string) => {
   const docRef = doc(db, 'users', id);
 
   const docSnapshot = await getDoc(docRef);
 
-  const data = docSnapshot.data();
-  data.createdAt = data.createdAt.toJSON(); //! issue to fix
+  const data = docSnapshot.data() as EmployeeInterface;
+  data.createdAt = JSON.stringify(data.createdAt); //! issue to fix
 
   return data;
 };
 
-export const addUserApi = async (id, additionalInformation) => {
+export const addUserApi = async (id: string, additionalInformation: Object) => {
   const docRef = doc(db, 'users', id); //* remove id from this call
   const createdAt = new Date();
 
@@ -98,16 +100,15 @@ export const addUserApi = async (id, additionalInformation) => {
 };
 
 //TODO replace for updateDocApi
-export const updateUserApi = async (user) => {
-  const docRef = doc(db, 'users', user.id);
-  delete user.createdAt; //! issue to fix
+export const updateUserApi = async (id: string, updateParams: object) => {
+  const docRef = doc(db, 'users', id);
 
-  await updateDoc(docRef, { ...user });
+  await updateDoc(docRef, { ...updateParams });
 
   return;
 };
 
-export const deleteUserApi = async (id) => {
+export const deleteUserApi = async (id: string) => {
   const docRef = doc(db, 'users', id);
 
   await deleteDoc(docRef);
@@ -124,10 +125,10 @@ export const getReviewsApi = async () => {
 
   const querySnapshot = await getDocs(q);
 
-  const reviewsMap = querySnapshot.docs.reduce((acc, docSnapshot, index) => {
-    const data = docSnapshot.data();
+  const reviewsMap = querySnapshot.docs.reduce((acc: ReviewInterface[], docSnapshot, index) => {
+    const data = docSnapshot.data() as ReviewInterface;
     data.id = docSnapshot.id;
-    data.createdAt = data.createdAt.toJSON();
+    data.createdAt = JSON.stringify(data.createdAt);
     acc[index] = data;
     return acc;
   }, []);
@@ -136,29 +137,30 @@ export const getReviewsApi = async () => {
 };
 
 //TODO replace for getDocApi
-export const getReviewApi = async (id) => {
+export const getReviewApi = async (id: string) => {
   const docRef = doc(db, 'reviews', id);
 
   const docSnapshot = await getDoc(docRef);
 
-  const data = docSnapshot.data();
-  data.id = docSnapshot.id;
-  data.createdAt = data.createdAt.toJSON(); //! issue to fix
+  const data = docSnapshot.data() as ReviewInterface;
+  if (data) {
+    data.id = docSnapshot.id;
+    data.createdAt = JSON.stringify(data.createdAt);
+  }
 
   return data;
 };
 
 //TODO replace for updateDocApi
-export const updateReviewApi = async (review) => {
-  const docRef = doc(db, 'reviews', review.id);
-  delete review.createdAt; //! issue to fix
+export const updateReviewApi = async (id: string, updateParams: object) => {
+  const docRef = doc(db, 'reviews', id);
 
-  await updateDoc(docRef, { ...review });
+  await updateDoc(docRef, { ...updateParams });
 
   return;
 };
 
-export const createReviewApi = async (employee, reviewer) => {
+export const createReviewApi = async (employee: EmployeeInterface, reviewer: EmployeeInterface) => {
   const collectionRef = collection(db, 'reviews');
   const createdAt = new Date();
 
@@ -176,23 +178,3 @@ export const createReviewApi = async (employee, reviewer) => {
 
   return response;
 };
-
-export const createUserApi = async () => {
-  getAuth()
-  .createUser({
-    email: 'user@example.com',
-    emailVerified: false,
-    phoneNumber: '+11234567890',
-    password: 'secretPassword',
-    displayName: 'John Doe',
-    photoURL: 'http://www.example.com/12345678/photo.png',
-    disabled: false,
-  })
-  .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log('Successfully created new user:', userRecord.uid);
-  })
-  .catch((error) => {
-    console.log('Error creating new user:', error);
-  });
-}
