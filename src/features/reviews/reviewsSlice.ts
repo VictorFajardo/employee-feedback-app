@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
+import { RootState } from '../../store';
 import { ReviewInterface } from '../../interfaces';
+import { DefaultReviewFields } from '../../data';
 
 
 export interface ReviewsState {
@@ -10,18 +11,7 @@ export interface ReviewsState {
 
 const initialState: ReviewsState = {
   data: [],
-  current: {
-    id: '',
-    createdAt: '',
-    employeeName: '',
-    employeeJobTitle: '',
-    employeeEmail: '',
-    reviewerName: '',
-    reviewerJobTitle: '',
-    reviewerEmail: '',
-    content: '',
-    completed: false,
-  },
+  current: DefaultReviewFields,
 };
 
 export const reviewsSlice = createSlice({

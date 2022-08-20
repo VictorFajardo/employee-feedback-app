@@ -1,16 +1,16 @@
 // React components
 import { useEffect, useState } from "react";
 // Redux components
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { currentReview } from "../../../features/reviews/reviewsSlice";
-import { updateReview } from "../../../features/reviews/reviewsSlice";
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { currentReview } from "../../features/reviews/reviewsSlice";
+import { updateReview } from "../../features/reviews/reviewsSlice";
 // Api components
-import { updateReviewApi } from "../../../utilities/firebase";
+import { updateReviewApi } from "../../utilities/firebase";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 // Interface components
-import { DefaultReviewFields } from "../../../interfaces";
+import { DefaultReviewFields } from "../../data";
 
 interface UpdateReviewsProps {
   closeMethod: () => void,

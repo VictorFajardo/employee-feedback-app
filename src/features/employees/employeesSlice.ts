@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
-import { EmployeeInterface, DefaultEmployeeFields } from '../../interfaces';
+import { RootState } from '../../store';
+import { EmployeeInterface } from '../../interfaces';
+import { DefaultEmployeeFields } from '../../data';
 
 export interface EmployeeState {
   data: EmployeeInterface[],

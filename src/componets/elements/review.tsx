@@ -6,7 +6,8 @@ import Button from '@mui/material/Button';
 // import Avatar from '@mui/material/Avatar';
 // import { stringAvatar } from '../../../utilities/stringavatar';
 // Element components
-import { ModalType, ReviewInterface } from '../../../interfaces/index';
+import { ReviewInterface } from '../../interfaces/index';
+import { ModalType } from '../../data';
 
 interface ReviewProps {
   review: ReviewInterface,

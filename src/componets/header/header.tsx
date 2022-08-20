@@ -1,7 +1,7 @@
 // React components
-import { useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../hooks";
 // Redux components
-import { currentUser } from '../../../features/authentication/authenticationSlice';
+import { currentUser } from '../../features/authentication/authenticationSlice';
 // Material omponents
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 // Utils
-import { stringAvatar } from "../../../utilities/stringavatar";
+import { stringAvatar } from "../../utilities/stringavatar";
 
 const Header = () => {  
   const user = useAppSelector(currentUser); // Select the current user to verify level access

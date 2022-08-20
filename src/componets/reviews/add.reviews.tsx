@@ -1,15 +1,14 @@
 // React components
 import { useState } from "react";
 // Redux components
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { addReview } from "../../../features/reviews/reviewsSlice";
-import { selectEmployees, updateEmployee } from "../../../features/employees/employeesSlice";
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { addReview } from "../../features/reviews/reviewsSlice";
+import { selectEmployees, updateEmployee } from "../../features/employees/employeesSlice";
 // Api components
-import { createReviewApi, updateUserApi, getReviewApi } from "../../../utilities/firebase";
+import { createReviewApi, updateUserApi, getReviewApi } from "../../utilities/firebase";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 
 interface AddReviewsProps {
   closeMethod: () => void,

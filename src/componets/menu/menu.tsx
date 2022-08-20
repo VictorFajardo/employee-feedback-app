@@ -1,11 +1,11 @@
 // React components
 import { useNavigate } from "react-router-dom";
 //Redux components
-import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import { currentUser } from '../../../features/authentication/authenticationSlice';
-import { cleanReviews } from "../../../features/reviews/reviewsSlice";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { currentUser } from '../../features/authentication/authenticationSlice';
+import { cleanReviews } from "../../features/reviews/reviewsSlice";
 // Api components
-import { signOutUser } from "../../../utilities/firebase";
+import { signOutUser } from "../../utilities/firebase";
 // Material components
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';

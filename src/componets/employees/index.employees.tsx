@@ -3,7 +3,7 @@ import AddEmployees from './add.employees';
 import UpdateEmployees from './update.employees';
 import ViewEmployees from './view.employees';
 // Interface elements
-import { ModalType } from '../../../interfaces';
+import { ModalType } from '../../data';
 
 interface IndexEmployeesProps {
   modal: ModalType

@@ -2,12 +2,12 @@
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 // Redux components
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { currentUser } from '../../features/authentication/authenticationSlice';
-import { setEmployees } from '../../features/employees/employeesSlice';
-import { setReviews } from '../../features/reviews/reviewsSlice';
+import { useAppSelector, useAppDispatch } from "../hooks";
+import { currentUser } from '../features/authentication/authenticationSlice';
+import { setEmployees } from '../features/employees/employeesSlice';
+import { setReviews } from '../features/reviews/reviewsSlice';
 // Api components
-import { getUsersApi, getReviewsApi } from '../../utilities/firebase';
+import { getUsersApi, getReviewsApi } from '../utilities/firebase';
 // Material components
 import Header from './header/header';
 import Menu from './menu/menu';

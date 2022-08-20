@@ -4,9 +4,10 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { stringAvatar } from '../../../utilities/stringavatar';
+import { stringAvatar } from '../../utilities/stringavatar';
 // Element components
-import { EmployeeInterface, ModalType } from '../../../interfaces/index';
+import { EmployeeInterface } from '../../interfaces/index';
+import { ModalType } from '../../data';
 
 interface EmployeeProps {
   employee: EmployeeInterface,

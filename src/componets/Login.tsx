@@ -1,7 +1,7 @@
 // React components
 import React, { useState } from "react";
 // Api components
-import { signInAuthUser } from "../../utilities/firebase";
+import { signInAuthUser } from "../utilities/firebase";
 // Material components
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';

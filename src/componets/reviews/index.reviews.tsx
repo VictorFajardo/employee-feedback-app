@@ -3,7 +3,7 @@ import AddReviews from './add.reviews';
 import UpdateReviews from './update.reviews';
 import ViewReviews from './view.reviews';
 // Interface elements
-import { ModalType } from '../../../interfaces';
+import { ModalType } from '../../data';
 
 interface IndexReviewsProps {
   modal: ModalType

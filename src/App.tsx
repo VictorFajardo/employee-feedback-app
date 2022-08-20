@@ -3,24 +3,23 @@ import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 // Redux components
-import { useAppDispatch } from './app/hooks';
+import { useAppDispatch } from './hooks';
 import { setCurrentUser } from './features/authentication/authenticationSlice';
 import { cleanReviews } from './features/reviews/reviewsSlice';
 import { cleanEmployees } from './features/employees/employeesSlice';
 // Api components
 import { onAuthStateChangedListener, getUserApi } from './utilities/firebase';
 // Pages components
-import Home from './components/pages/Home';
-import Login from './components/pages/Login';
-import Dashboard from './components/pages/Dashboard'
-import EmployeesList from './components/pages/EmployeeList';
-import ReviewsList from './components/pages/ReviewsList';
+import Home from './componets/Home';
+import Login from './componets/Login';
+import Dashboard from './componets/Dashboard';
+import EmployeeList from './componets/EmployeeList';
+import ReviewList from './componets/ReviewsList';
 // Material components
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// Interface components
-// import { UserInterface } from './interfaces';
+import { Unsubscribe } from 'firebase/auth';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -28,7 +27,7 @@ function App() {
   const theme = createTheme();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener(async (user) => {
+    const unsubscribe: Unsubscribe = onAuthStateChangedListener(async (user) => {
       if (user) {
         // Api to retrive the new user from the users collection
         const data = await getUserApi(user.uid)
@@ -56,8 +55,8 @@ function App() {
             <Route path='login' element={<Login />} />
             <Route path='dashboard' element={<Dashboard />}>
               <Route path='/dashboard' element={<Navigate replace to="reviews" />} />
-              <Route path='reviews' element={<ReviewsList />} />
-              <Route path='employees' element={<EmployeesList />} />
+              <Route path='reviews' element={<ReviewList />} />
+              <Route path='employees' element={<EmployeeList />} />
             </Route>
           </Route>
         </Routes>

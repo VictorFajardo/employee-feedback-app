@@ -1,16 +1,17 @@
 // React components
 import { useEffect, useState } from "react";
 // Redux components
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { currentEmployee } from "../../../features/employees/employeesSlice";
-import { updateEmployee } from "../../../features/employees/employeesSlice";
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { currentEmployee } from "../../features/employees/employeesSlice";
+import { updateEmployee } from "../../features/employees/employeesSlice";
 // Api components
-import { updateUserApi } from "../../../utilities/firebase";
+import { updateUserApi } from "../../utilities/firebase";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 // Interface components
-import { EmployeeInterface, DefaultEmployeeFields } from "../../../interfaces";
+import { EmployeeInterface } from "../../interfaces";
+import { DefaultEmployeeFields } from '../../data';
 
 interface UpdateEmployeesProps {
   closeMethod: () => void,

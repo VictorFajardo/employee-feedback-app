@@ -1,15 +1,15 @@
 // React components
 import React, { useState } from "react";
 // Redux components
-import { useAppDispatch } from '../../../app/hooks';
-import { addEmployee } from "../../../features/employees/employeesSlice";
+import { useAppDispatch } from '../../hooks';
+import { addEmployee } from "../../features/employees/employeesSlice";
 // Api components
-import { addUserApi, createAuthUserWithEmailAndPassword, getUserApi } from "../../../utilities/firebase";
+import { addUserApi, createAuthUserWithEmailAndPassword, getUserApi } from "../../utilities/firebase";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 // Interface components
-import { DefaultEmployeeFields } from "../../../interfaces";
+import { DefaultEmployeeFields } from '../../data';
 
 interface AddEmployeesProps {
   closeMethod: () => void,

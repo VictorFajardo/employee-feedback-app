@@ -1,13 +1,13 @@
 // React components
 import { useEffect, useState } from "react";
 // Redux components
-import { useAppSelector } from '../../../app/hooks';
-import { currentReview } from "../../../features/reviews/reviewsSlice";
+import { useAppSelector } from '../../hooks';
+import { currentReview } from "../../features/reviews/reviewsSlice";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 // Interface components
-import { DefaultReviewFields } from "../../../interfaces";
+import { DefaultReviewFields } from "../../data";
 
 interface ViewEmployeesProps {
   closeMethod: () => void,
