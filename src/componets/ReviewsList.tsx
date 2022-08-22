@@ -8,6 +8,7 @@ import { currentUser } from '../features/authentication/authenticationSlice';
 // Chidren components
 import Review from './elements/review';
 // Material components
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -84,7 +85,7 @@ const ReviewsList = () => {
           </Typography>
         </Box>
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: 'row-reverse' }}>
-        {user && user.admin && <Button onClick={() => handleClick(ModalType.ADD)} sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD REVIEW</Button>}
+        {user && user.admin && <Button onClick={() => handleClick(ModalType.ADD)} sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined" startIcon={<RateReviewIcon />}>ADD REVIEW</Button>}
         </Box>
       </Container>
       <Container>

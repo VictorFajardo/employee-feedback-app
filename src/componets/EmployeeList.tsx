@@ -8,6 +8,7 @@ import IndexEmployees from './employees/index.employees';
 import Employee from './elements/employee';
 import Title from './elements/title';
 // Material components
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -39,7 +40,6 @@ const EmployeeList = () => {
   const handleClose = () => setOpen(false);
 
   const handleClick = (modal: ModalType, id?: string): void => {
-    console.log(employees);
     // If 'id' parameter esxist, update currentEmployee in the state manager
     if (id) {
       const currentEmployee = employees.find(employee => employee.id === id);
@@ -68,7 +68,7 @@ const EmployeeList = () => {
           <Title text='Employees List' />
         </Box>
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: 'row-reverse' }}>
-          <Button value="signout" onClick={() => handleClick(ModalType.ADD)} sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD EMPLOYEE</Button>
+          <Button onClick={() => handleClick(ModalType.ADD)} sx={{ my: 2, ml: 2, display: 'flex' }} color="secondary" variant="outlined" startIcon={<PersonAddIcon />}>ADD EMPLOYEE</Button>
         </Box>
       </Container>
       <Container>

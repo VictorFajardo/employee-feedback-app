@@ -1,10 +1,12 @@
 // Material components
+import ReviewsIcon from '@mui/icons-material/Reviews';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-// import ListItemAvatar from '@mui/material/ListItemAvatar';
-// import Avatar from '@mui/material/Avatar';
-// import { stringAvatar } from '../../../utilities/stringavatar';
 // Element components
 import { ReviewInterface } from '../../interfaces/index';
 import { ModalType } from '../../data';
@@ -20,15 +22,15 @@ const Review: React.FC<ReviewProps> = ({ review, clickMethod }) => {
   return (
     <>
     <ListItem alignItems="center">
-      {/* <ListItemAvatar>
-        <Avatar sx={{ bgcolor: 'red' }} children='' />
-      </ListItemAvatar> */}
+      <ListItemAvatar>
+        <Avatar sx={{ backgroundColor: completed ? "#66bb6a" : "#f44336" }} variant="rounded" ><ReviewsIcon /></Avatar>
+      </ListItemAvatar>
       <ListItemText
         primary={`Review for ${employeeName} - ${employeeJobTitle} (${employeeEmail})`}
         secondary={`Assigned to ${reviewerName} - ${reviewerJobTitle} [status: ${completed ? 'completed' : 'pending'}]`}
       />
-      <Button onClick={() => clickMethod(ModalType.UPDATE, id)}>UPDATE</Button>
-      <Button onClick={() => clickMethod(ModalType.VIEW, id)}>VIEW</Button>
+      <Button sx={{ mr: 2 }} onClick={() => clickMethod(ModalType.UPDATE, id)} variant="outlined" endIcon={<EditIcon />}>UPDATE</Button>
+      <Button onClick={() => clickMethod(ModalType.VIEW, id)} variant="outlined" endIcon={<VisibilityIcon />}>VIEW</Button>
     </ListItem>
     </>
   )

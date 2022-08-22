@@ -36,22 +36,9 @@ const Footer = () => {
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
           <iframe src="https://ghbtns.com/github-btn.html?user=victorfajardo&repo=feedback-app&type=star&count=true&size=large" frameBorder="0" scrolling="0" width="120" height="30" title="GitHub"></iframe>
         </Box>
-        <Box sx={{ flexGrow: 0, display: 'flex', flexDirection: 'row-reverse' }}>
-          <Typography
-            noWrap
-            component="a"
-            sx={{
-              display: 'flex',
-              fontWeight: 400,
-              color: 'inherit',
-              '& > a': {
-                ml: 1,
-              }
-            }}
-          >
-            <a href="https://www.linkedin.com/in/victorfajardo/" target='_blank' rel="noreferrer"><SvgIcon component={LinkedInIcon} /></a>
-            <a href="https://github.com/VictorFajardo" target='_blank' rel="noreferrer"><SvgIcon component={GitHubIcon} /></a>
-          </Typography>
+        <Box sx={{ flexGrow: 0, display: 'flex', flexDirection: 'row-reverse', '& > a': { ml: 1 } }}>
+          <a href="https://www.linkedin.com/in/victorfajardo/" target='_blank' rel="noreferrer"><SvgIcon component={LinkedInIcon} /></a>
+          <a href="https://github.com/VictorFajardo" target='_blank' rel="noreferrer"><SvgIcon component={GitHubIcon} /></a>
         </Box>
         </Box>
       </Container>

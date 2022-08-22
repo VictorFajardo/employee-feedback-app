@@ -7,6 +7,8 @@ import { cleanReviews } from "../../features/reviews/reviewsSlice";
 // Api components
 import { signOutUser } from "../../utilities/firebase";
 // Material components
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -31,11 +33,11 @@ const Menu = () => {
   return (
     <Container maxWidth="xl" sx={{ display: 'flex' }}>
       <Box sx={{ flexGrow: 1, display: "flex" }}>
-        <Button value="reviews" onClick={(e) => handleClick(e, 'reviews')} sx={{ my: 2 }} variant="contained">Reviews List</Button>
-        {user && user.admin && <Button value="employees" onClick={(e) => handleClick(e, 'employees')} sx={{ my: 2, ml: 2 }} variant="contained">Employees List</Button>}
+        <Button onClick={(e) => handleClick(e, 'reviews')} sx={{ my: 2 }} variant="contained" startIcon={<FormatListBulletedIcon />}>Reviews List</Button>
+        {user && user.admin && <Button onClick={(e) => handleClick(e, 'employees')} sx={{ my: 2, ml: 2 }} color="secondary" variant="contained" startIcon={<FormatListBulletedIcon />}>Employees List</Button>}
       </Box>
       <Box sx={{ flexGrow: 1, display: "flex", flexDirection: 'row-reverse' }}>
-        <Button value="signout" onClick={(e) => handleClick(e, 'signout')} sx={{ my: 2, ml: 2 }} variant="outlined">SIGN OUT</Button>
+        <Button onClick={(e) => handleClick(e, 'signout')} sx={{ my: 2, ml: 2 }} color="error" variant="contained" startIcon={<LogoutIcon />}>SIGN OUT</Button>
       </Box>
     </Container>
   )

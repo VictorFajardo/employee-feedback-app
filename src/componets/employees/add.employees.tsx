@@ -8,6 +8,8 @@ import { addUserApi, createAuthUserWithEmailAndPassword, getUserApi } from "../.
 // Chidren components
 import Title from "../elements/title";
 // Material components
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -132,7 +134,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
         />
         <FormControlLabel control={<Checkbox name="admin" checked={admin} onChange={handleChange} />} label="Administrator" />
         <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
-          <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
+          <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} color="info" variant="contained" endIcon={<PersonAddIcon />}>ADD</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color="error" variant="contained" endIcon={<CloseIcon />}>CANCEL</Button>
         </Box>
       </Box>
     </Container>

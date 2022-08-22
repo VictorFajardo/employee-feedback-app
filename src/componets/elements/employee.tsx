@@ -1,4 +1,6 @@
 // Material components
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -26,8 +28,8 @@ const Employee: React.FC<EmployeeProps> = ({ employee, clickMethod }) => {
         primary={`${firstName} ${lastName} - ${jobTitle}`}
         secondary={email}
       />
-      <Button onClick={() => clickMethod(ModalType.UPDATE, id)}>UPDATE</Button>
-      <Button onClick={() => clickMethod(ModalType.VIEW, id)}>VIEW</Button>
+      <Button sx={{ mr: 2 }} onClick={() => clickMethod(ModalType.UPDATE, id)} color="secondary" variant="outlined" endIcon={<EditIcon />}>UPDATE</Button>
+      <Button onClick={() => clickMethod(ModalType.VIEW, id)} color="secondary" variant="outlined" endIcon={<VisibilityIcon />}>VIEW</Button>
     </ListItem>
   )
 }

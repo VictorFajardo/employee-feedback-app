@@ -6,6 +6,8 @@ import { currentReview } from "../../features/reviews/reviewsSlice";
 // Children components
 import Title from "../elements/title";
 // Material components
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
@@ -113,7 +115,7 @@ const ViewReview: React.FC<ViewEmployeesProps> = ({ closeMethod, clickMethod }) 
         }}
       />
       <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
-        <Button onClick={() => clickMethod(ModalType.UPDATE, id)} sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">UPDATE</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CLOSE</Button>
+        <Button onClick={() => clickMethod(ModalType.UPDATE, id)} sx={{ my: 2, ml: 2, display: 'flex' }} color="info" variant="contained" endIcon={<EditIcon />}>UPDATE</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color="error" variant="contained" endIcon={<CloseIcon />}>CLOSE</Button>
       </Box>
     </Box>
   </Container>

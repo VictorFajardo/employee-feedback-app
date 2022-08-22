@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // Api components
 import { signInAuthUser } from "../utilities/firebase";
 // Material components
+import LoginIcon from '@mui/icons-material/Login';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -81,14 +82,7 @@ const Login = () => {
           autoComplete="current-password"
           onChange={handleChange}
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Sign In
-        </Button>
+        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} endIcon={<LoginIcon />}>Sign In</Button>
       </Box>
     </Box>
   )

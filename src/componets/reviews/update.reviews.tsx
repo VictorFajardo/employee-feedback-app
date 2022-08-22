@@ -9,6 +9,8 @@ import { updateReviewApi } from "../../utilities/firebase";
 // Chidren components
 import Title from "../elements/title";
 // Material components
+import SaveIcon from '@mui/icons-material/Save';
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -136,7 +138,7 @@ const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
         onChange={handleChange}
       />
       <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
-        <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">SAVE</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
+        <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} color="info" variant="contained" endIcon={<SaveIcon />}>SAVE</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color="error" variant="contained" endIcon={<CloseIcon />}>CANCEL</Button>
       </Box>
     </Box>
   </Container>
