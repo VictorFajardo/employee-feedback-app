@@ -6,7 +6,7 @@
 
 ---
 
-Application to allow employees to view/add/edit feedback about other employees, administrators are allowed to view/add/edit/delete feedback reviews and employees users.
+App that allows employees to view/add/edit reviews on other employees. Managers can view/add/edit/delete employees and feedback reviews.
 
 The app use Google Firebase as API to authentificate users (user/password) and save all the information to be displayed/edited/deleted (users and reviews collections).
 
