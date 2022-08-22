@@ -1,5 +1,5 @@
 // React components
-import { SetStateAction, SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 // Redux components
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { addReview } from "../../features/reviews/reviewsSlice";
@@ -23,32 +23,22 @@ interface AddReviewsProps {
 
 const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
   const dispatch = useAppDispatch();
-  const employees = useAppSelector(selectEmployees); // Select all the epmloyees to build the employee list
-  const options = ['Option 1', 'Option 2'];
+  const employees = useAppSelector(selectEmployees);
+  const [employee, setEmployee] = useState<EmployeeInterface | null>(null);
+  const [inputEmployee, setInputEmployee] = useState('');
+  const [reviewer, setReviewer] = useState<EmployeeInterface | null>(null);
+  const [inputReviewer, setInputReviewer] = useState('');
 
-  //TODO Select the employee and the reviewer directly from the dropdown boxes
-  const [employeeId, setEmployeeId] = useState('');
-  const [reviewerId, setReviewerId] = useState('');
-  const [value, setValue] = useState<EmployeeInterface | null>(null);
-  const [inputValue, setInputValue] = useState('');
+  const handleChangeEmployee = (event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null) => setEmployee(newValue);
 
-  const handleChangeEmployee = (event: SyntheticEvent<Element, Event>) => {
-    //TODO Select the employee and the reviewer directly from the dropdown boxes
-    // setEmployeeId(event.target.value);
-    console.log(event);
-  };
+  const handleChangeReviewer = (event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null) => setReviewer(newValue);
+  
+  const handleChangeInputEmployee = (event: SyntheticEvent<Element, Event>, newInputValue: string) => setInputEmployee(newInputValue);
 
-  const handleChangeReviewer = (event: SyntheticEvent<Element, Event>) => {
-    //TODO Select the employee and the reviewer directly from the dropdown boxes
-    // setReviewerId(event.target.value);
-  };
+  const handleChangeInputReviewer = (event: SyntheticEvent<Element, Event>, newInputValue: string) => setInputReviewer(newInputValue);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    //TODO Select the employee and the reviewer directly from the dropdown boxes
-    const employee = employees.find((employee) => employee.id === employeeId);
-    const reviewer = employees.find((employee) => employee.id === reviewerId);
 
     try {
       if (employee && reviewer) {
@@ -81,43 +71,31 @@ const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
       <Autocomplete
         sx={{ margin: '16px 0 8px' }}
         autoSelect={true}
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue!);
-        }}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue!);
-        }}
+        value={employee}
+        onChange={handleChangeEmployee}
+        inputValue={inputEmployee}
+        onInputChange={handleChangeInputEmployee}
         options={employees}
-        getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-        renderInput={(params) => <TextField {...params} label="Select employee" />}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        getOptionLabel={(option) => `${option.firstName} ${option.lastName} | ${option.jobTitle}`}
+        renderInput={(params) => <TextField {...params} label="Select employee" required />}
+      />
+      <Autocomplete
+        sx={{ margin: '16px 0 8px' }}
+        value={reviewer}
+        onChange={handleChangeReviewer}
+        inputValue={inputReviewer}
+        onInputChange={handleChangeInputReviewer}
+        options={employees}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        getOptionLabel={(option) => `${option.firstName} ${option.lastName} | ${option.jobTitle}`}
+        renderInput={(params) => <TextField {...params} label="Select reviewer" required />}
       />
       <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
         <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
       </Box>
     </Box>
   </Container>
-    // <>
-    //   <h2>Add a new review</h2>
-    //   <form onSubmit={handleSubmit}>
-    //     <label htmlFor="firstName">Employee </label>
-    //     <select value={employeeId} onChange={handleChangeEmployee}>
-    //       {!employeeId && <option value=''></option>}
-    //       {employees.map((employee) => (
-    //         <option key={employee.id} value={employee.id}>{employee.lastName}, {employee.firstName}</option>
-    //       ))}
-    //     </select>
-    //     <br />
-    //     <label htmlFor="lastName">Reviewer </label>
-    //     <select value={reviewerId} onChange={handleChangeReviewer}>
-    //       {!reviewerId && <option value=''></option>}
-    //       {employees.map((employee) => (
-    //         <option key={employee.id} value={employee.id}>{employee.lastName}, {employee.firstName}</option>
-    //       ))}
-    //     </select>
-    //   </form>
-    // </>
   )
 }
 

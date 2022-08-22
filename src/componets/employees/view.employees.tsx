@@ -32,7 +32,7 @@ const ViewEmployees: React.FC<ViewEmployeesProps> = ({ closeMethod, clickMethod 
   return (
     <Container>
       <Title text='View employee information' align={'column'} />
-      <Box component="form" sx={{ mt: 1 }}>
+      <Box sx={{ mt: 1 }}>
         <TextField
           margin="normal"
           fullWidth

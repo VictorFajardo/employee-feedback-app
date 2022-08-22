@@ -6,9 +6,13 @@ import { currentReview } from "../../features/reviews/reviewsSlice";
 import { updateReview } from "../../features/reviews/reviewsSlice";
 // Api components
 import { updateReviewApi } from "../../utilities/firebase";
+// Chidren components
+import Title from "../elements/title";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
 // Interface components
 import { DefaultReviewFields } from "../../data";
 
@@ -49,20 +53,93 @@ const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
   };
   
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h2>Update review details</h2>
-        <h3>Review for {employeeName} | {employeeJobTitle} ({employeeEmail})</h3>
-        <textarea name="content" cols={30} rows={10} value={content} onChange={handleChange} /><br />
-        {/* {reviewBody}<br /> */}
-        <br />
-        <small>Assigned to: {reviewerName} | {reviewerJobTitle} ({reviewerEmail})</small>
-        <br />
-        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
-          <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">SAVE</Button> <Button value="signout" onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
-        </Box>
-      </form>
-    </>
+    <Container>
+    <Title text='View review details' align={'column'} />
+    <Box sx={{ display: 'flex', mt: 1, '& > div': { flexGrow: 1 }}}>
+      <TextField
+        sx={{ mr: 2 }}
+        margin="normal"
+        id="employeeName"
+        name="employeeName"
+        label="Employee name"
+        value={employeeName}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <TextField
+        margin="normal"
+        id="reviewerName"
+        name="reviewerName"
+        label="Reviewer name"
+        value={reviewerName}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+    </Box>
+    <Box sx={{ display: 'flex', '& > div': { flexGrow: 1 }}}>
+      <TextField
+        sx={{ mr: 2 }}
+        margin="normal"
+        id="employeeJobTitle"
+        name="employeeJobTitle"
+        label="Employee title"
+        value={employeeJobTitle}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <TextField
+        margin="normal"
+        id="reviewerJobTitle"
+        name="reviewerJobTitle"
+        label="Reviewer title"
+        value={reviewerJobTitle}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+    </Box>
+    <Box sx={{ display: 'flex', '& > div': { flexGrow: 1 }}}>
+      <TextField
+        sx={{ mr: 2 }}
+        margin="normal"
+        id="employeeEmail"
+        name="employeeEmail"
+        label="Employee email"
+        value={employeeEmail}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <TextField
+        margin="normal"
+        id="reviewerEmail"
+        name="reviewerEmail"
+        label="Reviewer email"
+        value={reviewerEmail}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+    </Box>
+    <Box component="form" onSubmit={handleSubmit}>
+      <TextField
+        margin="normal"
+        fullWidth
+        multiline
+        id="content"
+        name="content"
+        label="Content"
+        value={content}
+        onChange={handleChange}
+      />
+      <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
+        <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">SAVE</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
+      </Box>
+    </Box>
+  </Container>
   )
 }
 

@@ -35,10 +35,9 @@ const Dashboard = () => {
 
     async function getReviewsMap() {
       // Api to retrive the users from the users collection
-      const reviewsMap = await getReviewsApi();
+      const reviewsMap = await getReviewsApi(user!.admin!, user!.email!);
       // Reducer to set users into the state manager
-      if (user?.admin) dispatch(setReviews(reviewsMap)); // Admin: All the reviews
-      else dispatch(setReviews(reviewsMap.filter((review) => user?.reviews.includes(review.id)))); // User: Only his/her assigned reviews
+      dispatch(setReviews(reviewsMap));
     };
 
     getReviewsMap();

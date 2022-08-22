@@ -19,6 +19,7 @@ import {
   collection,
   query,
   getDocs,
+  where,
 }  from 'firebase/firestore';
 import { EmployeeInterface, ReviewInterface } from '../interfaces';
 
@@ -65,7 +66,8 @@ export const getUsersApi = async () => {
 
   const usersMap = querySnapshot.docs.reduce((acc: EmployeeInterface[], docSnapshot, index) => {
     const data = docSnapshot.data() as EmployeeInterface;
-    data.createdAt = JSON.stringify(data.createdAt); //! issue to fix
+    data.id = docSnapshot.id;
+    data.createdAt = JSON.stringify(data.createdAt); //* to review!
     acc[index] = data;
     return acc;
   }, []);
@@ -80,17 +82,17 @@ export const getUserApi = async (id: string) => {
   const docSnapshot = await getDoc(docRef);
 
   const data = docSnapshot.data() as EmployeeInterface;
-  data.createdAt = JSON.stringify(data.createdAt); //! issue to fix
+  data.id = docSnapshot.id;
+  data.createdAt = JSON.stringify(data.createdAt); //* to review!
 
   return data;
 };
 
 export const addUserApi = async (id: string, additionalInformation: Object) => {
-  const docRef = doc(db, 'users', id); //* remove id from this call
+  const docRef = doc(db, 'users', id);
   const createdAt = new Date();
 
   await setDoc(docRef, {
-    id,
     createdAt,
     reviews: [],
     admin: false,
@@ -120,9 +122,9 @@ export const deleteUserApi = async (id: string) => {
 // Review Api
 
 //TODO replace for getCollectionApi
-export const getReviewsApi = async () => {
+export const getReviewsApi = async (admin: boolean, email: string) => {
   const collectionRef = collection(db, 'reviews');
-  const q = query(collectionRef);
+  const q = admin ? query(collectionRef) : query(collectionRef, where('reviewerEmail', '==', email));
 
   const querySnapshot = await getDocs(q);
 
