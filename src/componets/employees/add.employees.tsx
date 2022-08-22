@@ -5,11 +5,17 @@ import { useAppDispatch } from '../../hooks';
 import { addEmployee } from "../../features/employees/employeesSlice";
 // Api components
 import { addUserApi, createAuthUserWithEmailAndPassword, getUserApi } from "../../utilities/firebase";
+// Chidren components
+import Title from "../elements/title";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
 // Interface components
 import { DefaultEmployeeFields } from '../../data';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 interface AddEmployeesProps {
   closeMethod: () => void,
@@ -63,28 +69,73 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
   };
 
   return (
-    <>
-      <h2>Add a new employee</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">first name: </label>
-        <input type="text" name="firstName" onChange={handleChange} value={firstName} /><br />
-        <label htmlFor="lastName">last name: </label>
-        <input type="text" name="lastName" onChange={handleChange} value={lastName} /><br />
-        <label htmlFor="jobTitle">job title: </label>
-        <input type="text" name="jobTitle" onChange={handleChange} value={jobTitle} /><br />
-        <label htmlFor="email">email address: </label>
-        <input type="email" name="email" onChange={handleChange} value={email} /><br />
-        <label htmlFor="password">password: </label>
-        <input type="password" name="password" onChange={handleChange} value={password} /><br />
-        <label htmlFor="confirmPassword">confirm password: </label>
-        <input type="password" name="confirmPassword" onChange={handleChange} value={confirmPassword} />
-        <label htmlFor="admin">admin</label>
-        <input type="checkbox" name="admin" onChange={handleChange} />
+    <Container>
+      <Title text='Add a new employee' align={'column'} />
+      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+        <TextField
+          autoFocus
+          margin="normal"
+          required
+          fullWidth
+          id="firstName"
+          name="firstName"
+          label="First Name"
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="lastName"
+          name="lastName"
+          label="Last Name"
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="jobTitle"
+          name="jobTitle"
+          label="Job Title"
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          name="email"
+          label="Email"
+          type="email"
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="password"
+          name="password"
+          label="Password"
+          type="password"
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="confirmPassword"
+          name="confirmPassword"
+          label="Confirm Password"
+          type="password"
+          onChange={handleChange}
+        />
+        <FormControlLabel control={<Checkbox name="admin" checked={admin} onChange={handleChange} />} label="Administrator" />
         <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
           <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
         </Box>
-      </form>
-    </>
+      </Box>
+    </Container>
   )
 }
 

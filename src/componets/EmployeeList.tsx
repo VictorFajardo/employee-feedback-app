@@ -6,12 +6,12 @@ import { selectEmployees, setCurrentEmployee } from "../features/employees/emplo
 // Chidren components
 import IndexEmployees from './employees/index.employees';
 import Employee from './elements/employee';
+import Title from './elements/title';
 // Material components
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Divider from '@mui/material/Divider';
 import React from 'react';
@@ -23,7 +23,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 650,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -59,27 +59,12 @@ const EmployeeList = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>{ }
-          <IndexEmployees modal={modal} closeMethod={handleClose} />
+          <IndexEmployees modal={modal} closeMethod={handleClose} clickMethod={handleClick} />
         </Box>
       </Modal>
       <Container maxWidth="xl" sx={{ display: 'flex' }}>
         <Box sx={{ flexGrow: 1, display: "flex" }}>
-          <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                sx={{
-                  mr: 2,
-                  display: 'flex',
-                  fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                  alignItems: 'center',
-                }}
-                >
-                  Employees List
-          </Typography>
+          <Title text='Employees List' />
         </Box>
         <Box sx={{ flexGrow: 1, display: "flex", flexDirection: 'row-reverse' }}>
           <Button value="signout" onClick={() => handleClick(ModalType.ADD)} sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">ADD EMPLOYEE</Button>

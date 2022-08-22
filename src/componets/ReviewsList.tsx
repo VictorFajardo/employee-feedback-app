@@ -17,7 +17,7 @@ import Modal from '@mui/material/Modal';
 import Divider from '@mui/material/Divider';
 // Interface components
 import { ModalType } from '../data';
-import IndexEmployees from './employees/index.employees';
+import IndexReviews from './reviews/index.reviews';
 
 const style = {
   position: 'absolute',
@@ -61,7 +61,7 @@ const ReviewsList = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <IndexEmployees modal={modal} closeMethod={handleClose} />
+          <IndexReviews modal={modal} closeMethod={handleClose} />
         </Box>
       </Modal>
       <Container maxWidth="xl" sx={{ display: 'flex' }}>

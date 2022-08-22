@@ -8,12 +8,13 @@ import { ModalType } from '../../data';
 interface IndexEmployeesProps {
   modal: ModalType
   closeMethod: () => void,
+  clickMethod: (modal: ModalType, id?: string) => void,
 }
 
-const IndexEmployees: React.FC<IndexEmployeesProps> = ({ modal, closeMethod }) => {
+const IndexEmployees: React.FC<IndexEmployeesProps> = ({ modal, closeMethod, clickMethod }) => {
   switch (modal) {
     case ModalType.VIEW:
-      return <ViewEmployees closeMethod={closeMethod} />;
+      return <ViewEmployees closeMethod={closeMethod} clickMethod={clickMethod} />;
     case ModalType.UPDATE:
       return <UpdateEmployees closeMethod={closeMethod} />;
     case ModalType.ADD:

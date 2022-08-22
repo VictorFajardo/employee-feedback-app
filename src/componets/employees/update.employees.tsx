@@ -6,9 +6,15 @@ import { currentEmployee } from "../../features/employees/employeesSlice";
 import { updateEmployee } from "../../features/employees/employeesSlice";
 // Api components
 import { updateUserApi } from "../../utilities/firebase";
+// Chidren components
+import Title from "../elements/title";
 // Material components
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 // Interface components
 import { EmployeeInterface } from "../../interfaces";
 import { DefaultEmployeeFields } from '../../data';
@@ -21,7 +27,7 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
   const dispatch = useAppDispatch();
   const current = useAppSelector(currentEmployee); // Select the current employee to display details
   const [employeeFields, setEmployeeFields] = useState<EmployeeInterface>(DefaultEmployeeFields); // Employee detail values
-  const { id, firstName, lastName, jobTitle, email } = employeeFields;
+  const { id, firstName, lastName, jobTitle, email, admin } = employeeFields;
 
   useEffect(() => {
     setEmployeeFields(current);
@@ -29,8 +35,12 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setEmployeeFields({ ...employeeFields, [name]: value });
+    const { name, value, checked } = event.target;
+    if (name === 'admin') {
+      setEmployeeFields({ ...employeeFields, admin: checked });
+    } else {
+      setEmployeeFields({ ...employeeFields, [name]: value });
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +48,7 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
 
     try {
       // Api call to update the user in the users collection
-      await updateUserApi(id, { firstName, lastName, jobTitle, email });
+      await updateUserApi(id, { firstName, lastName, jobTitle, email, admin });
       // Reducer to update the user into the state manager
       dispatch(updateEmployee(employeeFields));
       closeMethod();
@@ -49,23 +59,55 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
   };
 
   return (
-    <>
-      <h2>Update employee information</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">first name: </label>
-        <input type="text" name="firstName" onChange={handleChange} value={firstName} /><br />
-        <label htmlFor="lastName">last name: </label>
-        <input type="text" name="lastName" onChange={handleChange} value={lastName} /><br />
-        <label htmlFor="jobTitle">job title: </label>
-        <input type="text" name="jobTitle" onChange={handleChange} value={jobTitle} /><br />
-        <label htmlFor="email">email address: </label>
-        <input readOnly type="email" name="email" value={email} /><br />
+    
+    <Container>
+      <Title text='Update employee information' align={'column'} />
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <TextField
+          autoFocus
+          margin="normal"
+          fullWidth
+          id="firstName"
+          name="firstName"
+          label="First Name"
+          value={firstName}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          fullWidth
+          id="lastName"
+          name="lastName"
+          label="Last Name"
+          value={lastName}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          fullWidth
+          id="jobTitle"
+          name="jobTitle"
+          label="Job Title"
+          value={jobTitle}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          disabled
+          fullWidth
+          id="email"
+          name="email"
+          label="Email"
+          type="email"
+          value={email}
+          onChange={handleChange}
+        />
+        <FormControlLabel control={<Checkbox name="admin" checked={admin} onChange={handleChange} />} label="Administrator" />
         <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
-          <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">SAVE</Button> <Button value="signout" onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
+          <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined">SAVE</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} variant="contained">CANCEL</Button>
         </Box>
-      </form>
-      
-    </>
+      </Box>
+    </Container>
   )
 }
 
