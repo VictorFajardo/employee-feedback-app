@@ -1,8 +1,56 @@
-# Feedback App
+<h2 align="center">Employee Feedback App</h2>
+<h4 align="center">
+  Architect designed and developed by <a href="mailto:fajardo.de.leon@gmail.com">Victor Fajardo</a><br />
+  [ <a href="https://www.linkedin.com/in/victorfajardo/" target="_blank">linkedin.com/in/victorfajardo</a> | <a href="https://github.com/VictorFajardo" target="_blank">github.com/VictorFajardo</a> | <a href="https://stackshare.io/victorfajardo/software-engineering" target="_blank">stackshare.io/victorfajardo</a> ]
+</h4>
+
+---
 
 Application to allow employees to view/add/edit feedback about other employees, administrators are allowed to view/add/edit/delete feedback reviews and employees users.
 
-The app use Google Firebase as API to authentificate users (user/password) and save all the information to by displayed/edited/deleted (users and reviews collections).
+The app use Google Firebase as API to authentificate users (user/password) and save all the information to be displayed/edited/deleted (users and reviews collections).
+
+Development stack:\
+Typescript | Create React App | Redux Toolkit | React Router | Material UI | Firebase Auth | Firebase Database
+
+## 🚀 Live Demo
+
+Please visit the demo here:
+https://employee-feedback-app.netlify.app/
+
+### Admin Access
+
+To access to the admin panel use the following user/password combination:\
+```
+john.doe@email.com
+123456
+```
+
+To access to the admin panel use any of the users email with '123456' as password, e.g.:\
+```
+myla.barnes@email.com
+123456
+```
+
+### Panels
+
+<p align="center">
+  <img src="./docs/01.png" width="100%">
+  <br /><br />
+  <img src="./docs/02.png" width="100%">
+  <br /><br />
+  <img src="./docs/03.png" width="100%">
+  <br /><br />
+  <img src="./docs/04.png" width="100%">
+  <br /><br />
+  <img src="./docs/05.png" width="100%">
+  <br /><br />
+  <img src="./docs/06.png" width="100%">
+  <br /><br />
+  <img src="./docs/07.png" width="100%">
+  <br /><br />
+  <img src="./docs/08.png" width="100%">
+</p>
 
 ## Assumptions
 
@@ -11,8 +59,6 @@ The app use Google Firebase as API to authentificate users (user/password) and s
 - Each review has a singular employee/reviewer assignment. (Multiples reviewers per review will requiere some adjusment into the logic).
 - After a review is created the *review id* is added to the user assigned to perform the review. All the reviews assigned to a reviewer will be showed on the reviewer dashboard.
 - Reviewers can sign in into the app and review/submit all the reviews assigned to them.
-- Since is a demo app, the user are load in total from Firebase, in a real app, the users will be loaded in batches with a pagination system to prevent to load the whole database. In the create a review page the users dropdown will be showed with an autocomplete system (backend work) for the same reason.
-- Since is a demo app, the reviews are load in total from Firebase, in a real app, the reviews will be loaded in batches with a pagination system to prevent to load the whole database. In the user's reviews the reviews will be showed from a filtered system (backend work) for the same reason.
 
 Database reviews collection extructure
 ```
@@ -39,6 +85,10 @@ User {
   firstName: string,
   lastName: string,
   jobTitle: string,
+  email: string,
+  password: string,
+  confirmPassword: string,
+  admin: boolean,
   reviews: string[],
 }
 ```
@@ -51,14 +101,6 @@ If the user is an admin all the features and views are availables, for regular u
 ## Redux/Api Logic
 
 After any successfully Api call (create/update/delete) the reducers update the data to reflect the changes into the app.
-
-## Project Structure
-
- - /app (Redux hooks and store)
- - /components (Render componets for the app)
- - /features (Redux reducers)
- - /interfaces (Type interfaces)
- - /utilities (Firebase API)
 
 ## Issues
 The library for Firebase have some limitations in the front-end.
@@ -75,9 +117,7 @@ The library for Firebase have some limitations in the front-end.
 
 ## TODO
 
-- Complete the style for the add/update/create modals.
-- Typescript version.
-- You  guessed... create a API Node.js server to manage all the Firebase calls.
+- Create a API Node.js server to manage all the Firebase calls.
 
 ## Nice to have!
 
@@ -86,7 +126,6 @@ The library for Firebase have some limitations in the front-end.
 - Reviews status with more options: Pending | Completed | Observed.
 - Reviews with more fields (e.g, 5 stars parameters).
 - Users with more fields (e.g, manager/managee).
-
 
 
 ## Available Scripts
