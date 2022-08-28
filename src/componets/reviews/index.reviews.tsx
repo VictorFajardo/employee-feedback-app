@@ -6,15 +6,21 @@ import ViewReviews from './view.reviews';
 import { ModalType } from '../../data';
 
 interface IndexReviewsProps {
-  modal: ModalType
-  closeMethod: () => void,
-  clickMethod: (modal: ModalType, id?: string) => void,
+  modal: ModalType;
+  closeMethod: () => void;
+  clickMethod: (modal: ModalType, id?: string) => void;
 }
 
-const IndexReviews: React.FC<IndexReviewsProps> = ({ modal, closeMethod, clickMethod }) => {
+const IndexReviews: React.FC<IndexReviewsProps> = ({
+  modal,
+  closeMethod,
+  clickMethod,
+}) => {
   switch (modal) {
     case ModalType.VIEW:
-      return <ViewReviews closeMethod={closeMethod} clickMethod={clickMethod} />;
+      return (
+        <ViewReviews closeMethod={closeMethod} clickMethod={clickMethod} />
+      );
     case ModalType.UPDATE:
       return <UpdateReviews closeMethod={closeMethod} />;
     case ModalType.ADD:
@@ -22,6 +28,6 @@ const IndexReviews: React.FC<IndexReviewsProps> = ({ modal, closeMethod, clickMe
     default:
       return null;
   }
-}
+};
 
-export default IndexReviews
+export default IndexReviews;

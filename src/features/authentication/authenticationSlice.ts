@@ -3,7 +3,7 @@ import { RootState } from '../../store';
 import { EmployeeInterface } from '../../interfaces';
 
 export interface AuthenticationState {
-  user: EmployeeInterface | null,
+  user: EmployeeInterface | null;
 }
 
 const initialState: AuthenticationState = {
@@ -16,7 +16,7 @@ export const authenticationSlice = createSlice({
   reducers: {
     setCurrentUser: (state, action: PayloadAction<EmployeeInterface>) => {
       state.user = action.payload;
-    }
+    },
   },
 });
 

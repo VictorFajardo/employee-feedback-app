@@ -1,13 +1,13 @@
 // React components
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { currentEmployee } from "../../features/employees/employeesSlice";
-import { updateEmployee } from "../../features/employees/employeesSlice";
+import { currentEmployee } from '../../features/employees/employeesSlice';
+import { updateEmployee } from '../../features/employees/employeesSlice';
 // Api components
-import { updateUserApi } from "../../utilities/firebase";
+import { updateUserApi } from '../../utilities/firebase';
 // Chidren components
-import Title from "../elements/title";
+import Title from '../elements/title';
 // Material components
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
@@ -15,26 +15,27 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 // Interface components
-import { EmployeeInterface } from "../../interfaces";
+import { EmployeeInterface } from '../../interfaces';
 import { DefaultEmployeeFields } from '../../data';
 
 interface UpdateEmployeesProps {
-  closeMethod: () => void,
+  closeMethod: () => void;
 }
 
 const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
   const dispatch = useAppDispatch();
   const current = useAppSelector(currentEmployee); // Select the current employee to display details
-  const [employeeFields, setEmployeeFields] = useState<EmployeeInterface>(DefaultEmployeeFields); // Employee detail values
+  const [employeeFields, setEmployeeFields] = useState<EmployeeInterface>(
+    DefaultEmployeeFields
+  ); // Employee detail values
   const { id, firstName, lastName, jobTitle, email, admin } = employeeFields;
 
   useEffect(() => {
     setEmployeeFields(current);
-  },[current]);
-
+  }, [current]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = event.target;
@@ -50,7 +51,13 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
 
     try {
       // Api call to update the user in the users collection
-      await updateUserApi(id, { firstName, lastName, jobTitle, email, admin });
+      await updateUserApi(id, {
+        firstName,
+        lastName,
+        jobTitle,
+        email,
+        admin,
+      });
       // Reducer to update the user into the state manager
       dispatch(updateEmployee(employeeFields));
       closeMethod();
@@ -61,9 +68,8 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
   };
 
   return (
-    
     <Container>
-      <Title text='Update employee information' align={'column'} />
+      <Title text="Update employee information" align={'column'} />
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
           autoFocus
@@ -104,13 +110,41 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
           value={email}
           onChange={handleChange}
         />
-        <FormControlLabel control={<Checkbox name="admin" checked={admin} onChange={handleChange} />} label="Administrator" />
-        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
-          <Button type="submit" sx={{ my: 2, ml: 2, display: 'flex' }} color="info" variant="contained" endIcon={<SaveIcon />}>SAVE</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color="error" variant="contained" endIcon={<CloseIcon />}>CANCEL</Button>
+        <FormControlLabel
+          control={
+            <Checkbox name="admin" checked={admin} onChange={handleChange} />
+          }
+          label="Administrator"
+        />
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Button
+            type="submit"
+            sx={{ my: 2, ml: 2, display: 'flex' }}
+            color="info"
+            variant="contained"
+            endIcon={<SaveIcon />}
+          >
+            SAVE
+          </Button>{' '}
+          <Button
+            onClick={closeMethod}
+            sx={{ my: 2, ml: 2, display: 'flex' }}
+            color="error"
+            variant="contained"
+            endIcon={<CloseIcon />}
+          >
+            CANCEL
+          </Button>
         </Box>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default UpdateEmployees
+export default UpdateEmployees;

@@ -12,8 +12,8 @@ import { EmployeeInterface } from '../../interfaces/index';
 import { ModalType } from '../../data';
 
 interface EmployeeProps {
-  employee: EmployeeInterface,
-  clickMethod: (modal: ModalType, id: string) => void,
+  employee: EmployeeInterface;
+  clickMethod: (modal: ModalType, id: string) => void;
 }
 
 const Employee: React.FC<EmployeeProps> = ({ employee, clickMethod }) => {
@@ -28,10 +28,25 @@ const Employee: React.FC<EmployeeProps> = ({ employee, clickMethod }) => {
         primary={`${firstName} ${lastName} - ${jobTitle}`}
         secondary={email}
       />
-      <Button sx={{ mr: 2 }} onClick={() => clickMethod(ModalType.UPDATE, id)} color="secondary" variant="outlined" endIcon={<EditIcon />}>UPDATE</Button>
-      <Button onClick={() => clickMethod(ModalType.VIEW, id)} color="secondary" variant="outlined" endIcon={<VisibilityIcon />}>VIEW</Button>
+      <Button
+        sx={{ mr: 2 }}
+        onClick={() => clickMethod(ModalType.UPDATE, id)}
+        color="secondary"
+        variant="outlined"
+        endIcon={<EditIcon />}
+      >
+        UPDATE
+      </Button>
+      <Button
+        onClick={() => clickMethod(ModalType.VIEW, id)}
+        color="secondary"
+        variant="outlined"
+        endIcon={<VisibilityIcon />}
+      >
+        VIEW
+      </Button>
     </ListItem>
-  )
-}
+  );
+};
 
-export default Employee
+export default Employee;

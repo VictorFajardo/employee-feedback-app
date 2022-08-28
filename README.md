@@ -21,12 +21,14 @@ https://employee-feedback-app.netlify.app/
 ### Admin Access
 
 To access to the admin panel use the following user/password combination:\
+
 ```
 john.doe@email.com
 123456
 ```
 
 To access to the admin panel use any of the users email with '123456' as password, e.g.:\
+
 ```
 myla.barnes@email.com
 123456
@@ -57,10 +59,11 @@ myla.barnes@email.com
 - Only admins can create/view/update/delete users (including password).
 - Only admins can create/view/update and assign reviews.
 - Each review has a singular employee/reviewer assignment. (Multiples reviewers per review will requiere some adjusment into the logic).
-- After a review is created the *review id* is added to the user assigned to perform the review. All the reviews assigned to a reviewer will be showed on the reviewer dashboard.
+- After a review is created the _review id_ is added to the user assigned to perform the review. All the reviews assigned to a reviewer will be showed on the reviewer dashboard.
 - Reviewers can sign in into the app and review/submit all the reviews assigned to them.
 
 Database reviews collection extructure
+
 ```
 Review {
   id: string,
@@ -103,17 +106,18 @@ If the user is an admin all the features and views are availables, for regular u
 After any successfully Api call (create/update/delete) the reducers update the data to reflect the changes into the app.
 
 ## Issues
+
 The library for Firebase have some limitations in the front-end.
 
 - Update user's email is disabled, in order to update an auth user (not just data users) from Firebase the SDK is needed.\
-*Solution: Implement a Node.js server to manage the SDK script to complete this task.*
+  _Solution: Implement a Node.js server to manage the SDK script to complete this task._
 
 - Delete users is disabled, in order to delete an auth user (not just data users) from Firebase the SDK is needed.\
-*Solution: Implement a Node.js server to manage the SDK script to complete this task.*
+  _Solution: Implement a Node.js server to manage the SDK script to complete this task._
 
 - Creating a new user automatically login into that user, this can not be prevented whith the Firebase methods from the client.\
-*Temporal Solution: After a user creation, log out and log in again with admin credentials*\
-*Solution: Implement a Node.js server to manage the SDK script to complete this task.*
+  _Temporal Solution: After a user creation, log out and log in again with admin credentials_\
+  _Solution: Implement a Node.js server to manage the SDK script to complete this task._
 
 ## TODO
 
@@ -126,7 +130,6 @@ The library for Firebase have some limitations in the front-end.
 - Reviews status with more options: Pending | Completed | Observed.
 - Reviews with more fields (e.g, 5 stars parameters).
 - Users with more fields (e.g, manager/managee).
-
 
 ## Available Scripts
 

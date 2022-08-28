@@ -1,7 +1,7 @@
 // React components
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 // Redux components
 import { useAppDispatch } from './hooks';
 import { setCurrentUser } from './features/authentication/authenticationSlice';
@@ -27,23 +27,24 @@ function App() {
   const theme = createTheme();
 
   useEffect(() => {
-    const unsubscribe: Unsubscribe = onAuthStateChangedListener(async (user) => {
-      if (user) {
-        // Api to retrive the new user from the users collection
-        const data = await getUserApi(user.uid)
-        // Reducer to set the user into the state manager
-        dispatch(setCurrentUser(data));
-        // Reducer to clean the reviews from the state manager
-        dispatch(cleanReviews());
-        // Reducer to clean the employees from the state manager
-        dispatch(cleanEmployees());
-        navigate('/dashboard');
-        
+    const unsubscribe: Unsubscribe = onAuthStateChangedListener(
+      async (user) => {
+        if (user) {
+          // Api to retrive the new user from the users collection
+          const data = await getUserApi(user.uid);
+          // Reducer to set the user into the state manager
+          dispatch(setCurrentUser(data));
+          // Reducer to clean the reviews from the state manager
+          dispatch(cleanReviews());
+          // Reducer to clean the employees from the state manager
+          dispatch(cleanEmployees());
+          navigate('/dashboard');
+        }
       }
-    });
+    );
 
     return unsubscribe;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -51,13 +52,16 @@ function App() {
       <Container fixed component="main" maxWidth="lg">
         <CssBaseline />
         <Routes>
-          <Route path='/' element={<Home />}>
-            <Route path='/' element={<Navigate replace to="login" />} />
-            <Route path='login' element={<Login />} />
-            <Route path='dashboard' element={<Dashboard />}>
-              <Route path='/dashboard' element={<Navigate replace to="reviews" />} />
-              <Route path='reviews' element={<ReviewList />} />
-              <Route path='employees' element={<EmployeeList />} />
+          <Route path="/" element={<Home />}>
+            <Route path="/" element={<Navigate replace to="login" />} />
+            <Route path="login" element={<Login />} />
+            <Route path="dashboard" element={<Dashboard />}>
+              <Route
+                path="/dashboard"
+                element={<Navigate replace to="reviews" />}
+              />
+              <Route path="reviews" element={<ReviewList />} />
+              <Route path="employees" element={<EmployeeList />} />
             </Route>
           </Route>
         </Routes>
@@ -67,4 +71,3 @@ function App() {
 }
 
 export default App;
-

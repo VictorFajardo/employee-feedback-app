@@ -1,7 +1,7 @@
 // React components
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // Api components
-import { signInAuthUser } from "../utilities/firebase";
+import { signInAuthUser } from '../utilities/firebase';
 // Material components
 import LoginIcon from '@mui/icons-material/Login';
 import Avatar from '@mui/material/Avatar';
@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 
 const defaultUserFields = {
   password: '',
-  email: ''
+  email: '',
 };
 
 const Login = () => {
@@ -54,8 +54,7 @@ const Login = () => {
         alignItems: 'center',
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-      </Avatar>
+      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
       <Typography component="h1" variant="h5">
         Feedback App
       </Typography>
@@ -82,10 +81,18 @@ const Login = () => {
           autoComplete="current-password"
           onChange={handleChange}
         />
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} endIcon={<LoginIcon />}>Sign In</Button>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          endIcon={<LoginIcon />}
+        >
+          Sign In
+        </Button>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 export default Login;

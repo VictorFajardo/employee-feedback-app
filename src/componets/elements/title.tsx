@@ -2,8 +2,8 @@
 import Typography from '@mui/material/Typography';
 
 interface TitleProps {
-  text: string,
-  align?: string,
+  text: string;
+  align?: string;
 }
 
 const Title: React.FC<TitleProps> = ({ text, align }) => {
@@ -22,10 +22,10 @@ const Title: React.FC<TitleProps> = ({ text, align }) => {
         alignItems: 'center',
         flexDirection: align ? align : 'initial',
       }}
-      >
-        {text}
+    >
+      {text}
     </Typography>
-  )
-}
+  );
+};
 
-export default Title
+export default Title;

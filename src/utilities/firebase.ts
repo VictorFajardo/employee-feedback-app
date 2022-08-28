@@ -8,7 +8,7 @@ import {
   NextOrObserver,
   User,
 } from 'firebase/auth';
-import { 
+import {
   getFirestore,
   doc,
   addDoc,
@@ -20,16 +20,16 @@ import {
   query,
   getDocs,
   where,
-}  from 'firebase/firestore';
+} from 'firebase/firestore';
 import { EmployeeInterface, ReviewInterface } from '../interfaces';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAJclbrG41E62p1kydlqEOladkahvUA5Tw",
-  authDomain: "feedback-app-97086.firebaseapp.com",
-  projectId: "feedback-app-97086",
-  storageBucket: "feedback-app-97086.appspot.com",
-  messagingSenderId: "394916244987",
-  appId: "1:394916244987:web:1139c4eff80f05a9956f5e"
+  apiKey: 'AIzaSyAJclbrG41E62p1kydlqEOladkahvUA5Tw',
+  authDomain: 'feedback-app-97086.firebaseapp.com',
+  projectId: 'feedback-app-97086',
+  storageBucket: 'feedback-app-97086.appspot.com',
+  messagingSenderId: '394916244987',
+  appId: '1:394916244987:web:1139c4eff80f05a9956f5e',
 };
 
 initializeApp(firebaseConfig);
@@ -39,7 +39,10 @@ export const auth = getAuth();
 export const db = getFirestore();
 
 // Auth
-export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
+export const createAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
@@ -51,7 +54,8 @@ export const signInAuthUser = async (email: string, password: string) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const onAuthStateChangedListener = (callback: NextOrObserver<User>) => onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
+  onAuthStateChanged(auth, callback);
 
 export const signOutUser = async () => await signOut(auth);
 
@@ -64,13 +68,16 @@ export const getUsersApi = async () => {
 
   const querySnapshot = await getDocs(q);
 
-  const usersMap = querySnapshot.docs.reduce((acc: EmployeeInterface[], docSnapshot, index) => {
-    const data = docSnapshot.data() as EmployeeInterface;
-    data.id = docSnapshot.id;
-    data.createdAt = JSON.stringify(data.createdAt); //* to review!
-    acc[index] = data;
-    return acc;
-  }, []);
+  const usersMap = querySnapshot.docs.reduce(
+    (acc: EmployeeInterface[], docSnapshot, index) => {
+      const data = docSnapshot.data() as EmployeeInterface;
+      data.id = docSnapshot.id;
+      data.createdAt = JSON.stringify(data.createdAt); //* to review!
+      acc[index] = data;
+      return acc;
+    },
+    []
+  );
 
   return usersMap;
 };
@@ -124,17 +131,22 @@ export const deleteUserApi = async (id: string) => {
 //TODO replace for getCollectionApi
 export const getReviewsApi = async (admin: boolean, email: string) => {
   const collectionRef = collection(db, 'reviews');
-  const q = admin ? query(collectionRef) : query(collectionRef, where('reviewerEmail', '==', email));
+  const q = admin
+    ? query(collectionRef)
+    : query(collectionRef, where('reviewerEmail', '==', email));
 
   const querySnapshot = await getDocs(q);
 
-  const reviewsMap = querySnapshot.docs.reduce((acc: ReviewInterface[], docSnapshot, index) => {
-    const data = docSnapshot.data() as ReviewInterface;
-    data.id = docSnapshot.id;
-    data.createdAt = JSON.stringify(data.createdAt);
-    acc[index] = data;
-    return acc;
-  }, []);
+  const reviewsMap = querySnapshot.docs.reduce(
+    (acc: ReviewInterface[], docSnapshot, index) => {
+      const data = docSnapshot.data() as ReviewInterface;
+      data.id = docSnapshot.id;
+      data.createdAt = JSON.stringify(data.createdAt);
+      acc[index] = data;
+      return acc;
+    },
+    []
+  );
 
   return reviewsMap;
 };
@@ -163,7 +175,10 @@ export const updateReviewApi = async (id: string, updateParams: object) => {
   return;
 };
 
-export const createReviewApi = async (employee: EmployeeInterface, reviewer: EmployeeInterface) => {
+export const createReviewApi = async (
+  employee: EmployeeInterface,
+  reviewer: EmployeeInterface
+) => {
   const collectionRef = collection(db, 'reviews');
   const createdAt = new Date();
 

@@ -1,39 +1,42 @@
 // React components
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 // Redux components
 import { useAppSelector } from '../../hooks';
-import { currentEmployee } from "../../features/employees/employeesSlice";
+import { currentEmployee } from '../../features/employees/employeesSlice';
 // Children components
-import Title from "../elements/title";
+import Title from '../elements/title';
 // Material components
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import TextField from "@mui/material/TextField";
-import Container from "@mui/material/Container";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+import Container from '@mui/material/Container';
 // Interface components
-import { DefaultEmployeeFields, ModalType } from "../../data";
+import { DefaultEmployeeFields, ModalType } from '../../data';
 
 interface ViewEmployeesProps {
-  closeMethod: () => void,
-  clickMethod: (modal: ModalType, id?: string) => void,
+  closeMethod: () => void;
+  clickMethod: (modal: ModalType, id?: string) => void;
 }
 
-const ViewEmployees: React.FC<ViewEmployeesProps> = ({ closeMethod, clickMethod }) => {
+const ViewEmployees: React.FC<ViewEmployeesProps> = ({
+  closeMethod,
+  clickMethod,
+}) => {
   const current = useAppSelector(currentEmployee); // Select the current review to employee details
   const [employeeFields, setEmployeeFields] = useState(DefaultEmployeeFields); // Employee detail values
   const { id, firstName, lastName, jobTitle, email, admin } = employeeFields;
 
   useEffect(() => {
     setEmployeeFields(current);
-  },[current]);
- 
+  }, [current]);
+
   return (
     <Container>
-      <Title text='View employee information' align={'column'} />
+      <Title text="View employee information" align={'column'} />
       <Box sx={{ mt: 1 }}>
         <TextField
           margin="normal"
@@ -80,13 +83,39 @@ const ViewEmployees: React.FC<ViewEmployeesProps> = ({ closeMethod, clickMethod 
             readOnly: true,
           }}
         />
-        <FormControlLabel control={<Checkbox name="admin" checked={admin} />} label="Administrator" />
-        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: 'center' }}>
-          <Button onClick={() => clickMethod(ModalType.UPDATE, id)} sx={{ my: 2, ml: 2, display: 'flex' }} color="info" variant="contained" endIcon={<EditIcon />}>UPDATE</Button> <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color="error" variant="contained" endIcon={<CloseIcon />}>CLOSE</Button>
+        <FormControlLabel
+          control={<Checkbox name="admin" checked={admin} />}
+          label="Administrator"
+        />
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Button
+            onClick={() => clickMethod(ModalType.UPDATE, id)}
+            sx={{ my: 2, ml: 2, display: 'flex' }}
+            color="info"
+            variant="contained"
+            endIcon={<EditIcon />}
+          >
+            UPDATE
+          </Button>{' '}
+          <Button
+            onClick={closeMethod}
+            sx={{ my: 2, ml: 2, display: 'flex' }}
+            color="error"
+            variant="contained"
+            endIcon={<CloseIcon />}
+          >
+            CLOSE
+          </Button>
         </Box>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default ViewEmployees
+export default ViewEmployees;

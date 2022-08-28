@@ -2,7 +2,10 @@
 import { useState, Fragment } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../hooks';
-import { selectEmployees, setCurrentEmployee } from "../features/employees/employeesSlice";
+import {
+  selectEmployees,
+  setCurrentEmployee,
+} from '../features/employees/employeesSlice';
 // Chidren components
 import IndexEmployees from './employees/index.employees';
 import Employee from './elements/employee';
@@ -42,7 +45,7 @@ const EmployeeList = () => {
   const handleClick = (modal: ModalType, id?: string): void => {
     // If 'id' parameter esxist, update currentEmployee in the state manager
     if (id) {
-      const currentEmployee = employees.find(employee => employee.id === id);
+      const currentEmployee = employees.find((employee) => employee.id === id);
       // Reducer to set the currentEmployee into the state manager
       if (currentEmployee) dispatch(setCurrentEmployee(currentEmployee));
     }
@@ -59,32 +62,53 @@ const EmployeeList = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>{ }
-          <IndexEmployees modal={modal} closeMethod={handleClose} clickMethod={handleClick} />
+        <Box sx={style}>
+          {}
+          <IndexEmployees
+            modal={modal}
+            closeMethod={handleClose}
+            clickMethod={handleClick}
+          />
         </Box>
       </Modal>
       <Container maxWidth="xl" sx={{ display: 'flex' }}>
-        <Box sx={{ flexGrow: 1, display: "flex" }}>
-          <Title text='Employees List' />
+        <Box sx={{ flexGrow: 1, display: 'flex' }}>
+          <Title text="Employees List" />
         </Box>
-        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: 'row-reverse' }}>
-          <Button onClick={() => handleClick(ModalType.ADD)} sx={{ my: 2, ml: 2, display: 'flex' }} color="secondary" variant="outlined" startIcon={<PersonAddIcon />}>ADD EMPLOYEE</Button>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'row-reverse',
+          }}
+        >
+          <Button
+            onClick={() => handleClick(ModalType.ADD)}
+            sx={{ my: 2, ml: 2, display: 'flex' }}
+            color="secondary"
+            variant="outlined"
+            startIcon={<PersonAddIcon />}
+          >
+            ADD EMPLOYEE
+          </Button>
         </Box>
       </Container>
       <Container>
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {employees.map((employee, index) => {
-              return (
-                <Fragment key={employee.id}>
-                  <Employee employee={employee} clickMethod={handleClick} />
-                  {index !== (employees.length - 1) && <Divider variant="middle" component="li" />}
-                </Fragment>
-              )
-            })}
+          {employees.map((employee, index) => {
+            return (
+              <Fragment key={employee.id}>
+                <Employee employee={employee} clickMethod={handleClick} />
+                {index !== employees.length - 1 && (
+                  <Divider variant="middle" component="li" />
+                )}
+              </Fragment>
+            );
+          })}
         </List>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default EmployeeList
+export default EmployeeList;

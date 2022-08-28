@@ -1,4 +1,4 @@
-import { EmployeeInterface, ReviewInterface } from "../interfaces";
+import { EmployeeInterface, ReviewInterface } from '../interfaces';
 
 export const DefaultEmployeeFields: EmployeeInterface = {
   id: '',

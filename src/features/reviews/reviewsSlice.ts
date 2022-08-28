@@ -3,10 +3,9 @@ import { RootState } from '../../store';
 import { ReviewInterface } from '../../interfaces';
 import { DefaultReviewFields } from '../../data';
 
-
 export interface ReviewsState {
-  data: ReviewInterface[],
-  current: ReviewInterface,
+  data: ReviewInterface[];
+  current: ReviewInterface;
 }
 
 const initialState: ReviewsState = {
@@ -31,15 +30,25 @@ export const reviewsSlice = createSlice({
       state.data = [...state.data, action.payload];
     },
     updateReview: (state, action: PayloadAction<ReviewInterface>) => {
-      state.data = [...state.data.filter(review => review.id !== action.payload.id), action.payload];
+      state.data = [
+        ...state.data.filter((review) => review.id !== action.payload.id),
+        action.payload,
+      ];
     },
     deleteReview: (state, action: PayloadAction<string>) => {
-      state.data = [...state.data.filter(user => user.id !== action.payload)];
+      state.data = [...state.data.filter((user) => user.id !== action.payload)];
     },
   },
 });
 
-export const { setReviews, setCurrentReview, cleanReviews, addReview, updateReview, deleteReview } = reviewsSlice.actions;
+export const {
+  setReviews,
+  setCurrentReview,
+  cleanReviews,
+  addReview,
+  updateReview,
+  deleteReview,
+} = reviewsSlice.actions;
 
 export const selectReviews = (state: RootState) => state.reviews.data;
 export const currentReview = (state: RootState) => state.reviews.current;

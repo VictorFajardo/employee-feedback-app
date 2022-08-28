@@ -4,8 +4,8 @@ import { EmployeeInterface } from '../../interfaces';
 import { DefaultEmployeeFields } from '../../data';
 
 export interface EmployeeState {
-  data: EmployeeInterface[],
-  current: EmployeeInterface,
+  data: EmployeeInterface[];
+  current: EmployeeInterface;
 }
 
 const initialState: EmployeeState = {
@@ -30,15 +30,25 @@ export const employeesSlice = createSlice({
       state.data = [...state.data, action.payload];
     },
     updateEmployee: (state, action: PayloadAction<EmployeeInterface>) => {
-      state.data = [...state.data.filter(user => user.id !== action.payload.id), action.payload];
+      state.data = [
+        ...state.data.filter((user) => user.id !== action.payload.id),
+        action.payload,
+      ];
     },
     deleteEmployee: (state, action: PayloadAction<string>) => {
-      state.data = [...state.data.filter(user => user.id !== action.payload)];
+      state.data = [...state.data.filter((user) => user.id !== action.payload)];
     },
   },
 });
 
-export const { setCurrentEmployee, setEmployees, cleanEmployees, addEmployee, updateEmployee, deleteEmployee } = employeesSlice.actions;
+export const {
+  setCurrentEmployee,
+  setEmployees,
+  cleanEmployees,
+  addEmployee,
+  updateEmployee,
+  deleteEmployee,
+} = employeesSlice.actions;
 
 export const selectEmployees = (state: RootState) => state.employees.data;
 export const currentEmployee = (state: RootState) => state.employees.current;

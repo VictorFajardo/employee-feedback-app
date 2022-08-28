@@ -3,7 +3,10 @@ import React from 'react';
 import { useState, Fragment } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../hooks';
-import { selectReviews, setCurrentReview } from '../features/reviews/reviewsSlice';
+import {
+  selectReviews,
+  setCurrentReview,
+} from '../features/reviews/reviewsSlice';
 import { currentUser } from '../features/authentication/authenticationSlice';
 // Chidren components
 import Review from './elements/review';
@@ -44,7 +47,7 @@ const ReviewsList = () => {
   const handleClick = (modal: ModalType, id?: string) => {
     // If 'id' parameter esxist, update the current employee in the state manager
     if (id) {
-      const currentReview = reviews.find(review => review.id === id);
+      const currentReview = reviews.find((review) => review.id === id);
       // Reducer to set the currentReview into the state manager
       if (currentReview) dispatch(setCurrentReview(currentReview));
     }
@@ -62,46 +65,67 @@ const ReviewsList = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <IndexReviews modal={modal} closeMethod={handleClose} clickMethod={handleClick} />
+          <IndexReviews
+            modal={modal}
+            closeMethod={handleClose}
+            clickMethod={handleClick}
+          />
         </Box>
       </Modal>
       <Container maxWidth="xl" sx={{ display: 'flex' }}>
-        <Box sx={{ flexGrow: 1, display: "flex" }}>
+        <Box sx={{ flexGrow: 1, display: 'flex' }}>
           <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                sx={{
-                  my: 2,
-                  display: 'flex',
-                  fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                  alignItems: 'center',
-                }}
-                >
-                  Reviews List
+            variant="h6"
+            noWrap
+            component="a"
+            sx={{
+              my: 2,
+              display: 'flex',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              alignItems: 'center',
+            }}
+          >
+            Reviews List
           </Typography>
         </Box>
-        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: 'row-reverse' }}>
-        {user && user.admin && <Button onClick={() => handleClick(ModalType.ADD)} sx={{ my: 2, ml: 2, display: 'flex' }} variant="outlined" startIcon={<RateReviewIcon />}>ADD REVIEW</Button>}
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'row-reverse',
+          }}
+        >
+          {user && user.admin && (
+            <Button
+              onClick={() => handleClick(ModalType.ADD)}
+              sx={{ my: 2, ml: 2, display: 'flex' }}
+              variant="outlined"
+              startIcon={<RateReviewIcon />}
+            >
+              ADD REVIEW
+            </Button>
+          )}
         </Box>
       </Container>
       <Container>
         <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {reviews.map((review, index) => {
-              return (
-                <Fragment key={review.id}>
-                  <Review review={review} clickMethod={handleClick} />
-                  {index !== (reviews.length - 1) && <Divider key={index} variant="middle" component="li" />}
-                </Fragment>
-              )
-            })}
+          {reviews.map((review, index) => {
+            return (
+              <Fragment key={review.id}>
+                <Review review={review} clickMethod={handleClick} />
+                {index !== reviews.length - 1 && (
+                  <Divider key={index} variant="middle" component="li" />
+                )}
+              </Fragment>
+            );
+          })}
         </List>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default ReviewsList
+export default ReviewsList;
