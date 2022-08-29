@@ -27,7 +27,7 @@ interface AddEmployeesProps {
   closeMethod: () => void;
 }
 
-const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
+function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [employeeFields, setEmployeeFields] = useState(DefaultEmployeeFields); // Employee detail values
   const {
@@ -40,7 +40,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
     admin,
   } = employeeFields;
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked } = event.target;
     if (name === 'admin') {
       setEmployeeFields({ ...employeeFields, admin: checked });
@@ -49,7 +49,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
     // Password confirmation managment
@@ -64,7 +64,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
         email,
         password
       );
-      if (userCredential) {
+      if (userCredential !== undefined) {
         const {
           user: { uid },
         } = userCredential;
@@ -94,71 +94,71 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
 
   return (
     <Container>
-      <Title text="Add a new employee" align={'column'} />
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+      <Title text='Add a new employee' align={'column'} />
+      <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
         <TextField
           autoFocus
-          margin="normal"
+          margin='normal'
           required
           fullWidth
-          id="firstName"
-          name="firstName"
-          label="First Name"
+          id='firstName'
+          name='firstName'
+          label='First Name'
           onChange={handleChange}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           required
           fullWidth
-          id="lastName"
-          name="lastName"
-          label="Last Name"
+          id='lastName'
+          name='lastName'
+          label='Last Name'
           onChange={handleChange}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           required
           fullWidth
-          id="jobTitle"
-          name="jobTitle"
-          label="Job Title"
+          id='jobTitle'
+          name='jobTitle'
+          label='Job Title'
           onChange={handleChange}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           required
           fullWidth
-          id="email"
-          name="email"
-          label="Email"
-          type="email"
+          id='email'
+          name='email'
+          label='Email'
+          type='email'
           onChange={handleChange}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           required
           fullWidth
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
+          id='password'
+          name='password'
+          label='Password'
+          type='password'
           onChange={handleChange}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           required
           fullWidth
-          id="confirmPassword"
-          name="confirmPassword"
-          label="Confirm Password"
-          type="password"
+          id='confirmPassword'
+          name='confirmPassword'
+          label='Confirm Password'
+          type='password'
           onChange={handleChange}
         />
         <FormControlLabel
           control={
-            <Checkbox name="admin" checked={admin} onChange={handleChange} />
+            <Checkbox name='admin' checked={admin} onChange={handleChange} />
           }
-          label="Administrator"
+          label='Administrator'
         />
         <Box
           sx={{
@@ -168,10 +168,10 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
           }}
         >
           <Button
-            type="submit"
+            type='submit'
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="info"
-            variant="contained"
+            color='info'
+            variant='contained'
             endIcon={<PersonAddIcon />}
           >
             ADD
@@ -179,8 +179,8 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({ closeMethod }) => {
           <Button
             onClick={closeMethod}
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="error"
-            variant="contained"
+            color='error'
+            variant='contained'
             endIcon={<CloseIcon />}
           >
             CANCEL

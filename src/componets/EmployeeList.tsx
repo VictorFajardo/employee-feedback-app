@@ -45,7 +45,7 @@ const EmployeeList = () => {
   const handleClick = (modal: ModalType, id?: string): void => {
     // If 'id' parameter esxist, update currentEmployee in the state manager
     if (id) {
-      const currentEmployee = employees.find((employee) => employee.id === id);
+      const currentEmployee = employees.find(employee => employee.id === id);
       // Reducer to set the currentEmployee into the state manager
       if (currentEmployee) dispatch(setCurrentEmployee(currentEmployee));
     }
@@ -59,8 +59,8 @@ const EmployeeList = () => {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
           {}
@@ -71,9 +71,9 @@ const EmployeeList = () => {
           />
         </Box>
       </Modal>
-      <Container maxWidth="xl" sx={{ display: 'flex' }}>
+      <Container maxWidth='xl' sx={{ display: 'flex' }}>
         <Box sx={{ flexGrow: 1, display: 'flex' }}>
-          <Title text="Employees List" />
+          <Title text='Employees List' />
         </Box>
         <Box
           sx={{
@@ -85,8 +85,8 @@ const EmployeeList = () => {
           <Button
             onClick={() => handleClick(ModalType.ADD)}
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="secondary"
-            variant="outlined"
+            color='secondary'
+            variant='outlined'
             startIcon={<PersonAddIcon />}
           >
             ADD EMPLOYEE
@@ -100,7 +100,7 @@ const EmployeeList = () => {
               <Fragment key={employee.id}>
                 <Employee employee={employee} clickMethod={handleClick} />
                 {index !== employees.length - 1 && (
-                  <Divider variant="middle" component="li" />
+                  <Divider variant='middle' component='li' />
                 )}
               </Fragment>
             );

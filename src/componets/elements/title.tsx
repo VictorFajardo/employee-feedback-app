@@ -6,12 +6,12 @@ interface TitleProps {
   align?: string;
 }
 
-const Title: React.FC<TitleProps> = ({ text, align }) => {
+function Title({ text, align }: TitleProps): JSX.Element {
   return (
     <Typography
-      variant="h6"
+      variant='h6'
       noWrap
-      component="a"
+      component='a'
       sx={{
         mr: 2,
         display: 'flex',
@@ -20,7 +20,7 @@ const Title: React.FC<TitleProps> = ({ text, align }) => {
         color: 'inherit',
         textDecoration: 'none',
         alignItems: 'center',
-        flexDirection: align ? align : 'initial',
+        flexDirection: align !== undefined ? align : 'initial',
       }}
     >
       {text}

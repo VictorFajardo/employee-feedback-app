@@ -22,10 +22,7 @@ interface ViewEmployeesProps {
   clickMethod: (modal: ModalType, id?: string) => void;
 }
 
-const ViewEmployees: React.FC<ViewEmployeesProps> = ({
-  closeMethod,
-  clickMethod,
-}) => {
+function ViewEmployees({ closeMethod, clickMethod }: ViewEmployeesProps): JSX.Element {
   const current = useAppSelector(currentEmployee); // Select the current review to employee details
   const [employeeFields, setEmployeeFields] = useState(DefaultEmployeeFields); // Employee detail values
   const { id, firstName, lastName, jobTitle, email, admin } = employeeFields;
@@ -36,56 +33,56 @@ const ViewEmployees: React.FC<ViewEmployeesProps> = ({
 
   return (
     <Container>
-      <Title text="View employee information" align={'column'} />
+      <Title text='View employee information' align={'column'} />
       <Box sx={{ mt: 1 }}>
         <TextField
-          margin="normal"
+          margin='normal'
           fullWidth
-          id="firstName"
-          name="firstName"
-          label="First Name"
+          id='firstName'
+          name='firstName'
+          label='First Name'
           value={firstName}
           InputProps={{
             readOnly: true,
           }}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           fullWidth
-          id="lastName"
-          name="lastName"
-          label="Last Name"
+          id='lastName'
+          name='lastName'
+          label='Last Name'
           value={lastName}
           InputProps={{
             readOnly: true,
           }}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           fullWidth
-          id="jobTitle"
-          name="jobTitle"
-          label="Job Title"
+          id='jobTitle'
+          name='jobTitle'
+          label='Job Title'
           value={jobTitle}
           InputProps={{
             readOnly: true,
           }}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           fullWidth
-          id="email"
-          name="email"
-          label="Email"
-          type="email"
+          id='email'
+          name='email'
+          label='Email'
+          type='email'
           value={email}
           InputProps={{
             readOnly: true,
           }}
         />
         <FormControlLabel
-          control={<Checkbox name="admin" checked={admin} />}
-          label="Administrator"
+          control={<Checkbox name='admin' checked={admin} />}
+          label='Administrator'
         />
         <Box
           sx={{
@@ -97,8 +94,8 @@ const ViewEmployees: React.FC<ViewEmployeesProps> = ({
           <Button
             onClick={() => clickMethod(ModalType.UPDATE, id)}
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="info"
-            variant="contained"
+            color='info'
+            variant='contained'
             endIcon={<EditIcon />}
           >
             UPDATE
@@ -106,8 +103,8 @@ const ViewEmployees: React.FC<ViewEmployeesProps> = ({
           <Button
             onClick={closeMethod}
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="error"
-            variant="contained"
+            color='error'
+            variant='contained'
             endIcon={<CloseIcon />}
           >
             CLOSE

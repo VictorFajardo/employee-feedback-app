@@ -12,17 +12,17 @@ import Avatar from '@mui/material/Avatar';
 // Utils
 import { stringAvatar } from '../../utilities/stringavatar';
 
-const Header = () => {
+function Header(): JSX.Element {
   const user = useAppSelector(currentUser); // Select the current user to verify level access
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position='static'>
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="a"
+            component='a'
             sx={{
               mr: 2,
               display: { md: 'flex' },
@@ -35,7 +35,7 @@ const Header = () => {
           >
             DASHBOARD
           </Typography>
-          {user && (
+          {user !== null && (
             <>
               <Box
                 sx={{
@@ -47,7 +47,7 @@ const Header = () => {
               >
                 <Typography
                   noWrap
-                  component="a"
+                  component='a'
                   sx={{
                     fontWeight: 700,
                     letterSpacing: '.3rem',

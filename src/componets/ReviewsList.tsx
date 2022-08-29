@@ -1,6 +1,6 @@
 // React components
-import React from 'react';
-import { useState, Fragment } from 'react';
+// import React from 'react';
+import React, { useState, Fragment } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../hooks';
 import {
@@ -35,19 +35,19 @@ const style = {
   p: 4,
 };
 
-const ReviewsList = () => {
+function ReviewsList(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector(currentUser); // Select the current user to verify level access
   const reviews = useAppSelector(selectReviews); // Select all the reviews to build the review list
   const [open, setOpen] = useState(false); // Modal open status: true | false
   const [modal, setModal] = React.useState<ModalType>(ModalType.VIEW); // Modal content component: ADD | VIEW | UPDATE | DELETE
 
-  const handleClose = () => setOpen(false);
+  const handleClose = (): void => setOpen(false);
 
-  const handleClick = (modal: ModalType, id?: string) => {
+  const handleClick = (modal: ModalType, id?: string): void => {
     // If 'id' parameter esxist, update the current employee in the state manager
     if (id) {
-      const currentReview = reviews.find((review) => review.id === id);
+      const currentReview = reviews.find(review => review.id === id);
       // Reducer to set the currentReview into the state manager
       if (currentReview) dispatch(setCurrentReview(currentReview));
     }
@@ -61,8 +61,8 @@ const ReviewsList = () => {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
           <IndexReviews
@@ -72,12 +72,12 @@ const ReviewsList = () => {
           />
         </Box>
       </Modal>
-      <Container maxWidth="xl" sx={{ display: 'flex' }}>
+      <Container maxWidth='xl' sx={{ display: 'flex' }}>
         <Box sx={{ flexGrow: 1, display: 'flex' }}>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="a"
+            component='a'
             sx={{
               my: 2,
               display: 'flex',
@@ -102,7 +102,7 @@ const ReviewsList = () => {
             <Button
               onClick={() => handleClick(ModalType.ADD)}
               sx={{ my: 2, ml: 2, display: 'flex' }}
-              variant="outlined"
+              variant='outlined'
               startIcon={<RateReviewIcon />}
             >
               ADD REVIEW
@@ -117,7 +117,7 @@ const ReviewsList = () => {
               <Fragment key={review.id}>
                 <Review review={review} clickMethod={handleClick} />
                 {index !== reviews.length - 1 && (
-                  <Divider key={index} variant="middle" component="li" />
+                  <Divider key={index} variant='middle' component='li' />
                 )}
               </Fragment>
             );

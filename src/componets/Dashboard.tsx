@@ -14,7 +14,7 @@ import Header from './header/header';
 import Menu from './menu/menu';
 import Divider from '@mui/material/Divider';
 
-const Dashboard = () => {
+const Dashboard = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(currentUser); // Select the current user to verify level access
 
@@ -48,7 +48,7 @@ const Dashboard = () => {
     <>
       <Header />
       <Menu />
-      <Divider variant="middle" />
+      <Divider variant='middle' />
       <Outlet />
     </>
   );

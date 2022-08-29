@@ -23,7 +23,7 @@ export const employeesSlice = createSlice({
     setCurrentEmployee: (state, action: PayloadAction<EmployeeInterface>) => {
       state.current = action.payload;
     },
-    cleanEmployees: (state) => {
+    cleanEmployees: state => {
       state.data = [];
     },
     addEmployee: (state, action: PayloadAction<EmployeeInterface>) => {
@@ -31,12 +31,12 @@ export const employeesSlice = createSlice({
     },
     updateEmployee: (state, action: PayloadAction<EmployeeInterface>) => {
       state.data = [
-        ...state.data.filter((user) => user.id !== action.payload.id),
+        ...state.data.filter(user => user.id !== action.payload.id),
         action.payload,
       ];
     },
     deleteEmployee: (state, action: PayloadAction<string>) => {
-      state.data = [...state.data.filter((user) => user.id !== action.payload)];
+      state.data = [...state.data.filter(user => user.id !== action.payload)];
     },
   },
 });

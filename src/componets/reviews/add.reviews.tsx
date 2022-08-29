@@ -94,8 +94,8 @@ const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
 
   return (
     <Container>
-      <Title text="Add a new review" align={'column'} />
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+      <Title text='Add a new review' align={'column'} />
+      <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
         <Autocomplete
           sx={{ margin: '16px 0 8px' }}
           autoSelect={true}
@@ -105,11 +105,11 @@ const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
           onInputChange={handleChangeInputEmployee}
           options={employees}
           isOptionEqualToValue={(option, value) => option.id === value.id}
-          getOptionLabel={(option) =>
+          getOptionLabel={option =>
             `${option.firstName} ${option.lastName} | ${option.jobTitle}`
           }
-          renderInput={(params) => (
-            <TextField {...params} label="Select employee" required />
+          renderInput={params => (
+            <TextField {...params} label='Select employee' required />
           )}
         />
         <Autocomplete
@@ -120,11 +120,11 @@ const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
           onInputChange={handleChangeInputReviewer}
           options={employees}
           isOptionEqualToValue={(option, value) => option.id === value.id}
-          getOptionLabel={(option) =>
+          getOptionLabel={option =>
             `${option.firstName} ${option.lastName} | ${option.jobTitle}`
           }
-          renderInput={(params) => (
-            <TextField {...params} label="Select reviewer" required />
+          renderInput={params => (
+            <TextField {...params} label='Select reviewer' required />
           )}
         />
         <Box
@@ -135,10 +135,10 @@ const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
           }}
         >
           <Button
-            type="submit"
+            type='submit'
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="info"
-            variant="contained"
+            color='info'
+            variant='contained'
             endIcon={<PersonAddIcon />}
           >
             ADD
@@ -146,8 +146,8 @@ const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
           <Button
             onClick={closeMethod}
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="error"
-            variant="contained"
+            color='error'
+            variant='contained'
             endIcon={<CloseIcon />}
           >
             CANCEL

@@ -16,11 +16,11 @@ interface EmployeeProps {
   clickMethod: (modal: ModalType, id: string) => void;
 }
 
-const Employee: React.FC<EmployeeProps> = ({ employee, clickMethod }) => {
+function Employee({ employee, clickMethod }: EmployeeProps): JSX.Element {
   const { id, firstName, lastName, jobTitle, email } = employee;
 
   return (
-    <ListItem alignItems="center">
+    <ListItem alignItems='center'>
       <ListItemAvatar>
         <Avatar {...stringAvatar(`${firstName} ${lastName}`)} />
       </ListItemAvatar>
@@ -31,22 +31,22 @@ const Employee: React.FC<EmployeeProps> = ({ employee, clickMethod }) => {
       <Button
         sx={{ mr: 2 }}
         onClick={() => clickMethod(ModalType.UPDATE, id)}
-        color="secondary"
-        variant="outlined"
+        color='secondary'
+        variant='outlined'
         endIcon={<EditIcon />}
       >
         UPDATE
       </Button>
       <Button
         onClick={() => clickMethod(ModalType.VIEW, id)}
-        color="secondary"
-        variant="outlined"
+        color='secondary'
+        variant='outlined'
         endIcon={<VisibilityIcon />}
       >
         VIEW
       </Button>
     </ListItem>
   );
-};
+}
 
 export default Employee;

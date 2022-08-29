@@ -2,8 +2,7 @@
 import { useEffect, useState } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { currentEmployee } from '../../features/employees/employeesSlice';
-import { updateEmployee } from '../../features/employees/employeesSlice';
+import { currentEmployee, updateEmployee } from '../../features/employees/employeesSlice';
 // Api components
 import { updateUserApi } from '../../utilities/firebase';
 // Chidren components
@@ -25,7 +24,7 @@ interface UpdateEmployeesProps {
   closeMethod: () => void;
 }
 
-const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
+function UpdateEmployees({ closeMethod }: UpdateEmployeesProps): JSX.Element {
   const dispatch = useAppDispatch();
   const current = useAppSelector(currentEmployee); // Select the current employee to display details
   const [employeeFields, setEmployeeFields] = useState<EmployeeInterface>(
@@ -37,7 +36,7 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
     setEmployeeFields(current);
   }, [current]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked } = event.target;
     if (name === 'admin') {
       setEmployeeFields({ ...employeeFields, admin: checked });
@@ -46,7 +45,7 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
     try {
@@ -69,52 +68,52 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
 
   return (
     <Container>
-      <Title text="Update employee information" align={'column'} />
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <Title text='Update employee information' align={'column'} />
+      <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
           autoFocus
-          margin="normal"
+          margin='normal'
           fullWidth
-          id="firstName"
-          name="firstName"
-          label="First Name"
+          id='firstName'
+          name='firstName'
+          label='First Name'
           value={firstName}
           onChange={handleChange}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           fullWidth
-          id="lastName"
-          name="lastName"
-          label="Last Name"
+          id='lastName'
+          name='lastName'
+          label='Last Name'
           value={lastName}
           onChange={handleChange}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           fullWidth
-          id="jobTitle"
-          name="jobTitle"
-          label="Job Title"
+          id='jobTitle'
+          name='jobTitle'
+          label='Job Title'
           value={jobTitle}
           onChange={handleChange}
         />
         <TextField
-          margin="normal"
+          margin='normal'
           disabled
           fullWidth
-          id="email"
-          name="email"
-          label="Email"
-          type="email"
+          id='email'
+          name='email'
+          label='Email'
+          type='email'
           value={email}
           onChange={handleChange}
         />
         <FormControlLabel
           control={
-            <Checkbox name="admin" checked={admin} onChange={handleChange} />
+            <Checkbox name='admin' checked={admin} onChange={handleChange} />
           }
-          label="Administrator"
+          label='Administrator'
         />
         <Box
           sx={{
@@ -124,10 +123,10 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
           }}
         >
           <Button
-            type="submit"
+            type='submit'
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="info"
-            variant="contained"
+            color='info'
+            variant='contained'
             endIcon={<SaveIcon />}
           >
             SAVE
@@ -135,8 +134,8 @@ const UpdateEmployees: React.FC<UpdateEmployeesProps> = ({ closeMethod }) => {
           <Button
             onClick={closeMethod}
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="error"
-            variant="contained"
+            color='error'
+            variant='contained'
             endIcon={<CloseIcon />}
           >
             CANCEL

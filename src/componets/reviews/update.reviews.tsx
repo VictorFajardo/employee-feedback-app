@@ -64,24 +64,24 @@ const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
 
   return (
     <Container>
-      <Title text="View review details" align={'column'} />
+      <Title text='View review details' align={'column'} />
       <Box sx={{ display: 'flex', mt: 1, '& > div': { flexGrow: 1 } }}>
         <TextField
           sx={{ mr: 2 }}
-          margin="normal"
-          id="employeeName"
-          name="employeeName"
-          label="Employee name"
+          margin='normal'
+          id='employeeName'
+          name='employeeName'
+          label='Employee name'
           value={employeeName}
           InputProps={{
             readOnly: true,
           }}
         />
         <TextField
-          margin="normal"
-          id="reviewerName"
-          name="reviewerName"
-          label="Reviewer name"
+          margin='normal'
+          id='reviewerName'
+          name='reviewerName'
+          label='Reviewer name'
           value={reviewerName}
           InputProps={{
             readOnly: true,
@@ -91,20 +91,20 @@ const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
       <Box sx={{ display: 'flex', '& > div': { flexGrow: 1 } }}>
         <TextField
           sx={{ mr: 2 }}
-          margin="normal"
-          id="employeeJobTitle"
-          name="employeeJobTitle"
-          label="Employee title"
+          margin='normal'
+          id='employeeJobTitle'
+          name='employeeJobTitle'
+          label='Employee title'
           value={employeeJobTitle}
           InputProps={{
             readOnly: true,
           }}
         />
         <TextField
-          margin="normal"
-          id="reviewerJobTitle"
-          name="reviewerJobTitle"
-          label="Reviewer title"
+          margin='normal'
+          id='reviewerJobTitle'
+          name='reviewerJobTitle'
+          label='Reviewer title'
           value={reviewerJobTitle}
           InputProps={{
             readOnly: true,
@@ -114,34 +114,34 @@ const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
       <Box sx={{ display: 'flex', '& > div': { flexGrow: 1 } }}>
         <TextField
           sx={{ mr: 2 }}
-          margin="normal"
-          id="employeeEmail"
-          name="employeeEmail"
-          label="Employee email"
+          margin='normal'
+          id='employeeEmail'
+          name='employeeEmail'
+          label='Employee email'
           value={employeeEmail}
           InputProps={{
             readOnly: true,
           }}
         />
         <TextField
-          margin="normal"
-          id="reviewerEmail"
-          name="reviewerEmail"
-          label="Reviewer email"
+          margin='normal'
+          id='reviewerEmail'
+          name='reviewerEmail'
+          label='Reviewer email'
           value={reviewerEmail}
           InputProps={{
             readOnly: true,
           }}
         />
       </Box>
-      <Box component="form" onSubmit={handleSubmit}>
+      <Box component='form' onSubmit={handleSubmit}>
         <TextField
-          margin="normal"
+          margin='normal'
           fullWidth
           multiline
-          id="content"
-          name="content"
-          label="Content"
+          id='content'
+          name='content'
+          label='Content'
           value={content}
           onChange={handleChange}
         />
@@ -153,10 +153,10 @@ const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
           }}
         >
           <Button
-            type="submit"
+            type='submit'
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="info"
-            variant="contained"
+            color='info'
+            variant='contained'
             endIcon={<SaveIcon />}
           >
             SAVE
@@ -164,8 +164,8 @@ const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
           <Button
             onClick={closeMethod}
             sx={{ my: 2, ml: 2, display: 'flex' }}
-            color="error"
-            variant="contained"
+            color='error'
+            variant='contained'
             endIcon={<CloseIcon />}
           >
             CANCEL

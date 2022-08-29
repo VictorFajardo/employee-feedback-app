@@ -17,8 +17,8 @@ export const stringToColor = (string: string): string => {
 };
 
 interface StringAvatarType {
-  sx: { bgcolor: string },
-  children: string
+  sx: { bgcolor: string };
+  children: string;
 }
 
 export const stringAvatar = (name: string): StringAvatarType => {

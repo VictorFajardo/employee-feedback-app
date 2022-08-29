@@ -11,11 +11,7 @@ interface IndexEmployeesProps {
   clickMethod: (modal: ModalType, id?: string) => void;
 }
 
-const IndexEmployees: React.FC<IndexEmployeesProps> = ({
-  modal,
-  closeMethod,
-  clickMethod,
-}) => {
+function IndexEmployees({ modal, closeMethod, clickMethod }: IndexEmployeesProps): JSX.Element {
   switch (modal) {
     case ModalType.VIEW:
       return (
@@ -26,7 +22,7 @@ const IndexEmployees: React.FC<IndexEmployeesProps> = ({
     case ModalType.ADD:
       return <AddEmployees closeMethod={closeMethod} />;
     default:
-      return null;
+      return <></>;
   }
 };
 

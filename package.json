@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "format": "prettier --write .",
-    "lint": "eslint --fix . --ext .js,.jsx",
+    "lint": "eslint . --ext .ts,.tsx",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

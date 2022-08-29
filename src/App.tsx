@@ -26,40 +26,38 @@ function App(): JSX.Element {
   const theme = createTheme();
 
   useEffect(() => {
-    const unsubscribe: Unsubscribe = onAuthStateChangedListener(
-      async (user) => {
-        if (user != null) {
-          // Api to retrive the new user from the users collection
-          const data = await getUserApi(user.uid);
-          // Reducer to set the user into the state manager
-          dispatch(setCurrentUser(data));
-          // Reducer to clean the reviews from the state manager
-          dispatch(cleanReviews());
-          // Reducer to clean the employees from the state manager
-          dispatch(cleanEmployees());
-          navigate('/dashboard');
-        }
+    const unsubscribe: Unsubscribe = onAuthStateChangedListener(async user => {
+      if (user !== null) {
+        // Api to retrive the new user from the users collection
+        const data = await getUserApi(user.uid);
+        // Reducer to set the user into the state manager
+        dispatch(setCurrentUser(data));
+        // Reducer to clean the reviews from the state manager
+        dispatch(cleanReviews());
+        // Reducer to clean the employees from the state manager
+        dispatch(cleanEmployees());
+        navigate('/dashboard');
       }
-    );
+    });
 
     return unsubscribe;
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
-      <Container fixed component="main" maxWidth="lg">
+      <Container fixed component='main' maxWidth='lg'>
         <CssBaseline />
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route path="/" element={<Navigate replace to="login" />} />
-            <Route path="login" element={<Login />} />
-            <Route path="dashboard" element={<Dashboard />}>
+          <Route path='/' element={<Home />}>
+            <Route path='/' element={<Navigate replace to='login' />} />
+            <Route path='login' element={<Login />} />
+            <Route path='dashboard' element={<Dashboard />}>
               <Route
-                path="/dashboard"
-                element={<Navigate replace to="reviews" />}
+                path='/dashboard'
+                element={<Navigate replace to='reviews' />}
               />
-              <Route path="reviews" element={<ReviewList />} />
-              <Route path="employees" element={<EmployeeList />} />
+              <Route path='reviews' element={<ReviewList />} />
+              <Route path='employees' element={<EmployeeList />} />
             </Route>
           </Route>
         </Routes>

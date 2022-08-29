@@ -23,7 +23,7 @@ export const reviewsSlice = createSlice({
     setCurrentReview: (state, action: PayloadAction<ReviewInterface>) => {
       state.current = action.payload;
     },
-    cleanReviews: (state) => {
+    cleanReviews: state => {
       state.data = [];
     },
     addReview: (state, action: PayloadAction<ReviewInterface>) => {
@@ -31,12 +31,12 @@ export const reviewsSlice = createSlice({
     },
     updateReview: (state, action: PayloadAction<ReviewInterface>) => {
       state.data = [
-        ...state.data.filter((review) => review.id !== action.payload.id),
+        ...state.data.filter(review => review.id !== action.payload.id),
         action.payload,
       ];
     },
     deleteReview: (state, action: PayloadAction<string>) => {
-      state.data = [...state.data.filter((user) => user.id !== action.payload)];
+      state.data = [...state.data.filter(user => user.id !== action.payload)];
     },
   },
 });

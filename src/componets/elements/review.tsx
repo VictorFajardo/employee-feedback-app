@@ -16,7 +16,7 @@ interface ReviewProps {
   clickMethod: (modal: ModalType, id: string) => void;
 }
 
-const Review: React.FC<ReviewProps> = ({ review, clickMethod }) => {
+function Review({ review, clickMethod }: ReviewProps): JSX.Element {
   const {
     id,
     employeeName,
@@ -29,34 +29,33 @@ const Review: React.FC<ReviewProps> = ({ review, clickMethod }) => {
 
   return (
     <>
-      <ListItem alignItems="center">
+      <ListItem alignItems='center'>
         <ListItemAvatar>
           <Avatar
             sx={{
               backgroundColor: completed ? '#66bb6a' : '#f44336',
             }}
-            variant="rounded"
+            variant='rounded'
           >
             <ReviewsIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText
           primary={`Review for ${employeeName} - ${employeeJobTitle} (${employeeEmail})`}
-          secondary={`Assigned to ${reviewerName} - ${reviewerJobTitle} [status: ${
-            completed ? 'completed' : 'pending'
-          }]`}
+          secondary={`Assigned to ${reviewerName} - ${reviewerJobTitle} [status: ${completed ? 'completed' : 'pending'
+            }]`}
         />
         <Button
           sx={{ mr: 2 }}
           onClick={() => clickMethod(ModalType.UPDATE, id)}
-          variant="outlined"
+          variant='outlined'
           endIcon={<EditIcon />}
         >
           UPDATE
         </Button>
         <Button
           onClick={() => clickMethod(ModalType.VIEW, id)}
-          variant="outlined"
+          variant='outlined'
           endIcon={<VisibilityIcon />}
         >
           VIEW

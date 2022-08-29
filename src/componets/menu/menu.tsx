@@ -13,18 +13,15 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
-const Menu = () => {
+function Menu(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector(currentUser); // Select the current user to verify level access
   const navigate = useNavigate();
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLElement>,
-    target: string
-  ) => {
+  const handleClick = async (event: React.MouseEvent<HTMLElement>, target: string): Promise<void> => {
     if (target === 'signout') {
       // Api call to sign out
-      signOutUser();
+      await signOutUser();
       // Reducer to delete all the reviews from the state manager
       dispatch(cleanReviews());
       navigate('/login');
@@ -34,22 +31,22 @@ const Menu = () => {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ display: 'flex' }}>
+    <Container maxWidth='xl' sx={{ display: 'flex' }}>
       <Box sx={{ flexGrow: 1, display: 'flex' }}>
         <Button
-          onClick={(e) => handleClick(e, 'reviews')}
+          onClick={async e => await handleClick(e, 'reviews')}
           sx={{ my: 2 }}
-          variant="contained"
+          variant='contained'
           startIcon={<FormatListBulletedIcon />}
         >
           Reviews List
         </Button>
         {user && user.admin && (
           <Button
-            onClick={(e) => handleClick(e, 'employees')}
+            onClick={e => handleClick(e, 'employees')}
             sx={{ my: 2, ml: 2 }}
-            color="secondary"
-            variant="contained"
+            color='secondary'
+            variant='contained'
             startIcon={<FormatListBulletedIcon />}
           >
             Employees List
@@ -64,10 +61,10 @@ const Menu = () => {
         }}
       >
         <Button
-          onClick={(e) => handleClick(e, 'signout')}
+          onClick={e => handleClick(e, 'signout')}
           sx={{ my: 2, ml: 2 }}
-          color="error"
-          variant="contained"
+          color='error'
+          variant='contained'
           startIcon={<LogoutIcon />}
         >
           SIGN OUT

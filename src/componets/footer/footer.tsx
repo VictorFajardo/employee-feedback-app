@@ -14,10 +14,10 @@ const style: React.CSSProperties = {
   width: '100%',
 };
 
-const Footer = () => {
+function Footer(): JSX.Element {
   return (
     <footer style={style}>
-      <Container maxWidth="lg">
+      <Container maxWidth='lg'>
         <Box
           sx={{
             display: 'flex',
@@ -26,7 +26,7 @@ const Footer = () => {
         >
           <Typography
             noWrap
-            component="p"
+            component='p'
             sx={{
               display: 'flex',
               fontWeight: 700,
@@ -35,9 +35,9 @@ const Footer = () => {
           >
             Architect designed and developed by&nbsp;
             <a
-              href="https://www.linkedin.com/in/victorfajardo/"
-              target="_blank"
-              rel="noreferrer"
+              href='https://www.linkedin.com/in/victorfajardo/'
+              target='_blank'
+              rel='noreferrer'
             >
               Victor Fajardo
             </a>
@@ -50,12 +50,12 @@ const Footer = () => {
             }}
           >
             <iframe
-              src="https://ghbtns.com/github-btn.html?user=victorfajardo&repo=employee-feedback-app&type=star&count=true&size=large"
-              frameBorder="0"
-              scrolling="0"
-              width="120"
-              height="30"
-              title="GitHub"
+              src='https://ghbtns.com/github-btn.html?user=victorfajardo&repo=employee-feedback-app&type=star&count=true&size=large'
+              frameBorder='0'
+              scrolling='0'
+              width='120'
+              height='30'
+              title='GitHub'
             ></iframe>
           </Box>
           <Box
@@ -67,16 +67,16 @@ const Footer = () => {
             }}
           >
             <a
-              href="https://www.linkedin.com/in/victorfajardo/"
-              target="_blank"
-              rel="noreferrer"
+              href='https://www.linkedin.com/in/victorfajardo/'
+              target='_blank'
+              rel='noreferrer'
             >
               <SvgIcon component={LinkedInIcon} />
             </a>
             <a
-              href="https://github.com/VictorFajardo"
-              target="_blank"
-              rel="noreferrer"
+              href='https://github.com/VictorFajardo'
+              target='_blank'
+              rel='noreferrer'
             >
               <SvgIcon component={GitHubIcon} />
             </a>
