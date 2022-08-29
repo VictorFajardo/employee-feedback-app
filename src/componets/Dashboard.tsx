@@ -8,8 +8,9 @@ import { setEmployees } from '../features/employees/employeesSlice';
 import { setReviews } from '../features/reviews/reviewsSlice';
 // Api components
 import { getUsersApi, getReviewsApi } from '../utilities/firebase';
+// Interface components
+import { EmployeeInterface, ReviewInterface } from '../interfaces';
 // Material components
-
 import Header from './header/header';
 import Menu from './menu/menu';
 import Divider from '@mui/material/Divider';
@@ -19,30 +20,37 @@ const Dashboard = (): JSX.Element => {
   const user = useAppSelector(currentUser); // Select the current user to verify level access
 
   useEffect(() => {
-    if (!user || !user.admin) return;
+    if (user === null || user.admin === null) return;
 
-    async function getUsersMap() {
+    async function getUsersMap(): Promise<EmployeeInterface[]> {
       // Api to retrive the users from the users collection
-      const usersMap = await getUsersApi();
-      // Reducer to set users into the state manager
-      dispatch(setEmployees(usersMap));
+      return await getUsersApi();
     }
 
-    getUsersMap();
-  }, [dispatch, user]);
+    getUsersMap()
+      .then(data => {
+        // Reducer to set users into the state manager
+        dispatch(setEmployees(data));
+      })
+      .catch(error => console.log(error));
+
+  }, [user]);
 
   useEffect(() => {
-    if (!user) return;
+    if (user === null) return;
 
-    async function getReviewsMap() {
+    async function getReviewsMap(): Promise<ReviewInterface[]> {
       // Api to retrive the users from the users collection
-      const reviewsMap = await getReviewsApi(user!.admin!, user!.email!);
-      // Reducer to set users into the state manager
-      dispatch(setReviews(reviewsMap));
+      return await getReviewsApi(user?.admin ?? false, user?.email ?? '');
     }
 
-    getReviewsMap();
-  }, [dispatch, user]);
+    getReviewsMap()
+      .then(data => {
+        // Reducer to set users into the state manager
+        dispatch(setReviews(data));
+      })
+      .catch(error => console.log(error));
+  }, [user]);
 
   return (
     <>

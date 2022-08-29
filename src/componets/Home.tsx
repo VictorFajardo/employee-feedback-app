@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Footer from './footer/footer';
 
-const Home = () => {
+function Home(): JSX.Element {
   return (
     <>
       <Outlet />

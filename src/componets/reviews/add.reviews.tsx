@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 // React components
 import { SyntheticEvent, useState } from 'react';
 // Redux components
@@ -16,7 +17,7 @@ import {
 // Chidren components
 import Title from '../elements/title';
 // Interface components
-import { EmployeeInterface } from '../../interfaces';
+import { EmployeeInterface, ReviewInterface } from '../../interfaces';
 // Material components
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import CloseIcon from '@mui/icons-material/Close';
@@ -30,7 +31,7 @@ interface AddReviewsProps {
   closeMethod: () => void;
 }
 
-const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
+function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
   const dispatch = useAppDispatch();
   const employees = useAppSelector(selectEmployees);
   const [employee, setEmployee] = useState<EmployeeInterface | null>(null);
@@ -38,58 +39,56 @@ const AddReviews: React.FC<AddReviewsProps> = ({ closeMethod }) => {
   const [reviewer, setReviewer] = useState<EmployeeInterface | null>(null);
   const [inputReviewer, setInputReviewer] = useState('');
 
-  const handleChangeEmployee = (
-    event: SyntheticEvent<Element, Event>,
-    newValue: EmployeeInterface | null
-  ) => setEmployee(newValue);
+  const handleChangeEmployee = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void => setEmployee(newValue);
 
-  const handleChangeReviewer = (
-    event: SyntheticEvent<Element, Event>,
-    newValue: EmployeeInterface | null
-  ) => setReviewer(newValue);
+  const handleChangeReviewer = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void => setReviewer(newValue);
 
-  const handleChangeInputEmployee = (
-    event: SyntheticEvent<Element, Event>,
-    newInputValue: string
-  ) => setInputEmployee(newInputValue);
+  const handleChangeInputEmployee = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void => setInputEmployee(newInputValue);
 
-  const handleChangeInputReviewer = (
-    event: SyntheticEvent<Element, Event>,
-    newInputValue: string
-  ) => setInputReviewer(newInputValue);
+  const handleChangeInputReviewer = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void => setInputReviewer(newInputValue);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    try {
-      if (employee && reviewer) {
-        // Api call to create the review in the reviews collection
-        const { id } = await createReviewApi(employee, reviewer);
-        // Api to update the reviewer from the users collection
-        const newReview = await getReviewApi(id);
-        // Reducer to update the new user into the state manager
-        dispatch(addReview(newReview));
-        // Api to update the reviewer from the users collection
-        await updateUserApi(reviewer.id, {
-          reviews: [...reviewer.reviews, id],
-        });
-        // Reducer to update the new user into the state manager
-        dispatch(
-          updateEmployee({
-            ...reviewer,
-            reviews: [...reviewer.reviews, id],
-          })
-        );
-        closeMethod();
-      }
-    } catch (error: any) {
-      // Error managment
-      if (error.code === 'auth/email-already-in-use') {
-        alert('Cannot create user, email already in use');
-      } else {
-        console.log('user creation encountered an error', error);
-      }
+    if (employee === null || reviewer === null) return;
+
+    async function returnsPromise(): Promise<string> {
+      // Api call to create the review in the reviews collection
+      return await createReviewApi(employee as EmployeeInterface, reviewer as EmployeeInterface);
     }
+
+    returnsPromise()
+      .then(id => {
+
+        async function returnsPromise(): Promise<ReviewInterface> {
+          // Api to update the review from the reviewss collection
+          return await getReviewApi(id);
+        }
+
+        returnsPromise()
+          .then(review => {
+            // Reducer to update the new review into the state manager
+            dispatch(addReview(review));
+
+            async function returnsPromise(): Promise<void> {
+              // Api to update the reviewer from the users collection
+              return await updateUserApi(reviewer?.id ?? '', { reviews: [...reviewer?.reviews ?? [], id] });
+            }
+
+            returnsPromise()
+              .then(() => {
+                // Reducer to update the new user into the state manager
+                dispatch(updateEmployee({ ...reviewer, reviews: [...reviewer.reviews, id] }));
+                closeMethod();
+
+              })
+              .catch(error => console.log(error));
+
+          })
+          .catch(error => console.log(error));
+
+      })
+      .catch(error => console.log(error));
   };
 
   return (

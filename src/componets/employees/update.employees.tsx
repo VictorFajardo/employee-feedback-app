@@ -33,7 +33,9 @@ function UpdateEmployees({ closeMethod }: UpdateEmployeesProps): JSX.Element {
   const { id, firstName, lastName, jobTitle, email, admin } = employeeFields;
 
   useEffect(() => {
-    setEmployeeFields(current);
+    if (current !== null) {
+      setEmployeeFields(current);
+    }
   }, [current]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -45,25 +47,21 @@ function UpdateEmployees({ closeMethod }: UpdateEmployeesProps): JSX.Element {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    try {
+    async function returnsPromise(): Promise<void> {
       // Api call to update the user in the users collection
-      await updateUserApi(id, {
-        firstName,
-        lastName,
-        jobTitle,
-        email,
-        admin,
-      });
-      // Reducer to update the user into the state manager
-      dispatch(updateEmployee(employeeFields));
-      closeMethod();
-    } catch (error) {
-      // Error managment
-      console.log('user update encountered an error', error);
+      await updateUserApi(id, { firstName, lastName, jobTitle, email, admin });
     }
+
+    returnsPromise()
+      .then(() => {
+        // Reducer to update the user into the state manager
+        dispatch(updateEmployee(employeeFields));
+        closeMethod();
+      })
+      .catch(error => console.log(error));
   };
 
   return (

@@ -18,7 +18,7 @@ import ReviewList from './componets/ReviewsList';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Unsubscribe } from 'firebase/auth';
+import { Unsubscribe, User } from 'firebase/auth';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ function App(): JSX.Element {
   const theme = createTheme();
 
   useEffect(() => {
-    const unsubscribe: Unsubscribe = onAuthStateChangedListener(async user => {
+    const unsubscribe: Unsubscribe = onAuthStateChangedListener(async (user: User | null) => {
       if (user !== null) {
         // Api to retrive the new user from the users collection
         const data = await getUserApi(user.uid);

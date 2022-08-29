@@ -11,22 +11,16 @@ interface IndexReviewsProps {
   clickMethod: (modal: ModalType, id?: string) => void;
 }
 
-const IndexReviews: React.FC<IndexReviewsProps> = ({
-  modal,
-  closeMethod,
-  clickMethod,
-}) => {
+function IndexReviews({ modal, closeMethod, clickMethod }: IndexReviewsProps): JSX.Element {
   switch (modal) {
     case ModalType.VIEW:
-      return (
-        <ViewReviews closeMethod={closeMethod} clickMethod={clickMethod} />
-      );
+      return <ViewReviews closeMethod={closeMethod} clickMethod={clickMethod} />;
     case ModalType.UPDATE:
       return <UpdateReviews closeMethod={closeMethod} />;
     case ModalType.ADD:
       return <AddReviews closeMethod={closeMethod} />;
     default:
-      return null;
+      return <></>;
   }
 };
 

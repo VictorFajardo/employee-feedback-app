@@ -1,5 +1,5 @@
 // React components
-import { useState, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../hooks';
 import {
@@ -18,7 +18,6 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import Modal from '@mui/material/Modal';
 import Divider from '@mui/material/Divider';
-import React from 'react';
 // Interface components
 import { ModalType } from '../data';
 
@@ -34,20 +33,20 @@ const style = {
   p: 4,
 };
 
-const EmployeeList = () => {
+function EmployeeList(): JSX.Element {
   const dispatch = useAppDispatch();
   const employees = useAppSelector(selectEmployees); // Select all the epmloyees to build the employee list
   const [open, setOpen] = useState(false); // Modal open status: true | false
   const [modal, setModal] = React.useState<ModalType>(ModalType.VIEW); // Modal content component: ADD | VIEW | UPDATE | DELETE
 
-  const handleClose = () => setOpen(false);
+  const handleClose = (): void => setOpen(false);
 
   const handleClick = (modal: ModalType, id?: string): void => {
     // If 'id' parameter esxist, update currentEmployee in the state manager
-    if (id) {
+    if (id !== undefined) {
       const currentEmployee = employees.find(employee => employee.id === id);
       // Reducer to set the currentEmployee into the state manager
-      if (currentEmployee) dispatch(setCurrentEmployee(currentEmployee));
+      if (currentEmployee !== undefined) dispatch(setCurrentEmployee(currentEmployee));
     }
 
     setModal(modal);
@@ -63,7 +62,7 @@ const EmployeeList = () => {
         aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          {}
+          { }
           <IndexEmployees
             modal={modal}
             closeMethod={handleClose}

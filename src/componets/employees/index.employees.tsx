@@ -14,9 +14,7 @@ interface IndexEmployeesProps {
 function IndexEmployees({ modal, closeMethod, clickMethod }: IndexEmployeesProps): JSX.Element {
   switch (modal) {
     case ModalType.VIEW:
-      return (
-        <ViewEmployees closeMethod={closeMethod} clickMethod={clickMethod} />
-      );
+      return <ViewEmployees closeMethod={closeMethod} clickMethod={clickMethod} />;
     case ModalType.UPDATE:
       return <UpdateEmployees closeMethod={closeMethod} />;
     case ModalType.ADD:

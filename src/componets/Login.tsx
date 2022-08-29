@@ -9,40 +9,43 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { UserCredential } from 'firebase/auth';
 
 const defaultUserFields = {
   password: '',
   email: '',
 };
 
-const Login = () => {
+function Login(): JSX.Element {
   const [userFields, setUserFields] = useState(defaultUserFields); // User detail values
   const { email, password } = userFields;
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
     setUserFields({ ...userFields, [name]: value });
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    try {
-      // Api call to sign in with user/password
-      await signInAuthUser(email, password);
-    } catch (error: any) {
-      // Error managment
-      switch (error.code) {
-        case 'auth/wrong-password':
-          alert('Incorrect password for email');
-          break;
-        case 'auth/user-not-found':
-          alert('No user associated with this email');
-          break;
-        default:
-          console.log(error);
-      }
+    async function returnsPromise(): Promise<UserCredential | undefined> {
+      return await signInAuthUser(email, password);
     }
+
+    returnsPromise()
+      .then()
+      .catch(error => {
+        switch (error.code) {
+          case 'auth/wrong-password':
+            alert('Incorrect password for email');
+            break;
+          case 'auth/user-not-found':
+            alert('No user associated with this email');
+            break;
+          default:
+            console.log(error);
+        }
+      });
   };
 
   return (

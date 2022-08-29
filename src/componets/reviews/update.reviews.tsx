@@ -2,8 +2,7 @@
 import { useEffect, useState } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { currentReview } from '../../features/reviews/reviewsSlice';
-import { updateReview } from '../../features/reviews/reviewsSlice';
+import { currentReview, updateReview } from '../../features/reviews/reviewsSlice';
 // Api components
 import { updateReviewApi } from '../../utilities/firebase';
 // Chidren components
@@ -22,7 +21,7 @@ interface UpdateReviewsProps {
   closeMethod: () => void;
 }
 
-const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
+function UpdateReviews({ closeMethod }: UpdateReviewsProps): JSX.Element {
   const dispatch = useAppDispatch();
   const current = useAppSelector(currentReview); // Select the current review to display details
   const [reviewFields, setReviewFields] = useState(DefaultReviewFields); // Review detail values
@@ -41,25 +40,26 @@ const UpdateReviews: React.FC<UpdateReviewsProps> = ({ closeMethod }) => {
     setReviewFields(current);
   }, [current]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     const { name, value } = event.target;
     setReviewFields({ ...reviewFields, [name]: value });
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    const completed = content.length ? true : false;
 
-    try {
+    async function returnsPromise(): Promise<void> {
       // Api call to update the review in the reviews collection
-      await updateReviewApi(id, { content, completed: completed });
-      // Reducer to update the review into the state manager
-      dispatch(updateReview({ ...reviewFields, completed: completed }));
-      closeMethod();
-    } catch (error) {
-      // Error managment
-      console.log('user update encountered an error', error);
+      return await updateReviewApi(id, { content });
     }
+
+    returnsPromise()
+      .then(() => {
+        // Reducer to update the review into the state manager
+        dispatch(updateReview({ ...reviewFields }));
+        closeMethod();
+      })
+      .catch(error => console.log(error));
   };
 
   return (

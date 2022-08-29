@@ -9,6 +9,7 @@ import {
   createAuthUserWithEmailAndPassword,
   getUserApi,
 } from '../../utilities/firebase';
+import { UserCredential } from 'firebase/auth';
 // Chidren components
 import Title from '../elements/title';
 // Material components
@@ -18,10 +19,11 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
-// Interface components
-import { DefaultEmployeeFields } from '../../data';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+// Interface components
+import { EmployeeInterface } from '../../interfaces';
+import { DefaultEmployeeFields } from '../../data';
 
 interface AddEmployeesProps {
   closeMethod: () => void;
@@ -49,8 +51,9 @@ function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    // TODO convert all the nested promises into a one
 
     // Password confirmation managment
     if (password !== confirmPassword) {
@@ -58,38 +61,50 @@ function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
       return;
     }
 
-    try {
+    async function returnsPromise(): Promise<UserCredential | undefined> {
       // Api call to create the auth user
-      const userCredential = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      if (userCredential !== undefined) {
-        const {
-          user: { uid },
-        } = userCredential;
-        // Api call to create the user in the users collection
-        await addUserApi(uid, {
-          firstName,
-          lastName,
-          email,
-          jobTitle,
-          admin,
-        });
-        // Api to retrive the new user from the users collection
-        const newEmployee = await getUserApi(uid);
-        // Reducer to update the new user into the state manager
-        dispatch(addEmployee(newEmployee));
-        closeMethod();
-      }
-    } catch (error: any) {
-      // Error managment
-      if (error.code === 'auth/email-already-in-use') {
-        alert('Cannot create user, email already in use');
-      } else {
-        console.log('user creation encountered an error', error);
-      }
+      return await createAuthUserWithEmailAndPassword(email, password);
     }
+
+    returnsPromise()
+      .then((userCredential) => {
+        if (userCredential === undefined) return;
+
+        const { user: { uid } } = userCredential;
+
+        async function returnsPromise(): Promise<void> {
+          // Api call to create the user in the users collection
+          await addUserApi(uid, { firstName, lastName, email, jobTitle, admin });
+        }
+
+        returnsPromise()
+          .then(() => {
+
+            async function returnsPromise(): Promise<EmployeeInterface> {
+              // Api to retrive the new user from the users collection
+              return await getUserApi(uid);
+            }
+
+            returnsPromise()
+              .then((newEmployee) => {
+                // Reducer to update the new user into the state manager
+                dispatch(addEmployee(newEmployee));
+                closeMethod();
+              })
+              .catch(error => console.log(error));
+
+          })
+          .catch(error => console.log(error));
+
+      })
+      .catch(error => {
+        // Error managment
+        if (error.code === 'auth/email-already-in-use') {
+          alert('Cannot create user, email already in use');
+        } else {
+          console.log('user creation encountered an error', error);
+        }
+      });
   };
 
   return (

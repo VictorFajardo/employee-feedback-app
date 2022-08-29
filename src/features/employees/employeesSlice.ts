@@ -50,7 +50,7 @@ export const {
   deleteEmployee,
 } = employeesSlice.actions;
 
-export const selectEmployees = (state: RootState) => state.employees.data;
-export const currentEmployee = (state: RootState) => state.employees.current;
+export const selectEmployees = (state: RootState): EmployeeInterface[] => state.employees.data;
+export const currentEmployee = (state: RootState): EmployeeInterface | null => state.employees.current;
 
 export default employeesSlice.reducer;

@@ -1,6 +1,6 @@
 // React components
 import { useNavigate } from 'react-router-dom';
-//Redux components
+// Redux components
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { currentUser } from '../../features/authentication/authenticationSlice';
 import { cleanReviews } from '../../features/reviews/reviewsSlice';
@@ -18,32 +18,39 @@ function Menu(): JSX.Element {
   const user = useAppSelector(currentUser); // Select the current user to verify level access
   const navigate = useNavigate();
 
-  const handleClick = async (event: React.MouseEvent<HTMLElement>, target: string): Promise<void> => {
-    if (target === 'signout') {
-      // Api call to sign out
-      await signOutUser();
-      // Reducer to delete all the reviews from the state manager
-      dispatch(cleanReviews());
-      navigate('/login');
-    } else {
+  const handleClick = (_event: React.MouseEvent<HTMLElement>, target: string): void => {
+    if (target !== 'signout') {
       navigate(target);
     }
+
+    async function returnsPromise(): Promise<void> {
+      // Api call to sign out
+      return await signOutUser();
+    }
+
+    returnsPromise()
+      .then(() => {
+        // Reducer to delete all the reviews from the state manager
+        dispatch(cleanReviews());
+        navigate('/login');
+      })
+      .catch(error => console.log(error));
   };
 
   return (
     <Container maxWidth='xl' sx={{ display: 'flex' }}>
       <Box sx={{ flexGrow: 1, display: 'flex' }}>
         <Button
-          onClick={async e => await handleClick(e, 'reviews')}
+          onClick={(e) => handleClick(e, 'reviews')}
           sx={{ my: 2 }}
           variant='contained'
           startIcon={<FormatListBulletedIcon />}
         >
           Reviews List
         </Button>
-        {user && user.admin && (
+        {((user?.admin) ?? false) && (
           <Button
-            onClick={e => handleClick(e, 'employees')}
+            onClick={(e) => handleClick(e, 'employees')}
             sx={{ my: 2, ml: 2 }}
             color='secondary'
             variant='contained'
@@ -61,7 +68,7 @@ function Menu(): JSX.Element {
         }}
       >
         <Button
-          onClick={e => handleClick(e, 'signout')}
+          onClick={(e) => handleClick(e, 'signout')}
           sx={{ my: 2, ml: 2 }}
           color='error'
           variant='contained'

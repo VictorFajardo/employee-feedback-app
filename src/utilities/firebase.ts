@@ -5,6 +5,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  UserCredential,
+  Unsubscribe,
   NextOrObserver,
   User,
 } from 'firebase/auth';
@@ -39,30 +41,27 @@ export const auth = getAuth();
 export const db = getFirestore();
 
 // Auth
-export const createAuthUserWithEmailAndPassword = async (
-  email: string,
-  password: string
-) => {
-  if (!email || !password) return;
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string): Promise<UserCredential | undefined> => {
+  if (email === '' || password === '') return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInAuthUser = async (email: string, password: string) => {
-  if (!email || !password) return;
+export const signInAuthUser = async (email: string, password: string): Promise<UserCredential | undefined> => {
+  if (email === '' || password === '') return;
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
-  onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback: Function): Unsubscribe =>
+  onAuthStateChanged(auth, callback as NextOrObserver<User>);
 
-export const signOutUser = async () => await signOut(auth);
+export const signOutUser = async (): Promise<void> => await signOut(auth);
 
 // User Api
 
-//TODO replace for getCollectionApi
-export const getUsersApi = async () => {
+// TODO replace for getCollectionApi
+export const getUsersApi = async (): Promise<EmployeeInterface[]> => {
   const collectionRef = collection(db, 'users');
   const q = query(collectionRef);
 
@@ -82,8 +81,8 @@ export const getUsersApi = async () => {
   return usersMap;
 };
 
-//TODO replace for getDocApi
-export const getUserApi = async (id: string) => {
+// TODO replace for getDocApi
+export const getUserApi = async (id: string): Promise<EmployeeInterface> => {
   const docRef = doc(db, 'users', id);
 
   const docSnapshot = await getDoc(docRef);
@@ -95,7 +94,7 @@ export const getUserApi = async (id: string) => {
   return data;
 };
 
-export const addUserApi = async (id: string, additionalInformation: Object) => {
+export const addUserApi = async (id: string, additionalInformation: object): Promise<void> => {
   const docRef = doc(db, 'users', id);
   const createdAt = new Date();
 
@@ -106,30 +105,28 @@ export const addUserApi = async (id: string, additionalInformation: Object) => {
     ...additionalInformation,
   });
 
-  return;
 };
 
-//TODO replace for updateDocApi
-export const updateUserApi = async (id: string, updateParams: object) => {
+// TODO replace for updateDocApi
+export const updateUserApi = async (id: string, updateParams: object): Promise<void> => {
   const docRef = doc(db, 'users', id);
 
   await updateDoc(docRef, { ...updateParams });
 
-  return;
 };
 
-export const deleteUserApi = async (id: string) => {
+export const deleteUserApi = async (id: string): Promise<void> => {
   const docRef = doc(db, 'users', id);
 
   await deleteDoc(docRef);
 
-  return;
+
 };
 
 // Review Api
 
-//TODO replace for getCollectionApi
-export const getReviewsApi = async (admin: boolean, email: string) => {
+// TODO replace for getCollectionApi
+export const getReviewsApi = async (admin: boolean, email: string): Promise<ReviewInterface[]> => {
   const collectionRef = collection(db, 'reviews');
   const q = admin
     ? query(collectionRef)
@@ -151,34 +148,27 @@ export const getReviewsApi = async (admin: boolean, email: string) => {
   return reviewsMap;
 };
 
-//TODO replace for getDocApi
-export const getReviewApi = async (id: string) => {
+// TODO replace for getDocApi
+export const getReviewApi = async (id: string): Promise<ReviewInterface> => {
   const docRef = doc(db, 'reviews', id);
 
   const docSnapshot = await getDoc(docRef);
 
   const data = docSnapshot.data() as ReviewInterface;
-  if (data) {
-    data.id = docSnapshot.id;
-    data.createdAt = JSON.stringify(data.createdAt);
-  }
+  data.id = docSnapshot.id;
+  data.createdAt = JSON.stringify(data.createdAt);
 
   return data;
 };
 
-//TODO replace for updateDocApi
-export const updateReviewApi = async (id: string, updateParams: object) => {
+// TODO replace for updateDocApi
+export const updateReviewApi = async (id: string, updateParams: object): Promise<void> => {
   const docRef = doc(db, 'reviews', id);
 
   await updateDoc(docRef, { ...updateParams });
-
-  return;
 };
 
-export const createReviewApi = async (
-  employee: EmployeeInterface,
-  reviewer: EmployeeInterface
-) => {
+export const createReviewApi = async (employee: EmployeeInterface, reviewer: EmployeeInterface): Promise<string> => {
   const collectionRef = collection(db, 'reviews');
   const createdAt = new Date();
 
@@ -194,5 +184,5 @@ export const createReviewApi = async (
     completed: false,
   });
 
-  return response;
+  return response.id;
 };

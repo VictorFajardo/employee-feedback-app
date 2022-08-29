@@ -22,6 +22,6 @@ export const authenticationSlice = createSlice({
 
 export const { setCurrentUser } = authenticationSlice.actions;
 
-export const currentUser = (state: RootState) => state.authentication.user;
+export const currentUser = (state: RootState): EmployeeInterface | null => state.authentication.user;
 
 export default authenticationSlice.reducer;

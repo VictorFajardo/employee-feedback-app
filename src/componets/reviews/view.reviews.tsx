@@ -20,10 +20,7 @@ interface ViewEmployeesProps {
   clickMethod: (modal: ModalType, id?: string) => void;
 }
 
-const ViewReview: React.FC<ViewEmployeesProps> = ({
-  closeMethod,
-  clickMethod,
-}) => {
+function ViewReview({ closeMethod, clickMethod }: ViewEmployeesProps): JSX.Element {
   const current = useAppSelector(currentReview); // Select the current review to display details
   const [reviewFields, setReviewFields] = useState(DefaultReviewFields); // Review detail values
   const {

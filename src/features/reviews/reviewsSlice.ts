@@ -36,7 +36,7 @@ export const reviewsSlice = createSlice({
       ];
     },
     deleteReview: (state, action: PayloadAction<string>) => {
-      state.data = [...state.data.filter(user => user.id !== action.payload)];
+      state.data = [...state.data.filter(review => review.id !== action.payload)];
     },
   },
 });
@@ -50,7 +50,7 @@ export const {
   deleteReview,
 } = reviewsSlice.actions;
 
-export const selectReviews = (state: RootState) => state.reviews.data;
-export const currentReview = (state: RootState) => state.reviews.current;
+export const selectReviews = (state: RootState): ReviewInterface[] => state.reviews.data;
+export const currentReview = (state: RootState): ReviewInterface => state.reviews.current;
 
 export default reviewsSlice.reducer;

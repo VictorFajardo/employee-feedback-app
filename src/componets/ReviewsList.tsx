@@ -3,10 +3,7 @@
 import React, { useState, Fragment } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../hooks';
-import {
-  selectReviews,
-  setCurrentReview,
-} from '../features/reviews/reviewsSlice';
+import { selectReviews, setCurrentReview } from '../features/reviews/reviewsSlice';
 import { currentUser } from '../features/authentication/authenticationSlice';
 // Chidren components
 import Review from './elements/review';
@@ -46,10 +43,10 @@ function ReviewsList(): JSX.Element {
 
   const handleClick = (modal: ModalType, id?: string): void => {
     // If 'id' parameter esxist, update the current employee in the state manager
-    if (id) {
+    if (id !== undefined) {
       const currentReview = reviews.find(review => review.id === id);
       // Reducer to set the currentReview into the state manager
-      if (currentReview) dispatch(setCurrentReview(currentReview));
+      if (currentReview !== undefined) dispatch(setCurrentReview(currentReview));
     }
 
     setModal(modal);
@@ -98,7 +95,7 @@ function ReviewsList(): JSX.Element {
             flexDirection: 'row-reverse',
           }}
         >
-          {user && user.admin && (
+          {((user?.admin) ?? false) && (
             <Button
               onClick={() => handleClick(ModalType.ADD)}
               sx={{ my: 2, ml: 2, display: 'flex' }}

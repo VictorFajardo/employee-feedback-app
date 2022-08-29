@@ -28,7 +28,9 @@ function ViewEmployees({ closeMethod, clickMethod }: ViewEmployeesProps): JSX.El
   const { id, firstName, lastName, jobTitle, email, admin } = employeeFields;
 
   useEffect(() => {
-    setEmployeeFields(current);
+    if (current !== null) {
+      setEmployeeFields(current);
+    }
   }, [current]);
 
   return (
