@@ -21,5 +21,5 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react"],
-  "rules": { "@typescript-eslint/no-non-null-assertion": "warn" }
+  "rules": {}
 }
