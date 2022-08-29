@@ -1,4 +1,4 @@
-export const stringToColor = (string: string) => {
+export const stringToColor = (string: string): string => {
   let hash = 0;
   let i;
 
@@ -16,7 +16,12 @@ export const stringToColor = (string: string) => {
   return color;
 };
 
-export const stringAvatar = (name: string) => {
+interface StringAvatarType {
+  sx: { bgcolor: string },
+  children: string
+}
+
+export const stringAvatar = (name: string): StringAvatarType => {
   return {
     sx: {
       bgcolor: stringToColor(name),

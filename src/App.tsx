@@ -1,7 +1,6 @@
 // React components
 import { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 // Redux components
 import { useAppDispatch } from './hooks';
 import { setCurrentUser } from './features/authentication/authenticationSlice';
@@ -21,7 +20,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Unsubscribe } from 'firebase/auth';
 
-function App() {
+function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const theme = createTheme();
@@ -29,7 +28,7 @@ function App() {
   useEffect(() => {
     const unsubscribe: Unsubscribe = onAuthStateChangedListener(
       async (user) => {
-        if (user) {
+        if (user != null) {
           // Api to retrive the new user from the users collection
           const data = await getUserApi(user.uid);
           // Reducer to set the user into the state manager
@@ -44,7 +43,6 @@ function App() {
     );
 
     return unsubscribe;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
