@@ -24,10 +24,7 @@ function Employee({ employee, clickMethod }: EmployeeProps): JSX.Element {
       <ListItemAvatar>
         <Avatar {...stringAvatar(`${firstName} ${lastName}`)} />
       </ListItemAvatar>
-      <ListItemText
-        primary={`${firstName} ${lastName} - ${jobTitle}`}
-        secondary={email}
-      />
+      <ListItemText primary={`${firstName} ${lastName} - ${jobTitle}`} secondary={email} />
       <Button
         sx={{ mr: 2 }}
         onClick={() => clickMethod(ModalType.UPDATE, id)}

@@ -52,10 +52,7 @@ function App(): JSX.Element {
             <Route path='/' element={<Navigate replace to='login' />} />
             <Route path='login' element={<Login />} />
             <Route path='dashboard' element={<Dashboard />}>
-              <Route
-                path='/dashboard'
-                element={<Navigate replace to='reviews' />}
-              />
+              <Route path='/dashboard' element={<Navigate replace to='reviews' />} />
               <Route path='reviews' element={<ReviewList />} />
               <Route path='employees' element={<EmployeeList />} />
             </Route>

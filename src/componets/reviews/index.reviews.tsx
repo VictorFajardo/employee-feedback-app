@@ -22,6 +22,6 @@ function IndexReviews({ modal, closeMethod, clickMethod }: IndexReviewsProps): J
     default:
       return <></>;
   }
-};
+}
 
 export default IndexReviews;

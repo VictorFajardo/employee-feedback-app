@@ -4,16 +4,9 @@ import { SyntheticEvent, useState } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { addReview } from '../../features/reviews/reviewsSlice';
-import {
-  selectEmployees,
-  updateEmployee,
-} from '../../features/employees/employeesSlice';
+import { selectEmployees, updateEmployee } from '../../features/employees/employeesSlice';
 // Api components
-import {
-  createReviewApi,
-  updateUserApi,
-  getReviewApi,
-} from '../../utilities/firebase';
+import { createReviewApi, updateUserApi, getReviewApi } from '../../utilities/firebase';
 // Chidren components
 import Title from '../elements/title';
 // Interface components
@@ -39,13 +32,17 @@ function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
   const [reviewer, setReviewer] = useState<EmployeeInterface | null>(null);
   const [inputReviewer, setInputReviewer] = useState('');
 
-  const handleChangeEmployee = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void => setEmployee(newValue);
+  const handleChangeEmployee = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void =>
+    setEmployee(newValue);
 
-  const handleChangeReviewer = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void => setReviewer(newValue);
+  const handleChangeReviewer = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void =>
+    setReviewer(newValue);
 
-  const handleChangeInputEmployee = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void => setInputEmployee(newInputValue);
+  const handleChangeInputEmployee = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void =>
+    setInputEmployee(newInputValue);
 
-  const handleChangeInputReviewer = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void => setInputReviewer(newInputValue);
+  const handleChangeInputReviewer = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void =>
+    setInputReviewer(newInputValue);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -59,7 +56,6 @@ function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
 
     returnsPromise()
       .then(id => {
-
         async function returnsPromise(): Promise<ReviewInterface> {
           // Api to update the review from the reviewss collection
           return await getReviewApi(id);
@@ -72,21 +68,25 @@ function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
 
             async function returnsPromise(): Promise<void> {
               // Api to update the reviewer from the users collection
-              return await updateUserApi(reviewer?.id ?? '', { reviews: [...reviewer?.reviews ?? [], id] });
+              return await updateUserApi(reviewer?.id ?? '', {
+                reviews: [...(reviewer?.reviews ?? []), id],
+              });
             }
 
             returnsPromise()
               .then(() => {
                 // Reducer to update the new user into the state manager
-                dispatch(updateEmployee({ ...reviewer, reviews: [...reviewer.reviews, id] }));
+                dispatch(
+                  updateEmployee({
+                    ...reviewer,
+                    reviews: [...reviewer.reviews, id],
+                  })
+                );
                 closeMethod();
-
               })
               .catch(error => console.log(error));
-
           })
           .catch(error => console.log(error));
-
       })
       .catch(error => console.log(error));
   };
@@ -104,12 +104,8 @@ function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
           onInputChange={handleChangeInputEmployee}
           options={employees}
           isOptionEqualToValue={(option, value) => option.id === value.id}
-          getOptionLabel={option =>
-            `${option.firstName} ${option.lastName} | ${option.jobTitle}`
-          }
-          renderInput={params => (
-            <TextField {...params} label='Select employee' required />
-          )}
+          getOptionLabel={option => `${option.firstName} ${option.lastName} | ${option.jobTitle}`}
+          renderInput={params => <TextField {...params} label='Select employee' required />}
         />
         <Autocomplete
           sx={{ margin: '16px 0 8px' }}
@@ -119,12 +115,8 @@ function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
           onInputChange={handleChangeInputReviewer}
           options={employees}
           isOptionEqualToValue={(option, value) => option.id === value.id}
-          getOptionLabel={option =>
-            `${option.firstName} ${option.lastName} | ${option.jobTitle}`
-          }
-          renderInput={params => (
-            <TextField {...params} label='Select reviewer' required />
-          )}
+          getOptionLabel={option => `${option.firstName} ${option.lastName} | ${option.jobTitle}`}
+          renderInput={params => <TextField {...params} label='Select reviewer' required />}
         />
         <Box
           sx={{
@@ -155,6 +147,6 @@ function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
       </Box>
     </Container>
   );
-};
+}
 
 export default AddReviews;

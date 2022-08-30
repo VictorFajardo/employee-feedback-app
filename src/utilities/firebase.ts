@@ -41,7 +41,10 @@ export const auth = getAuth();
 export const db = getFirestore();
 
 // Auth
-export const createAuthUserWithEmailAndPassword = async (email: string, password: string): Promise<UserCredential | undefined> => {
+export const createAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+): Promise<UserCredential | undefined> => {
   if (email === '' || password === '') return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
@@ -67,16 +70,13 @@ export const getUsersApi = async (): Promise<EmployeeInterface[]> => {
 
   const querySnapshot = await getDocs(q);
 
-  const usersMap = querySnapshot.docs.reduce(
-    (acc: EmployeeInterface[], docSnapshot, index) => {
-      const data = docSnapshot.data() as EmployeeInterface;
-      data.id = docSnapshot.id;
-      data.createdAt = JSON.stringify(data.createdAt); //* to review!
-      acc[index] = data;
-      return acc;
-    },
-    []
-  );
+  const usersMap = querySnapshot.docs.reduce((acc: EmployeeInterface[], docSnapshot, index) => {
+    const data = docSnapshot.data() as EmployeeInterface;
+    data.id = docSnapshot.id;
+    data.createdAt = JSON.stringify(data.createdAt); //* to review!
+    acc[index] = data;
+    return acc;
+  }, []);
 
   return usersMap;
 };
@@ -104,7 +104,6 @@ export const addUserApi = async (id: string, additionalInformation: object): Pro
     admin: false,
     ...additionalInformation,
   });
-
 };
 
 // TODO replace for updateDocApi
@@ -112,15 +111,12 @@ export const updateUserApi = async (id: string, updateParams: object): Promise<v
   const docRef = doc(db, 'users', id);
 
   await updateDoc(docRef, { ...updateParams });
-
 };
 
 export const deleteUserApi = async (id: string): Promise<void> => {
   const docRef = doc(db, 'users', id);
 
   await deleteDoc(docRef);
-
-
 };
 
 // Review Api
@@ -128,22 +124,17 @@ export const deleteUserApi = async (id: string): Promise<void> => {
 // TODO replace for getCollectionApi
 export const getReviewsApi = async (admin: boolean, email: string): Promise<ReviewInterface[]> => {
   const collectionRef = collection(db, 'reviews');
-  const q = admin
-    ? query(collectionRef)
-    : query(collectionRef, where('reviewerEmail', '==', email));
+  const q = admin ? query(collectionRef) : query(collectionRef, where('reviewerEmail', '==', email));
 
   const querySnapshot = await getDocs(q);
 
-  const reviewsMap = querySnapshot.docs.reduce(
-    (acc: ReviewInterface[], docSnapshot, index) => {
-      const data = docSnapshot.data() as ReviewInterface;
-      data.id = docSnapshot.id;
-      data.createdAt = JSON.stringify(data.createdAt);
-      acc[index] = data;
-      return acc;
-    },
-    []
-  );
+  const reviewsMap = querySnapshot.docs.reduce((acc: ReviewInterface[], docSnapshot, index) => {
+    const data = docSnapshot.data() as ReviewInterface;
+    data.id = docSnapshot.id;
+    data.createdAt = JSON.stringify(data.createdAt);
+    acc[index] = data;
+    return acc;
+  }, []);
 
   return reviewsMap;
 };

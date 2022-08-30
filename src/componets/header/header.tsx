@@ -65,9 +65,7 @@ function Header(): JSX.Element {
                   flexDirection: 'row-reverse',
                 }}
               >
-                <Avatar
-                  {...stringAvatar(`${user.firstName} ${user.lastName}`)}
-                />
+                <Avatar {...stringAvatar(`${user.firstName} ${user.lastName}`)} />
               </Box>
             </>
           )}
@@ -75,6 +73,6 @@ function Header(): JSX.Element {
       </Container>
     </AppBar>
   );
-};
+}
 
 export default Header;

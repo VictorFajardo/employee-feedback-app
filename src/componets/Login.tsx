@@ -84,18 +84,12 @@ function Login(): JSX.Element {
           autoComplete='current-password'
           onChange={handleChange}
         />
-        <Button
-          type='submit'
-          fullWidth
-          variant='contained'
-          sx={{ mt: 3, mb: 2 }}
-          endIcon={<LoginIcon />}
-        >
+        <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }} endIcon={<LoginIcon />}>
           Sign In
         </Button>
       </Box>
     </Box>
   );
-};
+}
 
 export default Login;

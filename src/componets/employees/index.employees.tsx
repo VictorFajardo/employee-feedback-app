@@ -22,6 +22,6 @@ function IndexEmployees({ modal, closeMethod, clickMethod }: IndexEmployeesProps
     default:
       return <></>;
   }
-};
+}
 
 export default IndexEmployees;

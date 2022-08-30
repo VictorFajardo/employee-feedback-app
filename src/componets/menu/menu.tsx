@@ -21,6 +21,7 @@ function Menu(): JSX.Element {
   const handleClick = (_event: React.MouseEvent<HTMLElement>, target: string): void => {
     if (target !== 'signout') {
       navigate(target);
+      return;
     }
 
     async function returnsPromise(): Promise<void> {
@@ -41,16 +42,16 @@ function Menu(): JSX.Element {
     <Container maxWidth='xl' sx={{ display: 'flex' }}>
       <Box sx={{ flexGrow: 1, display: 'flex' }}>
         <Button
-          onClick={(e) => handleClick(e, 'reviews')}
+          onClick={e => handleClick(e, 'reviews')}
           sx={{ my: 2 }}
           variant='contained'
           startIcon={<FormatListBulletedIcon />}
         >
           Reviews List
         </Button>
-        {((user?.admin) ?? false) && (
+        {(user?.admin ?? false) && (
           <Button
-            onClick={(e) => handleClick(e, 'employees')}
+            onClick={e => handleClick(e, 'employees')}
             sx={{ my: 2, ml: 2 }}
             color='secondary'
             variant='contained'
@@ -68,7 +69,7 @@ function Menu(): JSX.Element {
         }}
       >
         <Button
-          onClick={(e) => handleClick(e, 'signout')}
+          onClick={e => handleClick(e, 'signout')}
           sx={{ my: 2, ml: 2 }}
           color='error'
           variant='contained'
@@ -79,6 +80,6 @@ function Menu(): JSX.Element {
       </Box>
     </Container>
   );
-};
+}
 
 export default Menu;

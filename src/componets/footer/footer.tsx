@@ -34,11 +34,7 @@ function Footer(): JSX.Element {
             }}
           >
             Architect designed and developed by&nbsp;
-            <a
-              href='https://www.linkedin.com/in/victorfajardo/'
-              target='_blank'
-              rel='noreferrer'
-            >
+            <a href='https://www.linkedin.com/in/victorfajardo/' target='_blank' rel='noreferrer'>
               Victor Fajardo
             </a>
           </Typography>
@@ -66,18 +62,10 @@ function Footer(): JSX.Element {
               '& > a': { ml: 1 },
             }}
           >
-            <a
-              href='https://www.linkedin.com/in/victorfajardo/'
-              target='_blank'
-              rel='noreferrer'
-            >
+            <a href='https://www.linkedin.com/in/victorfajardo/' target='_blank' rel='noreferrer'>
               <SvgIcon component={LinkedInIcon} />
             </a>
-            <a
-              href='https://github.com/VictorFajardo'
-              target='_blank'
-              rel='noreferrer'
-            >
+            <a href='https://github.com/VictorFajardo' target='_blank' rel='noreferrer'>
               <SvgIcon component={GitHubIcon} />
             </a>
           </Box>
@@ -85,6 +73,6 @@ function Footer(): JSX.Element {
       </Container>
     </footer>
   );
-};
+}
 
 export default Footer;

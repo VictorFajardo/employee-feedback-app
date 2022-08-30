@@ -82,10 +82,7 @@ function ViewEmployees({ closeMethod, clickMethod }: ViewEmployeesProps): JSX.El
             readOnly: true,
           }}
         />
-        <FormControlLabel
-          control={<Checkbox name='admin' checked={admin} />}
-          label='Administrator'
-        />
+        <FormControlLabel control={<Checkbox name='admin' checked={admin} />} label='Administrator' />
         <Box
           sx={{
             flexGrow: 1,
@@ -115,6 +112,6 @@ function ViewEmployees({ closeMethod, clickMethod }: ViewEmployeesProps): JSX.El
       </Box>
     </Container>
   );
-};
+}
 
 export default ViewEmployees;

@@ -2,10 +2,7 @@
 import React, { useState, Fragment } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../hooks';
-import {
-  selectEmployees,
-  setCurrentEmployee,
-} from '../features/employees/employeesSlice';
+import { selectEmployees, setCurrentEmployee } from '../features/employees/employeesSlice';
 // Chidren components
 import IndexEmployees from './employees/index.employees';
 import Employee from './elements/employee';
@@ -19,19 +16,7 @@ import List from '@mui/material/List';
 import Modal from '@mui/material/Modal';
 import Divider from '@mui/material/Divider';
 // Interface components
-import { ModalType } from '../data';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 600,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+import { ModalType, ModalStyle } from '../data';
 
 function EmployeeList(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -61,13 +46,9 @@ function EmployeeList(): JSX.Element {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={style}>
-          { }
-          <IndexEmployees
-            modal={modal}
-            closeMethod={handleClose}
-            clickMethod={handleClick}
-          />
+        <Box sx={ModalStyle}>
+          {}
+          <IndexEmployees modal={modal} closeMethod={handleClose} clickMethod={handleClick} />
         </Box>
       </Modal>
       <Container maxWidth='xl' sx={{ display: 'flex' }}>
@@ -98,9 +79,7 @@ function EmployeeList(): JSX.Element {
             return (
               <Fragment key={employee.id}>
                 <Employee employee={employee} clickMethod={handleClick} />
-                {index !== employees.length - 1 && (
-                  <Divider variant='middle' component='li' />
-                )}
+                {index !== employees.length - 1 && <Divider variant='middle' component='li' />}
               </Fragment>
             );
           })}
@@ -108,6 +87,6 @@ function EmployeeList(): JSX.Element {
       </Container>
     </>
   );
-};
+}
 
 export default EmployeeList;

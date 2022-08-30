@@ -33,7 +33,6 @@ const Dashboard = (): JSX.Element => {
         dispatch(setEmployees(data));
       })
       .catch(error => console.log(error));
-
   }, [user]);
 
   useEffect(() => {

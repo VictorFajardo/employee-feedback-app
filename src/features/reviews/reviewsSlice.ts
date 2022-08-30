@@ -30,10 +30,7 @@ export const reviewsSlice = createSlice({
       state.data = [...state.data, action.payload];
     },
     updateReview: (state, action: PayloadAction<ReviewInterface>) => {
-      state.data = [
-        ...state.data.filter(review => review.id !== action.payload.id),
-        action.payload,
-      ];
+      state.data = [...state.data.filter(review => review.id !== action.payload.id), action.payload];
     },
     deleteReview: (state, action: PayloadAction<string>) => {
       state.data = [...state.data.filter(review => review.id !== action.payload)];
@@ -41,14 +38,8 @@ export const reviewsSlice = createSlice({
   },
 });
 
-export const {
-  setReviews,
-  setCurrentReview,
-  cleanReviews,
-  addReview,
-  updateReview,
-  deleteReview,
-} = reviewsSlice.actions;
+export const { setReviews, setCurrentReview, cleanReviews, addReview, updateReview, deleteReview } =
+  reviewsSlice.actions;
 
 export const selectReviews = (state: RootState): ReviewInterface[] => state.reviews.data;
 export const currentReview = (state: RootState): ReviewInterface => state.reviews.current;

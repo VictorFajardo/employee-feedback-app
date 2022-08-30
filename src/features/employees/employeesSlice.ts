@@ -30,10 +30,7 @@ export const employeesSlice = createSlice({
       state.data = [...state.data, action.payload];
     },
     updateEmployee: (state, action: PayloadAction<EmployeeInterface>) => {
-      state.data = [
-        ...state.data.filter(user => user.id !== action.payload.id),
-        action.payload,
-      ];
+      state.data = [...state.data.filter(user => user.id !== action.payload.id), action.payload];
     },
     deleteEmployee: (state, action: PayloadAction<string>) => {
       state.data = [...state.data.filter(user => user.id !== action.payload)];
@@ -41,14 +38,8 @@ export const employeesSlice = createSlice({
   },
 });
 
-export const {
-  setCurrentEmployee,
-  setEmployees,
-  cleanEmployees,
-  addEmployee,
-  updateEmployee,
-  deleteEmployee,
-} = employeesSlice.actions;
+export const { setCurrentEmployee, setEmployees, cleanEmployees, addEmployee, updateEmployee, deleteEmployee } =
+  employeesSlice.actions;
 
 export const selectEmployees = (state: RootState): EmployeeInterface[] => state.employees.data;
 export const currentEmployee = (state: RootState): EmployeeInterface | null => state.employees.current;

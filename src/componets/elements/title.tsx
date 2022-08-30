@@ -26,6 +26,6 @@ function Title({ text, align }: TitleProps): JSX.Element {
       {text}
     </Typography>
   );
-};
+}
 
 export default Title;

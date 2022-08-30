@@ -27,9 +27,7 @@ interface UpdateEmployeesProps {
 function UpdateEmployees({ closeMethod }: UpdateEmployeesProps): JSX.Element {
   const dispatch = useAppDispatch();
   const current = useAppSelector(currentEmployee); // Select the current employee to display details
-  const [employeeFields, setEmployeeFields] = useState<EmployeeInterface>(
-    DefaultEmployeeFields
-  ); // Employee detail values
+  const [employeeFields, setEmployeeFields] = useState<EmployeeInterface>(DefaultEmployeeFields); // Employee detail values
   const { id, firstName, lastName, jobTitle, email, admin } = employeeFields;
 
   useEffect(() => {
@@ -108,9 +106,7 @@ function UpdateEmployees({ closeMethod }: UpdateEmployeesProps): JSX.Element {
           onChange={handleChange}
         />
         <FormControlLabel
-          control={
-            <Checkbox name='admin' checked={admin} onChange={handleChange} />
-          }
+          control={<Checkbox name='admin' checked={admin} onChange={handleChange} />}
           label='Administrator'
         />
         <Box
@@ -142,6 +138,6 @@ function UpdateEmployees({ closeMethod }: UpdateEmployeesProps): JSX.Element {
       </Box>
     </Container>
   );
-};
+}
 
 export default UpdateEmployees;

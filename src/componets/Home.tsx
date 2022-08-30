@@ -8,6 +8,6 @@ function Home(): JSX.Element {
       <Footer />
     </>
   );
-};
+}
 
 export default Home;

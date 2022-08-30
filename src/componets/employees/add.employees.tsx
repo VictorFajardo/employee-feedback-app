@@ -4,11 +4,7 @@ import React, { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { addEmployee } from '../../features/employees/employeesSlice';
 // Api components
-import {
-  addUserApi,
-  createAuthUserWithEmailAndPassword,
-  getUserApi,
-} from '../../utilities/firebase';
+import { addUserApi, createAuthUserWithEmailAndPassword, getUserApi } from '../../utilities/firebase';
 import { UserCredential } from 'firebase/auth';
 // Chidren components
 import Title from '../elements/title';
@@ -32,15 +28,7 @@ interface AddEmployeesProps {
 function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [employeeFields, setEmployeeFields] = useState(DefaultEmployeeFields); // Employee detail values
-  const {
-    firstName,
-    lastName,
-    jobTitle,
-    email,
-    password,
-    confirmPassword,
-    admin,
-  } = employeeFields;
+  const { firstName, lastName, jobTitle, email, password, confirmPassword, admin } = employeeFields;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value, checked } = event.target;
@@ -67,35 +55,40 @@ function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
     }
 
     returnsPromise()
-      .then((userCredential) => {
+      .then(userCredential => {
         if (userCredential === undefined) return;
 
-        const { user: { uid } } = userCredential;
+        const {
+          user: { uid },
+        } = userCredential;
 
         async function returnsPromise(): Promise<void> {
           // Api call to create the user in the users collection
-          await addUserApi(uid, { firstName, lastName, email, jobTitle, admin });
+          await addUserApi(uid, {
+            firstName,
+            lastName,
+            email,
+            jobTitle,
+            admin,
+          });
         }
 
         returnsPromise()
           .then(() => {
-
             async function returnsPromise(): Promise<EmployeeInterface> {
               // Api to retrive the new user from the users collection
               return await getUserApi(uid);
             }
 
             returnsPromise()
-              .then((newEmployee) => {
+              .then(newEmployee => {
                 // Reducer to update the new user into the state manager
                 dispatch(addEmployee(newEmployee));
                 closeMethod();
               })
               .catch(error => console.log(error));
-
           })
           .catch(error => console.log(error));
-
       })
       .catch(error => {
         // Error managment
@@ -170,9 +163,7 @@ function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
           onChange={handleChange}
         />
         <FormControlLabel
-          control={
-            <Checkbox name='admin' checked={admin} onChange={handleChange} />
-          }
+          control={<Checkbox name='admin' checked={admin} onChange={handleChange} />}
           label='Administrator'
         />
         <Box
@@ -204,6 +195,6 @@ function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
       </Box>
     </Container>
   );
-};
+}
 
 export default AddEmployees;

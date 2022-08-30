@@ -1,5 +1,4 @@
 // React components
-// import React from 'react';
 import React, { useState, Fragment } from 'react';
 // Redux components
 import { useAppSelector, useAppDispatch } from '../hooks';
@@ -17,20 +16,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Divider from '@mui/material/Divider';
 // Interface components
-import { ModalType } from '../data';
+import { ModalType, ModalStyle } from '../data';
 import IndexReviews from './reviews/index.reviews';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 600,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 function ReviewsList(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -61,12 +48,8 @@ function ReviewsList(): JSX.Element {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={style}>
-          <IndexReviews
-            modal={modal}
-            closeMethod={handleClose}
-            clickMethod={handleClick}
-          />
+        <Box sx={ModalStyle}>
+          <IndexReviews modal={modal} closeMethod={handleClose} clickMethod={handleClick} />
         </Box>
       </Modal>
       <Container maxWidth='xl' sx={{ display: 'flex' }}>
@@ -95,7 +78,7 @@ function ReviewsList(): JSX.Element {
             flexDirection: 'row-reverse',
           }}
         >
-          {((user?.admin) ?? false) && (
+          {(user?.admin ?? false) && (
             <Button
               onClick={() => handleClick(ModalType.ADD)}
               sx={{ my: 2, ml: 2, display: 'flex' }}
@@ -113,9 +96,7 @@ function ReviewsList(): JSX.Element {
             return (
               <Fragment key={review.id}>
                 <Review review={review} clickMethod={handleClick} />
-                {index !== reviews.length - 1 && (
-                  <Divider key={index} variant='middle' component='li' />
-                )}
+                {index !== reviews.length - 1 && <Divider key={index} variant='middle' component='li' />}
               </Fragment>
             );
           })}
@@ -123,6 +104,6 @@ function ReviewsList(): JSX.Element {
       </Container>
     </>
   );
-};
+}
 
 export default ReviewsList;

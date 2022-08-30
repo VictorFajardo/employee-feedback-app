@@ -17,15 +17,7 @@ interface ReviewProps {
 }
 
 function Review({ review, clickMethod }: ReviewProps): JSX.Element {
-  const {
-    id,
-    employeeName,
-    employeeJobTitle,
-    employeeEmail,
-    reviewerName,
-    reviewerJobTitle,
-    completed,
-  } = review;
+  const { id, employeeName, employeeJobTitle, employeeEmail, reviewerName, reviewerJobTitle, completed } = review;
 
   return (
     <>
@@ -42,8 +34,9 @@ function Review({ review, clickMethod }: ReviewProps): JSX.Element {
         </ListItemAvatar>
         <ListItemText
           primary={`Review for ${employeeName} - ${employeeJobTitle} (${employeeEmail})`}
-          secondary={`Assigned to ${reviewerName} - ${reviewerJobTitle} [status: ${completed ? 'completed' : 'pending'
-            }]`}
+          secondary={`Assigned to ${reviewerName} - ${reviewerJobTitle} [status: ${
+            completed ? 'completed' : 'pending'
+          }]`}
         />
         <Button
           sx={{ mr: 2 }}
@@ -53,16 +46,12 @@ function Review({ review, clickMethod }: ReviewProps): JSX.Element {
         >
           UPDATE
         </Button>
-        <Button
-          onClick={() => clickMethod(ModalType.VIEW, id)}
-          variant='outlined'
-          endIcon={<VisibilityIcon />}
-        >
+        <Button onClick={() => clickMethod(ModalType.VIEW, id)} variant='outlined' endIcon={<VisibilityIcon />}>
           VIEW
         </Button>
       </ListItem>
     </>
   );
-};
+}
 
 export default Review;

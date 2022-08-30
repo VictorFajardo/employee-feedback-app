@@ -23,16 +23,8 @@ interface ViewEmployeesProps {
 function ViewReview({ closeMethod, clickMethod }: ViewEmployeesProps): JSX.Element {
   const current = useAppSelector(currentReview); // Select the current review to display details
   const [reviewFields, setReviewFields] = useState(DefaultReviewFields); // Review detail values
-  const {
-    id,
-    employeeName,
-    employeeJobTitle,
-    employeeEmail,
-    content,
-    reviewerName,
-    reviewerJobTitle,
-    reviewerEmail,
-  } = reviewFields;
+  const { id, employeeName, employeeJobTitle, employeeEmail, content, reviewerName, reviewerJobTitle, reviewerEmail } =
+    reviewFields;
 
   useEffect(() => {
     setReviewFields(current);
@@ -152,6 +144,6 @@ function ViewReview({ closeMethod, clickMethod }: ViewEmployeesProps): JSX.Eleme
       </Box>
     </Container>
   );
-};
+}
 
 export default ViewReview;
