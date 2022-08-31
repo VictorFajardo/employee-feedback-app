@@ -1,4 +1,35 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run lint
+echo '🚀 Styling, testing and building the project before commiting'
+
+# Checking format
+yarn check-format ||
+(
+  echo '
+    ❌ Prettier check failed!
+    Run `yarn format`
+  '
+  false;
+)
+
+# Checking types
+yarn check-types ||
+(
+  echo '
+    ❌ Type check failed!
+  '
+  false;
+)
+
+# Checking linter
+yarn lint ||
+(
+  echo '
+    ❌ ESLint check failed!
+  '
+  false;
+)
+
+# Success
+echo '✅✅✅ All test passed. Commit created ✅✅✅'

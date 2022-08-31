@@ -28,8 +28,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "check-types": "tsc --pretty --noEmit",
+    "check-format": "prettier --check .",
     "format": "prettier --write .",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
