@@ -1,7 +1,7 @@
 <h2 align="center">Employee Feedback App Prototype</h2>
 
 <p align="center">
-  <img src="https://github.com/VictorFajardo/employee-feedback-app/actions/workflows/eslint.yml/badge.svg">
+  <img src="https://github.com/VictorFajardo/employee-feedback-app/actions/workflows/eslint.yml/badge.svg"> <img src="https://api.netlify.com/api/v1/badges/c30b0845-f280-44e0-a8de-9c704c220cec/deploy-status">
 </p>
 
 <h4 align="center">
