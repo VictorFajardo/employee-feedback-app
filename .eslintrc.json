@@ -12,6 +12,7 @@
     "plugin:react/recommended",
     "standard-with-typescript",
     "plugin:react/jsx-runtime",
+    "google",
     "eslint-config-prettier"
   ],
   "overrides": [],
@@ -21,5 +22,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "require-jsdoc": "off"
+  }
 }
