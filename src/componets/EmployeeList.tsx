@@ -40,12 +40,7 @@ function EmployeeList(): JSX.Element {
 
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
-      >
+      <Modal open={open} onClose={handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
         <Box sx={ModalStyle}>
           {}
           <IndexEmployees modal={modal} closeMethod={handleClose} clickMethod={handleClick} />

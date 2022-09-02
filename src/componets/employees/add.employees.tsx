@@ -104,54 +104,11 @@ function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
     <Container>
       <Title text='Add a new employee' align={'column'} />
       <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
-        <TextField
-          autoFocus
-          margin='normal'
-          required
-          fullWidth
-          id='firstName'
-          name='firstName'
-          label='First Name'
-          onChange={handleChange}
-        />
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          id='lastName'
-          name='lastName'
-          label='Last Name'
-          onChange={handleChange}
-        />
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          id='jobTitle'
-          name='jobTitle'
-          label='Job Title'
-          onChange={handleChange}
-        />
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          id='email'
-          name='email'
-          label='Email'
-          type='email'
-          onChange={handleChange}
-        />
-        <TextField
-          margin='normal'
-          required
-          fullWidth
-          id='password'
-          name='password'
-          label='Password'
-          type='password'
-          onChange={handleChange}
-        />
+        <TextField autoFocus margin='normal' required fullWidth id='firstName' name='firstName' label='First Name' onChange={handleChange} />
+        <TextField margin='normal' required fullWidth id='lastName' name='lastName' label='Last Name' onChange={handleChange} />
+        <TextField margin='normal' required fullWidth id='jobTitle' name='jobTitle' label='Job Title' onChange={handleChange} />
+        <TextField margin='normal' required fullWidth id='email' name='email' label='Email' type='email' onChange={handleChange} />
+        <TextField margin='normal' required fullWidth id='password' name='password' label='Password' type='password' onChange={handleChange} />
         <TextField
           margin='normal'
           required
@@ -162,10 +119,7 @@ function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
           type='password'
           onChange={handleChange}
         />
-        <FormControlLabel
-          control={<Checkbox name='admin' checked={admin} onChange={handleChange} />}
-          label='Administrator'
-        />
+        <FormControlLabel control={<Checkbox name='admin' checked={admin} onChange={handleChange} />} label='Administrator' />
         <Box
           sx={{
             flexGrow: 1,
@@ -173,22 +127,10 @@ function AddEmployees({ closeMethod }: AddEmployeesProps): JSX.Element {
             justifyContent: 'center',
           }}
         >
-          <Button
-            type='submit'
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='info'
-            variant='contained'
-            endIcon={<PersonAddIcon />}
-          >
+          <Button type='submit' sx={{ my: 2, ml: 2, display: 'flex' }} color='info' variant='contained' endIcon={<PersonAddIcon />}>
             ADD
           </Button>{' '}
-          <Button
-            onClick={closeMethod}
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='error'
-            variant='contained'
-            endIcon={<CloseIcon />}
-          >
+          <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color='error' variant='contained' endIcon={<CloseIcon />}>
             CANCEL
           </Button>
         </Box>

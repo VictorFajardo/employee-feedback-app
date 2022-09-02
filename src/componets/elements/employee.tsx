@@ -25,21 +25,10 @@ function Employee({ employee, clickMethod }: EmployeeProps): JSX.Element {
         <Avatar {...stringAvatar(`${firstName} ${lastName}`)} />
       </ListItemAvatar>
       <ListItemText primary={`${firstName} ${lastName} - ${jobTitle}`} secondary={email} />
-      <Button
-        sx={{ mr: 2 }}
-        onClick={() => clickMethod(ModalType.UPDATE, id)}
-        color='secondary'
-        variant='outlined'
-        endIcon={<EditIcon />}
-      >
+      <Button sx={{ mr: 2 }} onClick={() => clickMethod(ModalType.UPDATE, id)} color='secondary' variant='outlined' endIcon={<EditIcon />}>
         UPDATE
       </Button>
-      <Button
-        onClick={() => clickMethod(ModalType.VIEW, id)}
-        color='secondary'
-        variant='outlined'
-        endIcon={<VisibilityIcon />}
-      >
+      <Button onClick={() => clickMethod(ModalType.VIEW, id)} color='secondary' variant='outlined' endIcon={<VisibilityIcon />}>
         VIEW
       </Button>
     </ListItem>

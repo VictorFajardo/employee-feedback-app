@@ -32,17 +32,13 @@ function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
   const [reviewer, setReviewer] = useState<EmployeeInterface | null>(null);
   const [inputReviewer, setInputReviewer] = useState('');
 
-  const handleChangeEmployee = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void =>
-    setEmployee(newValue);
+  const handleChangeEmployee = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void => setEmployee(newValue);
 
-  const handleChangeReviewer = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void =>
-    setReviewer(newValue);
+  const handleChangeReviewer = (_event: SyntheticEvent<Element, Event>, newValue: EmployeeInterface | null): void => setReviewer(newValue);
 
-  const handleChangeInputEmployee = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void =>
-    setInputEmployee(newInputValue);
+  const handleChangeInputEmployee = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void => setInputEmployee(newInputValue);
 
-  const handleChangeInputReviewer = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void =>
-    setInputReviewer(newInputValue);
+  const handleChangeInputReviewer = (_event: SyntheticEvent<Element, Event>, newInputValue: string): void => setInputReviewer(newInputValue);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -125,22 +121,10 @@ function AddReviews({ closeMethod }: AddReviewsProps): JSX.Element {
             justifyContent: 'center',
           }}
         >
-          <Button
-            type='submit'
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='info'
-            variant='contained'
-            endIcon={<PersonAddIcon />}
-          >
+          <Button type='submit' sx={{ my: 2, ml: 2, display: 'flex' }} color='info' variant='contained' endIcon={<PersonAddIcon />}>
             ADD
           </Button>{' '}
-          <Button
-            onClick={closeMethod}
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='error'
-            variant='contained'
-            endIcon={<CloseIcon />}
-          >
+          <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color='error' variant='contained' endIcon={<CloseIcon />}>
             CANCEL
           </Button>
         </Box>

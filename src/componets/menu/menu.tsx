@@ -41,12 +41,7 @@ function Menu(): JSX.Element {
   return (
     <Container maxWidth='xl' sx={{ display: 'flex' }}>
       <Box sx={{ flexGrow: 1, display: 'flex' }}>
-        <Button
-          onClick={e => handleClick(e, 'reviews')}
-          sx={{ my: 2 }}
-          variant='contained'
-          startIcon={<FormatListBulletedIcon />}
-        >
+        <Button onClick={e => handleClick(e, 'reviews')} sx={{ my: 2 }} variant='contained' startIcon={<FormatListBulletedIcon />}>
           Reviews List
         </Button>
         {(user?.admin ?? false) && (
@@ -68,13 +63,7 @@ function Menu(): JSX.Element {
           flexDirection: 'row-reverse',
         }}
       >
-        <Button
-          onClick={e => handleClick(e, 'signout')}
-          sx={{ my: 2, ml: 2 }}
-          color='error'
-          variant='contained'
-          startIcon={<LogoutIcon />}
-        >
+        <Button onClick={e => handleClick(e, 'signout')} sx={{ my: 2, ml: 2 }} color='error' variant='contained' startIcon={<LogoutIcon />}>
           SIGN OUT
         </Button>
       </Box>

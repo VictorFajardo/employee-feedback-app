@@ -38,8 +38,7 @@ export const reviewsSlice = createSlice({
   },
 });
 
-export const { setReviews, setCurrentReview, cleanReviews, addReview, updateReview, deleteReview } =
-  reviewsSlice.actions;
+export const { setReviews, setCurrentReview, cleanReviews, addReview, updateReview, deleteReview } = reviewsSlice.actions;
 
 export const selectReviews = (state: RootState): ReviewInterface[] => state.reviews.data;
 export const currentReview = (state: RootState): ReviewInterface => state.reviews.current;

@@ -8,13 +8,7 @@
       "version": "detect"
     }
   },
-  "extends": [
-    "plugin:react/recommended",
-    "standard-with-typescript",
-    "plugin:react/jsx-runtime",
-    "google",
-    "eslint-config-prettier"
-  ],
+  "extends": ["plugin:react/recommended", "standard-with-typescript", "plugin:react/jsx-runtime", "google", "eslint-config-prettier"],
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",

@@ -66,49 +66,11 @@ function UpdateEmployees({ closeMethod }: UpdateEmployeesProps): JSX.Element {
     <Container>
       <Title text='Update employee information' align={'column'} />
       <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField
-          autoFocus
-          margin='normal'
-          fullWidth
-          id='firstName'
-          name='firstName'
-          label='First Name'
-          value={firstName}
-          onChange={handleChange}
-        />
-        <TextField
-          margin='normal'
-          fullWidth
-          id='lastName'
-          name='lastName'
-          label='Last Name'
-          value={lastName}
-          onChange={handleChange}
-        />
-        <TextField
-          margin='normal'
-          fullWidth
-          id='jobTitle'
-          name='jobTitle'
-          label='Job Title'
-          value={jobTitle}
-          onChange={handleChange}
-        />
-        <TextField
-          margin='normal'
-          disabled
-          fullWidth
-          id='email'
-          name='email'
-          label='Email'
-          type='email'
-          value={email}
-          onChange={handleChange}
-        />
-        <FormControlLabel
-          control={<Checkbox name='admin' checked={admin} onChange={handleChange} />}
-          label='Administrator'
-        />
+        <TextField autoFocus margin='normal' fullWidth id='firstName' name='firstName' label='First Name' value={firstName} onChange={handleChange} />
+        <TextField margin='normal' fullWidth id='lastName' name='lastName' label='Last Name' value={lastName} onChange={handleChange} />
+        <TextField margin='normal' fullWidth id='jobTitle' name='jobTitle' label='Job Title' value={jobTitle} onChange={handleChange} />
+        <TextField margin='normal' disabled fullWidth id='email' name='email' label='Email' type='email' value={email} onChange={handleChange} />
+        <FormControlLabel control={<Checkbox name='admin' checked={admin} onChange={handleChange} />} label='Administrator' />
         <Box
           sx={{
             flexGrow: 1,
@@ -116,22 +78,10 @@ function UpdateEmployees({ closeMethod }: UpdateEmployeesProps): JSX.Element {
             justifyContent: 'center',
           }}
         >
-          <Button
-            type='submit'
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='info'
-            variant='contained'
-            endIcon={<SaveIcon />}
-          >
+          <Button type='submit' sx={{ my: 2, ml: 2, display: 'flex' }} color='info' variant='contained' endIcon={<SaveIcon />}>
             SAVE
           </Button>{' '}
-          <Button
-            onClick={closeMethod}
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='error'
-            variant='contained'
-            endIcon={<CloseIcon />}
-          >
+          <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color='error' variant='contained' endIcon={<CloseIcon />}>
             CANCEL
           </Button>
         </Box>

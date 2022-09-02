@@ -25,8 +25,7 @@ function UpdateReviews({ closeMethod }: UpdateReviewsProps): JSX.Element {
   const dispatch = useAppDispatch();
   const current = useAppSelector(currentReview); // Select the current review to display details
   const [reviewFields, setReviewFields] = useState(DefaultReviewFields); // Review detail values
-  const { id, employeeName, employeeJobTitle, employeeEmail, content, reviewerName, reviewerJobTitle, reviewerEmail } =
-    reviewFields;
+  const { id, employeeName, employeeJobTitle, employeeEmail, content, reviewerName, reviewerJobTitle, reviewerEmail } = reviewFields;
 
   useEffect(() => {
     setReviewFields(current);
@@ -127,16 +126,7 @@ function UpdateReviews({ closeMethod }: UpdateReviewsProps): JSX.Element {
         />
       </Box>
       <Box component='form' onSubmit={handleSubmit}>
-        <TextField
-          margin='normal'
-          fullWidth
-          multiline
-          id='content'
-          name='content'
-          label='Content'
-          value={content}
-          onChange={handleChange}
-        />
+        <TextField margin='normal' fullWidth multiline id='content' name='content' label='Content' value={content} onChange={handleChange} />
         <Box
           sx={{
             flexGrow: 1,
@@ -144,22 +134,10 @@ function UpdateReviews({ closeMethod }: UpdateReviewsProps): JSX.Element {
             justifyContent: 'center',
           }}
         >
-          <Button
-            type='submit'
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='info'
-            variant='contained'
-            endIcon={<SaveIcon />}
-          >
+          <Button type='submit' sx={{ my: 2, ml: 2, display: 'flex' }} color='info' variant='contained' endIcon={<SaveIcon />}>
             SAVE
           </Button>{' '}
-          <Button
-            onClick={closeMethod}
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='error'
-            variant='contained'
-            endIcon={<CloseIcon />}
-          >
+          <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color='error' variant='contained' endIcon={<CloseIcon />}>
             CANCEL
           </Button>
         </Box>

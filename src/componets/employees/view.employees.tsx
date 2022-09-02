@@ -99,13 +99,7 @@ function ViewEmployees({ closeMethod, clickMethod }: ViewEmployeesProps): JSX.El
           >
             UPDATE
           </Button>{' '}
-          <Button
-            onClick={closeMethod}
-            sx={{ my: 2, ml: 2, display: 'flex' }}
-            color='error'
-            variant='contained'
-            endIcon={<CloseIcon />}
-          >
+          <Button onClick={closeMethod} sx={{ my: 2, ml: 2, display: 'flex' }} color='error' variant='contained' endIcon={<CloseIcon />}>
             CLOSE
           </Button>
         </Box>

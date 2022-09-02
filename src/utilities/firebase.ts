@@ -10,19 +10,7 @@ import {
   NextOrObserver,
   User,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  doc,
-  addDoc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  deleteDoc,
-  collection,
-  query,
-  getDocs,
-  where,
-} from 'firebase/firestore';
+import { getFirestore, doc, addDoc, getDoc, setDoc, updateDoc, deleteDoc, collection, query, getDocs, where } from 'firebase/firestore';
 import { EmployeeInterface, ReviewInterface } from '../interfaces';
 
 const firebaseConfig = {
@@ -41,10 +29,7 @@ export const auth = getAuth();
 export const db = getFirestore();
 
 // Auth
-export const createAuthUserWithEmailAndPassword = async (
-  email: string,
-  password: string
-): Promise<UserCredential | undefined> => {
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string): Promise<UserCredential | undefined> => {
   if (email === '' || password === '') return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
@@ -56,8 +41,7 @@ export const signInAuthUser = async (email: string, password: string): Promise<U
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const onAuthStateChangedListener = (callback: Function): Unsubscribe =>
-  onAuthStateChanged(auth, callback as NextOrObserver<User>);
+export const onAuthStateChangedListener = (callback: Function): Unsubscribe => onAuthStateChanged(auth, callback as NextOrObserver<User>);
 
 export const signOutUser = async (): Promise<void> => await signOut(auth);
 

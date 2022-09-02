@@ -38,8 +38,7 @@ export const employeesSlice = createSlice({
   },
 });
 
-export const { setCurrentEmployee, setEmployees, cleanEmployees, addEmployee, updateEmployee, deleteEmployee } =
-  employeesSlice.actions;
+export const { setCurrentEmployee, setEmployees, cleanEmployees, addEmployee, updateEmployee, deleteEmployee } = employeesSlice.actions;
 
 export const selectEmployees = (state: RootState): EmployeeInterface[] => state.employees.data;
 export const currentEmployee = (state: RootState): EmployeeInterface | null => state.employees.current;
