@@ -28,6 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --runInBand --watchAll=false",
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check .",
     "format": "prettier --write .",
@@ -54,7 +55,11 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.12",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^8.0.1",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
